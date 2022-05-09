@@ -3,16 +3,9 @@ import {Task} from '../../task.model';
 
 @Component({
   selector: 'app-task-item',
-  templateUrl: './task-item.component.html',
-  styleUrls: ['./task-item.component.css']
+  templateUrl: './task-item.component.html'
 })
-export class TaskItemComponent implements OnInit {
+export class TaskItemComponent {
   @Input('taskItem') task: Task;
   @Input() index: number;
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
 }
