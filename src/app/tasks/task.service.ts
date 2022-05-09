@@ -1,6 +1,7 @@
 import {Injectable} from "@angular/core";
 import {Task} from "./task.model";
 import {Subject} from "rxjs";
+import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +14,14 @@ export class TaskService{
     new Task(2,'pranie')
   ];
 
+  constructor(private http: HttpClient) {
+  }
 
-  getTasks() {
+  getTasks(){
+    this.http.get<{ [key: number]: Task }>('http://localhost:8080/api/tasks',
+    ).subscribe((tasks: any) => {
+      console.log(tasks);
+    });
     return this.tasks.slice();
   }
 }
