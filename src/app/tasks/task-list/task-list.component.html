@@ -7,10 +7,13 @@
 <hr>
 <div class="row">
   <div class="col-xs-12">
-    <app-task-item
-      *ngFor="let task of tasks; let i = index"
-      [taskItem] = task
-      [index]="i"
-    ></app-task-item>
+    <p *ngIf="isFetching">Loading...</p>
+    <div *ngIf="!isFetching">
+      <app-task-item
+        *ngFor="let task of tasks; let i = index"
+        [taskItem] = task
+        [index]="i"
+      ></app-task-item>
+    </div>
   </div>
 </div>
