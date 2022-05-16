@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from "rxjs";
 import {TaskService} from "../task.service";
-import { Task } from "../task.model";
+import {Task} from "../task.model";
 import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
@@ -19,6 +19,7 @@ export class TaskListComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.fetchTasks();
+    //NOSONAR
     // this.tasks = this.taskService.getTasks();
     // this.subTasks = this.taskService.tasksChanged.subscribe(
     //   (tasks: Task[]) => {

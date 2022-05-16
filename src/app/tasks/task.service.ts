@@ -1,12 +1,12 @@
 import {Injectable} from "@angular/core";
 import {Task} from "./task.model";
 import {map, Subject} from "rxjs";
-import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
+import {HttpClient} from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
 })
-export class TaskService{
+export class TaskService {
 
   tasksChanged = new Subject<Task[]>();
   private tasks: Task[];
@@ -14,15 +14,16 @@ export class TaskService{
   constructor(private http: HttpClient) {
   }
 
-  fetchTasks(){
+  fetchTasks() {
     return this.http.get<{ [key: string]: Task }>('http://localhost:8080/api/tasks')
       .pipe(map(responseData => {
-          const taskArray: Task[] = [];
-          console.log(responseData);
-          console.log(responseData[0]);
-          // for (const key in responseData) {
-          //   taskArray.push( ...responseData[key]);
-          // }
+        const taskArray: Task[] = [];
+        console.log(responseData);
+        console.log(responseData[0]);
+        //NOSONAR
+        // for (const key in responseData) {
+        //   taskArray.push( ...responseData[key]);
+        // }
         // return taskArray;
         return responseData;
       }));
