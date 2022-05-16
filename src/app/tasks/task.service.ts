@@ -20,11 +20,6 @@ export class TaskService {
         const taskArray: Task[] = [];
         console.log(responseData);
         console.log(responseData[0]);
-        //NOSONAR
-        // for (const key in responseData) {
-        //   taskArray.push( ...responseData[key]);
-        // }
-        // return taskArray;
         return responseData;
       }));
   }

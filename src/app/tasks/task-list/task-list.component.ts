@@ -19,13 +19,6 @@ export class TaskListComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.fetchTasks();
-    //NOSONAR
-    // this.tasks = this.taskService.getTasks();
-    // this.subTasks = this.taskService.tasksChanged.subscribe(
-    //   (tasks: Task[]) => {
-    //     this.tasks = tasks;
-    //   }
-    // );
   }
 
   ngOnDestroy() {

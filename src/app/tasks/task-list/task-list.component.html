@@ -9,11 +9,21 @@
   <div class="col-xs-12">
     <p *ngIf="isFetching">Loading...</p>
     <div *ngIf="!isFetching">
-      <app-task-item
-        *ngFor="let task of tasks; let i = index"
-        [taskItem] = task
-        [index]="i"
-      ></app-task-item>
+<!--      NOSONAR-->
+      <table class="table table-hover table-borderless" aria-describedby="Tasks List">
+        <thead>
+        <tr>
+          <th scope="col">Nazwa</th>
+          <th scope="col">Cena</th>
+        </tr>
+        </thead>
+        <tbody *ngFor="let task of tasks; let i = index">
+        <tr>
+          <td>{{ task.name }}</td>
+          <td>{{ task.price }}</td>
+        </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>
