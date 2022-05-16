@@ -1,16 +1,15 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
-import { AppComponent } from './app.component';
-import { TasksComponent } from './tasks/tasks.component';
-import { TaskListComponent } from './tasks/task-list/task-list.component';
-import {TaskItemComponent} from "./tasks/task-list/task-item/task-item.component";
+import {AppComponent} from './app.component';
+import {TasksComponent} from './tasks/tasks.component';
+import {TaskListComponent} from './tasks/task-list/task-list.component';
 import {AppRoutingModule} from "./app-routing.module";
-import { HeaderComponent } from './header/header.component';
+import {HeaderComponent} from './header/header.component';
 import {DropdownDirective} from "./shared/dropdown.directive";
-
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -18,7 +17,6 @@ import {DropdownDirective} from "./shared/dropdown.directive";
     AppComponent,
     TasksComponent,
     TaskListComponent,
-    TaskItemComponent,
     HeaderComponent,
     DropdownDirective
   ],
@@ -27,7 +25,8 @@ import {DropdownDirective} from "./shared/dropdown.directive";
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
