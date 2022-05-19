@@ -9,8 +9,10 @@ import {ActivatedRoute, Router} from "@angular/router";
   templateUrl: './task-list.component.html'
 })
 export class TaskListComponent implements OnInit, OnDestroy {
-  tasks: Task[] = [];
-  subTasks: Subscription;
+  toDoTasks: Task[] = [];
+  doneTasks: Task[] = [];
+  subDoneTasks: Subscription;
+  subToDoTasks: Subscription;
   isFetching = false;
 
   constructor(private taskService: TaskService,
@@ -18,19 +20,29 @@ export class TaskListComponent implements OnInit, OnDestroy {
               private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.fetchTasks();
+    console.log("elo");
+    this.getTasks();
+    this.subToDoTasks = this.taskService.toDoTasksChanged.subscribe((tasks: Task[]) => {
+      this.toDoTasks = tasks;
+    });
+    this.subDoneTasks = this.taskService.doneTasksChanged.subscribe((tasks: Task[]) => {
+      this.doneTasks = tasks;
+    });
   }
 
   ngOnDestroy() {
-    this.subTasks.unsubscribe();
+    this.subDoneTasks.unsubscribe();
+    this.subDoneTasks.unsubscribe();
   }
 
-  private fetchTasks() {
-    this.isFetching = true;
-    this.taskService.fetchTasks().subscribe((tasks: any) => {
-      console.log(tasks);
-      this.tasks = tasks;
-      this.isFetching = false;
-    });
+  private getTasks() {
+    this.toDoTasks = this.taskService.getToDoTasks();
+    this.doneTasks = this.taskService.getDoneTasks();
+  }
+
+  onDoneTask(taskNumberInList: number) {
+    let task = this.taskService.getTask(taskNumberInList);
+    task.done = true;
+    this.taskService.makeTaskDone(taskNumberInList);
   }
 }

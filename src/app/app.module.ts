@@ -10,6 +10,7 @@ import {AppRoutingModule} from "./app-routing.module";
 import {HeaderComponent} from './header/header.component';
 import {DropdownDirective} from "./shared/dropdown.directive";
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {TaskService} from "./tasks/task.service";
 
 
 @NgModule({
@@ -28,7 +29,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     AppRoutingModule,
     NgbModule
   ],
-  providers: [],
+  providers: [TaskService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
