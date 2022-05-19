@@ -40,9 +40,14 @@ export class TaskListComponent implements OnInit, OnDestroy {
     this.doneTasks = this.taskService.getDoneTasks();
   }
 
-  onDoneTask(taskNumberInList: number) {
-    let task = this.taskService.getTask(taskNumberInList);
-    task.done = true;
+  onChangeToDoneTask(taskNumberInList: number) {
     this.taskService.makeTaskDone(taskNumberInList);
+    this.taskService.moveTaskToDone(taskNumberInList);
+  }
+
+  onChangeToToDoTask(taskNumberInList: number) {
+    this.taskService.makeTaskToDo(taskNumberInList);
+    this.taskService.moveTaskToToDo(taskNumberInList);
+
   }
 }

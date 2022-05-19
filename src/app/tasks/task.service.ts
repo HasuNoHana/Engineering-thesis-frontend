@@ -37,14 +37,26 @@ export class TaskService {
     });
   }
 
-  getTask(taskNumberInList: number) {
+  makeTaskDone(taskNumberInList: number) {
     return this.toDoTasks[taskNumberInList];
   }
 
-  makeTaskDone(taskNumberInList: number) {
+  moveTaskToDone(taskNumberInList: number) {
     let task = this.toDoTasks[taskNumberInList];
-    this.toDoTasks.splice(taskNumberInList);
+    this.toDoTasks.splice(taskNumberInList,1);
     this.doneTasks.push(task);
+    this.toDoTasksChanged.next(this.toDoTasks.slice());
+    this.doneTasksChanged.next(this.doneTasks.slice());
+  }
+
+  makeTaskToDo(taskNumberInList: number) {
+    this.doneTasks[taskNumberInList].done = false;
+  }
+
+  moveTaskToToDo(taskNumberInList: number) {
+    let task = this.doneTasks[taskNumberInList];
+    this.doneTasks.splice(taskNumberInList,1);
+    this.toDoTasks.push(task);
     this.toDoTasksChanged.next(this.toDoTasks.slice());
     this.doneTasksChanged.next(this.doneTasks.slice());
   }

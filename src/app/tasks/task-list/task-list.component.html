@@ -24,7 +24,7 @@
             <div class="form-group">
               <div class="form-check">
                 <input class="form-check-input" type="checkbox" id="toDoGridCheck"
-                       (click)="onDoneTask(i)">
+                       (click)="onChangeToDoneTask(i)">
               </div>
             </div>
           </td>
@@ -44,16 +44,16 @@
         </tr>
         </thead>
         <tbody *ngFor="let task of doneTasks; let i = index">
-        <tr>
+        <tr class="strikeout">
           <td>
             <div class="form-group">
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="doneGridCheck"
-                       (click)="onDoneTask(i)">
+                <input  class="form-check-input" type="checkbox" id="doneGridCheck" checked
+                       (click)="onChangeToToDoTask(i)">
               </div>
             </div>
           </td>
-          <td>{{ task.name }}</td>
+          <td style="color: gray">{{ task.name }}</td>
           <td>{{ task.price }}</td>
         </tr>
         </tbody>
@@ -61,3 +61,4 @@
     </div>
   </div>
 </div>
+<p>hello</p>
