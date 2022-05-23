@@ -11,6 +11,9 @@ import {HeaderComponent} from './header/header.component';
 import {DropdownDirective} from "./shared/dropdown.directive";
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {TaskService} from "./tasks/task.service";
+import {RoomsComponent} from './rooms/rooms.component';
+import {RoomListComponent} from './rooms/room-list/room-list.component';
+import {RoomEditComponent} from './rooms/room-edit/room-edit.component';
 
 
 @NgModule({
@@ -19,7 +22,10 @@ import {TaskService} from "./tasks/task.service";
     TasksComponent,
     TaskListComponent,
     HeaderComponent,
-    DropdownDirective
+    DropdownDirective,
+    RoomsComponent,
+    RoomListComponent,
+    RoomEditComponent
   ],
   imports: [
     BrowserModule,

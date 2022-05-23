@@ -1,0 +1,43 @@
+<div class="row">
+  <div class="col-xs-12">
+    <div>
+      <h3>Stwórz nowy pokój</h3>
+    </div>
+    <form [formGroup]="roomForm" (ngSubmit)="onSubmit()">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="name">Nazwa Pokoju</label>
+            <input
+              type="text"
+              id="name"
+              formControlName="name"
+              class="form-control">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="imagePath">Ścieżka do obrazu</label>
+            <input
+              type="text"
+              id="img"
+              formControlName="img"
+              class="form-control"
+              #imagePath>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-xs-12">
+          <button type="submit" class="btn btn-success"
+                  style="margin-right: 3px;"
+                  [disabled]="!roomForm.valid">Save</button>
+          <button type="button" class="btn btn-danger" (click)="onCancel()">Cancel</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
