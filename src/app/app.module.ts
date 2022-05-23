@@ -13,6 +13,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {TaskService} from "./tasks/task.service";
 import {RoomsComponent} from './rooms/rooms.component';
 import {RoomListComponent} from './rooms/room-list/room-list.component';
+import {RoomEditComponent} from './rooms/room-edit/room-edit.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import {RoomListComponent} from './rooms/room-list/room-list.component';
     HeaderComponent,
     DropdownDirective,
     RoomsComponent,
-    RoomListComponent
+    RoomListComponent,
+    RoomEditComponent
   ],
   imports: [
     BrowserModule,
