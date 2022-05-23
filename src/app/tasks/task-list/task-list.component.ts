@@ -20,7 +20,6 @@ export class TaskListComponent implements OnInit, OnDestroy {
               private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    console.log("elo");
     this.getTasks();
     this.subToDoTasks = this.taskService.toDoTasksChanged.subscribe((tasks: Task[]) => {
       this.toDoTasks = tasks;
@@ -49,5 +48,9 @@ export class TaskListComponent implements OnInit, OnDestroy {
     this.taskService.makeTaskToDo(taskNumberInList);
     this.taskService.moveTaskToToDo(taskNumberInList);
 
+  }
+
+  onCreateNewTask() {
+    this.router.navigate(['new'], {relativeTo: this.route});
   }
 }
