@@ -1,9 +1,9 @@
 export class Room {
   public name: string;
-  public img: string;
+  public image: string;
 
   constructor(name: string, img: string) {
     this.name = name;
-    this.img = img;
+    this.image = img;
   }
 }

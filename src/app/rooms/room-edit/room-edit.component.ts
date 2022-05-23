@@ -20,14 +20,14 @@ export class RoomEditComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe(
       (params: Params) => {
-        this.id = +params['id'];//TODO co to znaczy
+        this.id = +params['id'];//NOSONAR //TODO co to znaczy
         this.initForm();
       }
     );
   }
 
   onSubmit() {
-    if((<Room>this.roomForm.value).img === '') {
+    if((<Room>this.roomForm.value).image === '') {
       this.roomService.addRoom(new Room((<Room>this.roomForm.value).name, this.defaultRoomImage))
     } else {
       this.roomService.addRoom(this.roomForm.value);
