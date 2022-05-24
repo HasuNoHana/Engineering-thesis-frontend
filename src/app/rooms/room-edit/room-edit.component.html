@@ -13,17 +13,24 @@
               id="name"
               formControlName="name"
               class="form-control">
+            <span *ngIf="!roomForm.get('name').valid
+            && roomForm.get('name').touched" style="color: red"
+                  class="help-block">
+              <span *ngIf="roomForm.get('name').errors['required']" >
+                To pole nie może być puste!
+              </span>
+            </span>
           </div>
         </div>
       </div>
       <div class="row">
         <div class="col-xs-12">
           <div class="form-group">
-            <label for="imagePath">Ścieżka do obrazu</label>
+            <label for="image">Ścieżka do obrazu</label>
             <input
               type="text"
-              id="img"
-              formControlName="img"
+              id="image"
+              formControlName="image"
               class="form-control"
               #imagePath>
           </div>
