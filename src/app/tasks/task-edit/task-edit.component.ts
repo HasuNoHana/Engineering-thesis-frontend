@@ -6,7 +6,8 @@ import {Task} from "../task.model";
 
 @Component({
   selector: 'app-task-edit',
-  templateUrl: './task-edit.component.html'
+  templateUrl: './task-edit.component.html',
+  styleUrls: ['task-edit.component.css']
 })
 export class TaskEditComponent implements OnInit {
 
@@ -42,6 +43,7 @@ export class TaskEditComponent implements OnInit {
   }
 
   onCancel() {
+    console.log(this.taskForm);
     if(this.editMode) {
       this.editMode = false;
       this.router.navigate(['../../'], {relativeTo: this.route});
@@ -67,7 +69,10 @@ export class TaskEditComponent implements OnInit {
 
     this.taskForm = new FormGroup({
       'name': new FormControl(taskName, Validators.required),
-      'price': new FormControl(taskPrice, Validators.required)//TODO dodaj ograniczenie ze cena jest wiksza niz 0
+      'price': new FormControl(taskPrice,
+        [Validators.required, Validators.min(1)])
     });
   }
+
+  get getTaskFormNameControl() {return this.taskForm.get('name') as FormControl;}
 }

@@ -13,6 +13,13 @@
               id="name"
               formControlName="name"
               class="form-control">
+            <span *ngIf="!taskForm.get('name').valid
+            && taskForm.get('name').touched"
+                  class="help-block">
+              <span *ngIf="taskForm.get('name').errors['required']" style="color: red">
+                To pole nie może być puste!
+              </span>
+            </span>
           </div>
         </div>
       </div>
@@ -25,6 +32,16 @@
               id="price"
               formControlName="price"
               class="form-control">
+            <span *ngIf="!taskForm.get('price').valid
+            && taskForm.get('price').touched" style="color: red"
+                  class="help-block">
+              <span *ngIf="taskForm.get('price').errors['required']" >
+                To pole nie może być puste!
+              </span><br *ngIf="taskForm.get('price').errors['required']">
+              <p><span *ngIf="taskForm.get('price').value < 1">
+                Cena musi być większa od 0
+              </span>
+            </span>
           </div>
         </div>
       </div>
