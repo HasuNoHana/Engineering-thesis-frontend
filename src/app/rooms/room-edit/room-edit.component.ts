@@ -6,7 +6,8 @@ import {Room} from "../room.model";
 
 @Component({
   selector: 'app-room-edit',
-  templateUrl: './room-edit.component.html'
+  templateUrl: './room-edit.component.html',
+  styleUrls: ['room-edit.component.css']
 })
 export class RoomEditComponent implements OnInit {
   id: number;
@@ -46,7 +47,7 @@ export class RoomEditComponent implements OnInit {
 
     this.roomForm = new FormGroup({
       'name': new FormControl(roomName, Validators.required),
-      'img': new FormControl(roomImagePath),
+      'image': new FormControl(roomImagePath),
     });
   }
 }
