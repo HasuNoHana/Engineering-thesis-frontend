@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {TaskService} from "../task.service";
+import {Task} from "../task.model";
 
 @Component({
   selector: 'app-task-edit',
@@ -10,7 +11,9 @@ import {TaskService} from "../task.service";
 export class TaskEditComponent implements OnInit {
 
   taskForm: FormGroup;
-  id: number;
+  editMode = false;
+  index: number;
+  editTableToDo: boolean;
 
   constructor(private route: ActivatedRoute,
               private taskService: TaskService,
@@ -18,23 +21,49 @@ export class TaskEditComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
-      this.id = +params['id'];
+      this.index = +params['index'];
+      this.editTableToDo = this.router.url.includes('todo');
+      this.editMode = params['index'] != null;
       this.initForm();
     })
   }
 
   onSubmit() {
-    this.taskService.addTask(this.taskForm.value);
+    if(this.editMode) {
+      if(this.editTableToDo) {
+        this.taskService.updateToDoTask(this.index, this.taskForm.value);
+      } else {
+        this.taskService.updateDoneTask(this.index, this.taskForm.value);
+      }
+    } else {
+      this.taskService.addTask(this.taskForm.value);
+    }
     this.onCancel();
   }
 
   onCancel() {
-    this.router.navigate(['../'], {relativeTo: this.route});
+    if(this.editMode) {
+      this.editMode = false;
+      this.router.navigate(['../../'], {relativeTo: this.route});
+    } else {
+      this.router.navigate(['../'], {relativeTo: this.route});
+    }
   }
 
   private initForm() {
     let taskName = '';
-    let taskPrice = '';
+    let taskPrice: number = 0;
+
+    if(this.editMode) {
+      let task: Task;
+      if(this.editTableToDo) {
+        task = this.taskService.getTaskFromToDo(this.index);
+      } else {
+        task = this.taskService.getTaskFromDone(this.index);
+      }
+      taskName = task.name;
+      taskPrice = task.price;
+    }
 
     this.taskForm = new FormGroup({
       'name': new FormControl(taskName, Validators.required),

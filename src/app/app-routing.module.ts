@@ -11,7 +11,9 @@ const appRoutes: Routes = [
   { path: '', redirectTo: '/rooms', pathMatch: 'full'},
   { path: 'tasks', component: TasksComponent, children: [
       {path: '', component: TaskListComponent},
-      {path: 'new', component: TaskEditComponent}
+      {path: 'new', component: TaskEditComponent},
+      {path: 'todo/:index', component: TaskEditComponent},
+      {path: 'done/:index', component: TaskEditComponent}
     ]},
   { path: 'rooms', component: RoomsComponent, children: [
       {path: '', component: RoomListComponent},

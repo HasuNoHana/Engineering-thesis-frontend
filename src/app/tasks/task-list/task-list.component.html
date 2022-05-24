@@ -16,6 +16,7 @@
           <th scope="col"></th>
           <th scope="col">Nazwa</th>
           <th scope="col">Cena</th>
+          <th scope="col"></th>
         </tr>
         </thead>
         <tbody *ngFor="let task of toDoTasks; let i = index">
@@ -30,6 +31,17 @@
           </td>
           <td>{{ task.name }}</td>
           <td>{{ task.price }}</td>
+          <td style="width: 40px">
+            <div class="dropdown">
+              <button class="btn btn-secondary btn-sm" type="button" id="additionalActionToDo" data-bs-toggle="dropdown" aria-expanded="false">
+                ...
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li><a class="dropdown-item" [routerLink]="['/tasks', 'todo', i]">Edytuj</a></li>
+                <li><a class="dropdown-item" href="#">Usuń</a></li>
+              </ul>
+            </div>
+          </td>
         </tr>
         </tbody>
       </table>
@@ -41,11 +53,12 @@
           <th scope="col"></th>
           <th scope="col">Nazwa</th>
           <th scope="col">Cena</th>
+          <th scope="col"></th>
         </tr>
         </thead>
         <tbody *ngFor="let task of doneTasks; let i = index">
         <tr>
-          <td>
+          <td style="width: 40px">
             <div class="form-group">
               <div class="form-check">
                 <input  class="form-check-input" type="checkbox" id="doneGridCheck" checked
@@ -55,6 +68,17 @@
           </td>
           <td style="color: gray">{{ task.name }}</td>
           <td style="color: gray">{{ task.price }}</td>
+          <td style="width: 40px">
+            <div class="dropdown">
+              <button class="btn btn-secondary btn-sm" type="button" id="additionalActionDone" data-bs-toggle="dropdown" aria-expanded="false">
+                ...
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li><a class="dropdown-item" [routerLink]="['/tasks', 'done', i]">Edytuj</a></li>
+                <li><a class="dropdown-item" href="#">Usuń</a></li>
+              </ul>
+            </div>
+          </td>
         </tr>
         </tbody>
       </table>
