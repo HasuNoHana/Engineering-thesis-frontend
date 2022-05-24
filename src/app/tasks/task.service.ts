@@ -60,4 +60,37 @@ export class TaskService {
     this.toDoTasksChanged.next(this.toDoTasks.slice());
     this.doneTasksChanged.next(this.doneTasks.slice());
   }
+
+  addTask(task: Task) {
+    this.toDoTasks.push(task);
+    this.toDoTasksChanged.next(this.toDoTasks.slice());
+  }
+
+  getTaskFromToDo(index: number) {
+    return this.toDoTasks[index];
+  }
+
+  updateToDoTask(index: number, task: Task) {
+    this.toDoTasks[index] = task;
+    this.toDoTasksChanged.next(this.toDoTasks.slice());
+  }
+
+  updateDoneTask(index: number, task: Task) {
+    this.doneTasks[index] = task;
+    this.doneTasksChanged.next(this.doneTasks.slice());
+  }
+
+  getTaskFromDone(index: number) {
+    return this.doneTasks[index];
+  }
+
+  deleteDoneTask(index: number) {
+    this.doneTasks.splice(index,1);
+    this.doneTasksChanged.next(this.doneTasks.slice());
+  }
+
+  deleteToDoTask(index: number) {
+    this.toDoTasks.splice(index,1);
+    this.toDoTasksChanged.next(this.toDoTasks.slice());
+  }
 }

@@ -28,7 +28,8 @@ export class RoomEditComponent implements OnInit {
 
   onSubmit() {
     if((<Room>this.roomForm.value).image === '') {
-      this.roomService.addRoom(new Room((<Room>this.roomForm.value).name, this.defaultRoomImage))
+      let room = (<Room>this.roomForm.value);
+      this.roomService.addRoom(new Room(room.id, room.name, this.defaultRoomImage))
     } else {
       this.roomService.addRoom(this.roomForm.value);
     }

@@ -14,6 +14,7 @@ import {TaskService} from "./tasks/task.service";
 import {RoomsComponent} from './rooms/rooms.component';
 import {RoomListComponent} from './rooms/room-list/room-list.component';
 import {RoomEditComponent} from './rooms/room-edit/room-edit.component';
+import {TaskEditComponent} from './tasks/task-edit/task-edit.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import {RoomEditComponent} from './rooms/room-edit/room-edit.component';
     DropdownDirective,
     RoomsComponent,
     RoomListComponent,
-    RoomEditComponent
+    RoomEditComponent,
+    TaskEditComponent
   ],
   imports: [
     BrowserModule,
