@@ -83,4 +83,14 @@ export class TaskService {
   getTaskFromDone(index: number) {
     return this.doneTasks[index];
   }
+
+  deleteDoneTask(index: number) {
+    this.doneTasks.splice(index,1);
+    this.doneTasksChanged.next(this.doneTasks.slice());
+  }
+
+  deleteToDoTask(index: number) {
+    this.toDoTasks.splice(index,1);
+    this.toDoTasksChanged.next(this.toDoTasks.slice());
+  }
 }

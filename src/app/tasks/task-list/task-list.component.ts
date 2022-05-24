@@ -53,4 +53,12 @@ export class TaskListComponent implements OnInit, OnDestroy {
   onCreateNewTask() {
     this.router.navigate(['new'], {relativeTo: this.route});
   }
+
+  onDeleteDone(index: number) {
+    this.taskService.deleteDoneTask(index);
+  }
+
+  onDeleteToDo(index: number) {
+    this.taskService.deleteToDoTask(index);
+  }
 }
