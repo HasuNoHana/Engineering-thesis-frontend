@@ -60,4 +60,9 @@ export class TaskService {
     this.toDoTasksChanged.next(this.toDoTasks.slice());
     this.doneTasksChanged.next(this.doneTasks.slice());
   }
+
+  addTask(task: Task) {
+    this.toDoTasks.push(task);
+    this.toDoTasksChanged.next(this.toDoTasks.slice());
+  }
 }

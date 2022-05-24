@@ -1,1 +1,42 @@
-<p>task-edit works!</p>
+<div class="row">
+  <div class="col-xs-12">
+    <div>
+      <h3>Stwórz nowe Zadanie</h3>
+    </div>
+    <form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="name">Nazwa</label>
+            <input
+              type="text"
+              id="name"
+              formControlName="name"
+              class="form-control">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="price">Cena</label>
+            <input
+              type="text"
+              id="price"
+              formControlName="price"
+              class="form-control">
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-xs-12">
+          <button type="submit" class="btn btn-success"
+                  style="margin-right: 3px;"
+                  [disabled]="!taskForm.valid">Save</button>
+          <button type="button" class="btn btn-danger" (click)="onCancel()">Cancel</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
