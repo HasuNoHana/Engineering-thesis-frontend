@@ -18,6 +18,7 @@ import {LoginComponent} from './login/login.component';
 import {HomeComponent} from './home-page/home.component';
 import {AppService} from "./app.service";
 import {TaskService} from "./tasks/task.service";
+import {OnlyLoggedInUsersGuardService} from "./login/only-logged-in-users-guard.service";
 
 @Injectable()
 export class XhrInterceptor implements HttpInterceptor {
@@ -42,7 +43,7 @@ export class XhrInterceptor implements HttpInterceptor {
     RoomEditComponent,
     TaskEditComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
@@ -55,6 +56,7 @@ export class XhrInterceptor implements HttpInterceptor {
   providers: [
     AppService,
     TaskService,
+    OnlyLoggedInUsersGuardService,
     {provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true},
   ],
   bootstrap: [AppComponent]

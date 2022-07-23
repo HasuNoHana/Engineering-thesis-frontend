@@ -1,4 +1,5 @@
 import {Component, ElementRef} from '@angular/core';
+import {AppService} from "../app.service";
 
 @Component({
   selector: 'app-header',
@@ -7,11 +8,14 @@ import {Component, ElementRef} from '@angular/core';
 export class HeaderComponent {
   isOpen = false;
 
-  constructor(private elRef: ElementRef) {
+  constructor(private elRef: ElementRef, private appService: AppService) {
   }
 
   showDropdown() {
     this.isOpen = !this.isOpen;
+  }
 
+  logout() {
+    this.appService.logout();
   }
 }
