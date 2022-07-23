@@ -6,9 +6,13 @@ import {RoomEditComponent} from "./rooms/room-edit/room-edit.component";
 import {RoomListComponent} from "./rooms/room-list/room-list.component";
 import {TaskListComponent} from "./tasks/task-list/task-list.component";
 import {TaskEditComponent} from "./tasks/task-edit/task-edit.component";
+// import {LoginComponent} from "./login/login.component";
+// import {HomePageComponent} from "./home-page/home-page.component";
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/rooms', pathMatch: 'full'},
+  // { path: 'login', component: LoginComponent},
+  // { path: 'home', component: HomePageComponent},
   { path: 'tasks', component: TasksComponent, children: [
       {path: '', component: TaskListComponent},
       {path: 'new', component: TaskEditComponent},

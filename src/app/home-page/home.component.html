@@ -1,0 +1,23 @@
+<!--&lt;!&ndash;<app-header></app-header>&ndash;&gt;-->
+<!--&lt;!&ndash;<div class="container">&ndash;&gt;-->
+<!--&lt;!&ndash;  <div class="row">&ndash;&gt;-->
+<!--&lt;!&ndash;    <div class="col-md-12">&ndash;&gt;-->
+<!--&lt;!&ndash;      <router-outlet></router-outlet>&ndash;&gt;-->
+<!--&lt;!&ndash;    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;  </div>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+<!--<h1>Greeting</h1>-->
+<!--<div [hidden]="!authenticated()">-->
+<!--  <p>Hello there</p>--><!--</div>-->
+<!--<div [hidden]="authenticated()">-->
+<!--  <p>Login to see your greeting</p>-->
+<!--</div>-->
+<h1>Greeting</h1>
+<div [hidden]="!authenticated()">
+  <p>The ID is {{greeting.id}}</p>
+  <p>The content is {{greeting.content}}</p>
+</div>
+<div [hidden]="authenticated()">
+  <p>Login to see your greeting</p>
+</div>
