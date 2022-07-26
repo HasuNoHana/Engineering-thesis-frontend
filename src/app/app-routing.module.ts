@@ -8,6 +8,7 @@ import {TaskListComponent} from "./tasks/task-list/task-list.component";
 import {TaskEditComponent} from "./tasks/task-edit/task-edit.component";
 import {HomeComponent} from "./home-page/home.component";
 import {LoginComponent} from "./login/login.component";
+import {OnlyLoggedInUsersGuardService} from "./login/only-logged-in-users-guard.service";
 
 const appRoutes: Routes = [
 
@@ -15,7 +16,7 @@ const appRoutes: Routes = [
   {path: 'home', component: HomeComponent},
   {path: 'login', component: LoginComponent},
   {
-    path: 'tasks', component: TasksComponent, children: [
+    path: 'tasks', component: TasksComponent, canActivate: [OnlyLoggedInUsersGuardService], children: [
       {path: '', component: TaskListComponent},
       {path: 'new', component: TaskEditComponent},
       {path: 'todo/:index', component: TaskEditComponent},
@@ -23,7 +24,7 @@ const appRoutes: Routes = [
     ]
   },
   {
-    path: 'rooms', component: RoomsComponent, children: [
+    path: 'rooms', component: RoomsComponent,  canActivate: [OnlyLoggedInUsersGuardService], children: [
       {path: '', component: RoomListComponent},
       {path: 'new', component: RoomEditComponent},
     ]
