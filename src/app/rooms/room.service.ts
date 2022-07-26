@@ -24,7 +24,7 @@ export class RoomService {
   }
 
   private fetchRooms() {
-    this.http.get<Room[]>('http://localhost:8080/api/rooms')
+    this.http.get<Room[]>('http://localhost:4200/api/rooms',{withCredentials: true})
       .subscribe((rooms: Room[]) => {
         this.rooms = rooms;
         this.roomsChanged.next(this.rooms.slice());
