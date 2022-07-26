@@ -4,7 +4,7 @@ import {AppService} from "../app.service";
 
 @Injectable()
 export class OnlyLoggedInUsersGuardService implements CanActivate {
-  constructor(private appService: AppService) {};
+  constructor(private appService: AppService) {}
 
   canActivate() {
     console.log("OnlyLoggedInUsers");

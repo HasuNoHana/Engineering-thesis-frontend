@@ -9,6 +9,7 @@ export class AppComponent {
 
   constructor(private appService: AppService) {
     this.appService.authenticate({username: '', password: ''}, () => {
+      console.log("logout");
     });
   }
 }
