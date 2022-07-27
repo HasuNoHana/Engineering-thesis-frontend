@@ -7,14 +7,16 @@ import {RoomListComponent} from "./rooms/room-list/room-list.component";
 import {TaskListComponent} from "./tasks/task-list/task-list.component";
 import {TaskEditComponent} from "./tasks/task-edit/task-edit.component";
 import {HomeComponent} from "./home-page/home.component";
-import {LoginComponent} from "./login/login.component";
-import {OnlyLoggedInUsersGuardService} from "./login/only-logged-in-users-guard.service";
+import {LoginComponent} from "./authentication/login/login.component";
+import {OnlyLoggedInUsersGuardService} from "./authentication/only-logged-in-users-guard.service";
+import {SignUpComponent} from "./authentication/sign-up/sign-up.component";
 
 const appRoutes: Routes = [
 
   {path: '', pathMatch: 'full', redirectTo: 'home'},
   {path: 'home', component: HomeComponent},
   {path: 'login', component: LoginComponent},
+  {path: 'signup', component: SignUpComponent},
   {
     path: 'tasks', component: TasksComponent, canActivate: [OnlyLoggedInUsersGuardService], children: [
       {path: '', component: TaskListComponent},

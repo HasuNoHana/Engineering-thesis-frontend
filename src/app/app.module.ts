@@ -14,13 +14,12 @@ import {RoomsComponent} from './rooms/rooms.component';
 import {RoomListComponent} from './rooms/room-list/room-list.component';
 import {RoomEditComponent} from './rooms/room-edit/room-edit.component';
 import {TaskEditComponent} from './tasks/task-edit/task-edit.component';
-import {LoginComponent} from './login/login.component';
+import {LoginComponent} from './authentication/login/login.component';
 import {HomeComponent} from './home-page/home.component';
-import {AuthenticationService} from "./login/authentication.service";
+import {AuthenticationService} from "./authentication/authentication.service";
 import {TaskService} from "./tasks/task.service";
-import {OnlyLoggedInUsersGuardService} from "./login/only-logged-in-users-guard.service";
-import {ToastComponent} from './toast/toast.component';
-import {ToastService} from "./toast/toast.service";
+import {OnlyLoggedInUsersGuardService} from "./authentication/only-logged-in-users-guard.service";
+import {SignUpComponent} from './authentication/sign-up/sign-up.component';
 
 @Injectable()
 export class XhrInterceptor implements HttpInterceptor {
@@ -46,7 +45,7 @@ export class XhrInterceptor implements HttpInterceptor {
     TaskEditComponent,
     LoginComponent,
     HomeComponent,
-    ToastComponent,
+    SignUpComponent,
   ],
   imports: [
     BrowserModule,
@@ -60,7 +59,6 @@ export class XhrInterceptor implements HttpInterceptor {
     AuthenticationService,
     TaskService,
     OnlyLoggedInUsersGuardService,
-    ToastService,
     {provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true},
   ],
   bootstrap: [AppComponent]
