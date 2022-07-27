@@ -1,17 +1,18 @@
 import {Injectable} from '@angular/core';
-import {CanActivate} from '@angular/router';
-import {AppService} from "../app.service";
+import {CanActivate, Router} from '@angular/router';
+import {AuthenticationService} from "./authentication.service";
 
 @Injectable()
 export class OnlyLoggedInUsersGuardService implements CanActivate {
-  constructor(private appService: AppService) {}
+  constructor(private appService: AuthenticationService,
+              private router: Router) {}
 
   canActivate() {
     console.log("OnlyLoggedInUsers");
     if (this.appService.authenticated) {
       return true;
     } else {
-      window.alert("You don't have permission to view this page");
+      this.router.navigateByUrl("/login");
       return false;
     }
   }

@@ -16,9 +16,11 @@ import {RoomEditComponent} from './rooms/room-edit/room-edit.component';
 import {TaskEditComponent} from './tasks/task-edit/task-edit.component';
 import {LoginComponent} from './login/login.component';
 import {HomeComponent} from './home-page/home.component';
-import {AppService} from "./app.service";
+import {AuthenticationService} from "./login/authentication.service";
 import {TaskService} from "./tasks/task.service";
 import {OnlyLoggedInUsersGuardService} from "./login/only-logged-in-users-guard.service";
+import {ToastComponent} from './toast/toast.component';
+import {ToastService} from "./toast/toast.service";
 
 @Injectable()
 export class XhrInterceptor implements HttpInterceptor {
@@ -44,6 +46,7 @@ export class XhrInterceptor implements HttpInterceptor {
     TaskEditComponent,
     LoginComponent,
     HomeComponent,
+    ToastComponent,
   ],
   imports: [
     BrowserModule,
@@ -54,9 +57,10 @@ export class XhrInterceptor implements HttpInterceptor {
     NgbModule
   ],
   providers: [
-    AppService,
+    AuthenticationService,
     TaskService,
     OnlyLoggedInUsersGuardService,
+    ToastService,
     {provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true},
   ],
   bootstrap: [AppComponent]

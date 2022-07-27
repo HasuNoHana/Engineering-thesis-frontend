@@ -1,6 +1,6 @@
 import {TestBed} from '@angular/core/testing';
 import {AppComponent} from './app.component';
-import {AppService} from "./app.service";
+import {AuthenticationService} from "./login/authentication.service";
 import {HttpClientModule} from "@angular/common/http";
 import {BrowserModule} from "@angular/platform-browser";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
@@ -21,7 +21,7 @@ describe('AppComponent', () => {
         AppRoutingModule,
         NgbModule
       ],
-      providers: [AppService]
+      providers: [AuthenticationService]
     }).compileComponents();
   });
 

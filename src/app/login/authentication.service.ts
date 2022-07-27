@@ -4,8 +4,9 @@ import {Router} from "@angular/router";
 import {finalize} from "rxjs";
 
 @Injectable()
-export class AppService {
+export class AuthenticationService {
 
+  afterLogout = false;
   authenticated = false;
 
   constructor(private http: HttpClient, private router: Router) {
@@ -14,8 +15,10 @@ export class AppService {
   logout() {
     this.http.post('logout', {}).pipe(finalize(() => {
       this.authenticated = false;
+      this.afterLogout = true;
       this.router.navigateByUrl('/login');
     })).subscribe();
+
   }
 
 
@@ -29,6 +32,7 @@ export class AppService {
       // @ts-ignore
       if (response['name']) {
         this.authenticated = true;
+        this.afterLogout = true;
       } else {
         this.authenticated = false;
       }

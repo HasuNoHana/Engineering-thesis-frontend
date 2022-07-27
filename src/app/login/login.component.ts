@@ -1,21 +1,25 @@
 import {Component} from '@angular/core';
-import {AppService} from '../app.service';
+import {AuthenticationService} from './authentication.service';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 
 @Component({
-  templateUrl: './login.component.html'
+  selector: "app-login",
+  templateUrl: './login.component.html',
+  styleUrls: ["login.component.css"]
 })
 export class LoginComponent {
 
   credentials = {username: '', password: ''};
 
-  constructor(private app: AppService, private http: HttpClient, private router: Router) {
+  constructor(public authService: AuthenticationService,
+              private http: HttpClient,
+              private router: Router) {
   }
 
   login() {
-    this.app.authenticate(this.credentials, () => {
-      this.router.navigateByUrl('/');
+    this.authService.authenticate(this.credentials, () => {
+      this.router.navigateByUrl('/rooms');
     });
     return false;
   }

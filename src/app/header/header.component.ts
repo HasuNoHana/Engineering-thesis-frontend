@@ -1,14 +1,19 @@
-import {Component, ElementRef} from '@angular/core';
-import {AppService} from "../app.service";
+import {Component, ElementRef, OnInit} from '@angular/core';
+import {AuthenticationService} from "../login/authentication.service";
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html'
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit{
+
   isOpen = false;
 
-  constructor(private elRef: ElementRef, private appService: AppService) {
+  constructor(private elRef: ElementRef,
+              private appService: AuthenticationService) {
+  }
+
+  ngOnInit() {
   }
 
   showDropdown() {

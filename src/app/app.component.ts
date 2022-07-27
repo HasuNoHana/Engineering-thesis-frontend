@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {AppService} from "./app.service";
+import {AuthenticationService} from "./login/authentication.service";
 
 @Component({
   selector: 'app-root',
@@ -7,7 +7,7 @@ import {AppService} from "./app.service";
 })
 export class AppComponent {
 
-  constructor(private appService: AppService) {
+  constructor(public appService: AuthenticationService) {
     this.appService.authenticate({username: '', password: ''}, () => {
       console.log("logout");
     });
