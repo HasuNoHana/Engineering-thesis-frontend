@@ -8,7 +8,7 @@ export class OnlyLoggedInUsersGuardService implements CanActivate {
 
   canActivate() {
     console.log("OnlyLoggedInUsers");
-    if (this.appService.authenticated) {
+    if (localStorage.getItem("authenticated")=="true") {//TODO refactor to alswoej use localStorage.getItem("authenticated") not this.authenticated
       return true;
     } else {
       window.alert("You don't have permission to view this page");

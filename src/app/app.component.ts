@@ -8,8 +8,11 @@ import {AppService} from "./app.service";
 export class AppComponent {
 
   constructor(private appService: AppService) {
-    this.appService.authenticate({username: '', password: ''}, () => {
-      console.log("logout");
-    });
+    // if( localStorage.getItem("authenticated") === "true"){
+    //
+    // }
+    // this.appService.authenticate({username: '', password: ''}, () => {
+    //   console.log("logout");
+    // });
   }
 }
