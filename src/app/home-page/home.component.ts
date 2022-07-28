@@ -14,6 +14,6 @@ export class HomeComponent {
     http.get('resource').subscribe(data => this.greeting = data);
   }
 
-  authenticated() { return this.app.authenticated; }
+  authenticated() { return localStorage.getItem("authenticated") == "true" }
 
 }

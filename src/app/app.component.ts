@@ -7,9 +7,12 @@ import {AuthenticationService} from "./authentication/authentication.service";
 })
 export class AppComponent {
 
-  constructor(public appService: AuthenticationService) {
-    this.appService.authenticate({username: '', password: ''}, () => {
-      console.log("logout");
-    });
+  constructor(private appService: AuthenticationService) {
+    // if( localStorage.getItem("authenticated") === "true"){
+    //
+    // }
+    // this.appService.authenticate({username: '', password: ''}, () => {
+    //   console.log("logout");
+    // });
   }
 }

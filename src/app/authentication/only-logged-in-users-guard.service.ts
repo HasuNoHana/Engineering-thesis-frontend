@@ -9,7 +9,7 @@ export class OnlyLoggedInUsersGuardService implements CanActivate {
 
   canActivate() {
     console.log("OnlyLoggedInUsers");
-    if (this.appService.authenticated) {
+    if (localStorage.getItem("authenticated")=="true") {
       return true;
     } else {
       this.router.navigateByUrl("/login");

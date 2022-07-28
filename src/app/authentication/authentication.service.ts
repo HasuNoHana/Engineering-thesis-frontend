@@ -13,7 +13,8 @@ export class AuthenticationService {
   }
 
   logout() {
-    this.http.post('logout', {}).pipe(finalize(() => {
+    this.http.post('api/logout', {}).pipe(finalize(() => {
+      localStorage.setItem("authenticated","false")
       this.authenticated = false;
       this.afterLogout = true;
       this.router.navigateByUrl('/login');
@@ -31,6 +32,7 @@ export class AuthenticationService {
     this.http.get('http://localhost:4200/api/user', {headers: headers}).subscribe(response => {
       // @ts-ignore
       if (response['name']) {
+        localStorage.setItem("authenticated","true")
         this.authenticated = true;
         this.afterLogout = true;
       } else {
