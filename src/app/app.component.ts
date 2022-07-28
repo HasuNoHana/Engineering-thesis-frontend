@@ -7,7 +7,7 @@ import {AuthenticationService} from "./authentication/authentication.service";
 })
 export class AppComponent {
 
-  constructor(private appService: AuthenticationService) {
+  constructor(public appService: AuthenticationService) {
     // if( localStorage.getItem("authenticated") === "true"){
     //
     // }
@@ -15,4 +15,6 @@ export class AppComponent {
     //   console.log("logout");
     // });
   }
+
+  authenticated() { return localStorage.getItem("authenticated") == "true" }
 }
