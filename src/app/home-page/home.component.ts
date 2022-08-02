@@ -11,7 +11,6 @@ export class HomeComponent {
   greeting: any = {id:String,content:String};
 
   constructor(private app: AuthenticationService, private http: HttpClient) {
-    http.get('resource').subscribe(data => this.greeting = data);
   }
 
   authenticated() { return localStorage.getItem("authenticated") == "true" }

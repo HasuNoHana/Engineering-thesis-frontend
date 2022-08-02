@@ -23,4 +23,6 @@ export class HeaderComponent implements OnInit{
   logout() {
     this.appService.logout();
   }
+
+  authenticated() { return localStorage.getItem("authenticated") == "true" }
 }
