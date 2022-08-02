@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {AppService} from '../app.service';
+import {AuthenticationService} from '../authentication/authentication.service';
 import {HttpClient} from '@angular/common/http';
 
 @Component({
@@ -10,10 +10,9 @@ export class HomeComponent {
   title = 'Demo';
   greeting: any = {id:String,content:String};
 
-  constructor(private app: AppService, private http: HttpClient) {
-    http.get('resource').subscribe(data => this.greeting = data);
+  constructor(private app: AuthenticationService, private http: HttpClient) {
   }
 
-  authenticated() { return this.app.authenticated; }
+  authenticated() { return localStorage.getItem("authenticated") == "true" }
 
 }

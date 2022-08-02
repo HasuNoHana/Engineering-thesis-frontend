@@ -1,14 +1,16 @@
 import {Component, ElementRef} from '@angular/core';
-import {AppService} from "../app.service";
+import {AuthenticationService} from "../authentication/authentication.service";
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html'
 })
 export class HeaderComponent {
+
   isOpen = false;
 
-  constructor(private elRef: ElementRef, private appService: AppService) {
+  constructor(private elRef: ElementRef,
+              private appService: AuthenticationService) {
   }
 
   showDropdown() {
@@ -18,4 +20,6 @@ export class HeaderComponent {
   logout() {
     this.appService.logout();
   }
+
+  authenticated() { return localStorage.getItem("authenticated") == "true" }
 }
