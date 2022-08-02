@@ -1,24 +1,11 @@
-import {Component, OnInit} from '@angular/core';
-import {AuthenticationService} from "../authentication.service";
-import {Router} from "@angular/router";
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html'
 })
-export class SignUpComponent implements OnInit {
+export class SignUpComponent {
 
-  constructor(public authService: AuthenticationService,
-              private router: Router
-              ) { }
+  constructor() { }
 
-  ngOnInit(): void {
-  }
-
-  signUp() {
-    // this.authService.signUp(this.credentials, () => {
-    //   this.router.navigateByUrl('/rooms');
-    // });
-    // return false;
-  }
 }
