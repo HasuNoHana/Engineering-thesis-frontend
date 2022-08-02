@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Router} from "@angular/router";
 import {finalize} from "rxjs";
+import {User} from "./user.model";
 
 @Injectable()
 export class AuthenticationService {
@@ -43,4 +44,7 @@ export class AuthenticationService {
 
   }
 
+  signUp(user: User) {
+    return this.http.post('http://localhost:4200/api/register', user, {withCredentials: true})
   }
+}
