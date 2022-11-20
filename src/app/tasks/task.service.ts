@@ -62,8 +62,13 @@ export class TaskService {
   }
 
   addTask(task: Task) {
-    this.toDoTasks.push(task);
-    this.toDoTasksChanged.next(this.toDoTasks.slice());
+    this.http.post<Task[]>('http://localhost:4200/api/task', task,{withCredentials: true})
+      .subscribe((tasks: Task[]) => {
+        console.log("udalo sie")
+        console.log(tasks)
+      });
+    // this.toDoTasks.push(task);
+    // this.toDoTasksChanged.next(this.toDoTasks.slice());
   }
 
   getTaskFromToDo(index: number) {
