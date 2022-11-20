@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-tasks',
@@ -6,4 +7,11 @@ import { Component } from '@angular/core';
 })
 export class TasksComponent{
 
+  constructor(private route: ActivatedRoute,
+              private router: Router) {
+  }
+
+  onCreateNewTask() {
+    this.router.navigate(['tasks','list','new']);
+  }
 }

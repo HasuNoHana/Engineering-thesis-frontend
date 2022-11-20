@@ -2,7 +2,6 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from "rxjs";
 import {TaskService} from "../task.service";
 import {Task} from "../task.model";
-import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-task-list',
@@ -15,9 +14,7 @@ export class TaskListComponent implements OnInit, OnDestroy {
   subToDoTasks: Subscription;
   isFetching = false;
 
-  constructor(private taskService: TaskService,
-              private router: Router,
-              private route: ActivatedRoute) {}
+  constructor(private taskService: TaskService) {}
 
   ngOnInit(): void {
     this.getTasks();
@@ -48,10 +45,6 @@ export class TaskListComponent implements OnInit, OnDestroy {
     this.taskService.makeTaskToDo(taskNumberInList);
     this.taskService.moveTaskToToDo(taskNumberInList);
 
-  }
-
-  onCreateNewTask() {
-    this.router.navigate(['new'], {relativeTo: this.route});
   }
 
   onDeleteDone(index: number) {

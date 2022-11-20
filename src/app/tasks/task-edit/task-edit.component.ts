@@ -43,7 +43,6 @@ export class TaskEditComponent implements OnInit {
   }
 
   onCancel() {
-    console.log(this.taskForm);
     if(this.editMode) {
       this.editMode = false;
       this.router.navigate(['../../'], {relativeTo: this.route});
