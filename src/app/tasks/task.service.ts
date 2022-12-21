@@ -62,8 +62,12 @@ export class TaskService {
   }
 
   addTask(task: Task) {
-    this.toDoTasks.push(task);
-    this.toDoTasksChanged.next(this.toDoTasks.slice());
+    console.log(task);
+    this.http.post<Task>('http://localhost:4200/api/task', task,{withCredentials: true})
+      .subscribe((tasks: Task) => {
+        this.toDoTasks.push(task);
+        this.toDoTasksChanged.next(this.toDoTasks.slice());
+      });
   }
 
   getTaskFromToDo(index: number) {
