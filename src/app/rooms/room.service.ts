@@ -15,6 +15,9 @@ export class RoomService {
   }
 
   getRooms() {
+    if(this.rooms.length === 0) {
+      this.fetchRooms();
+    }
     return this.rooms.slice();
   }
 
@@ -29,5 +32,16 @@ export class RoomService {
         this.rooms = rooms;
         this.roomsChanged.next(this.rooms.slice());
       });
+  }
+
+  getRoomByName(name: string) {
+    let r: Room;
+    this.rooms.forEach((room) => {
+        if (room.name === name) {
+          r = room;
+        }
+    });
+    // @ts-ignore
+    return r;
   }
 }
