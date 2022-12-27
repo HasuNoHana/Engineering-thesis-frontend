@@ -1,17 +1,13 @@
-import {Component, OnDestroy} from '@angular/core';
+import {Component} from '@angular/core';
 import {AuthenticationService} from "./authentication/authentication.service";
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html'
 })
-export class AppComponent implements OnDestroy{
+export class AppComponent {
 
   constructor(public appService: AuthenticationService){
-  }
-
-  ngOnDestroy() {
-    localStorage.clear();
   }
 
   authenticated() { return localStorage.getItem("authenticated") == "true" }

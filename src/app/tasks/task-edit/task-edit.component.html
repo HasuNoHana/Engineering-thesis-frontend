@@ -45,6 +45,30 @@
           </div>
         </div>
       </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="roomName">Pokój</label>
+            <select
+              id="roomName"
+              name="roomName"
+              class="form-control"
+              formControlName="roomName">
+              <option
+                [ngValue]="room.name"
+                *ngFor="let room of rooms">
+                {{room.name}}</option>
+            </select>
+            <span *ngIf="!taskForm.get('roomName').valid
+            && taskForm.get('roomName').touched"
+                  class="help-block">
+              <span *ngIf="taskForm.get('roomName').errors['required']" style="color: red">
+                To pole nie może być puste!
+              </span>
+            </span>
+          </div>
+        </div>
+      </div>
       <br>
       <div class="row">
         <div class="col-xs-12">

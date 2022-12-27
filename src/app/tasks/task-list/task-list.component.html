@@ -9,6 +9,7 @@
           <th scope="col"></th>
           <th scope="col">Nazwa</th>
           <th scope="col">Cena</th>
+          <th scope="col">Pokój</th>
           <th scope="col"></th>
         </tr>
         </thead>
@@ -24,6 +25,7 @@
           </td>
           <td>{{ task.name }}</td>
           <td>{{ task.price }}</td>
+          <td>{{ task.room.name }}</td>
           <td style="width: 40px">
             <div class="dropdown">
               <button class="btn btn-secondary btn-sm" type="button" id="additionalActionToDo" data-bs-toggle="dropdown" aria-expanded="false">
@@ -46,6 +48,7 @@
           <th scope="col"></th>
           <th scope="col">Nazwa</th>
           <th scope="col">Cena</th>
+          <th scope="col">Pokój</th>
           <th scope="col"></th>
         </tr>
         </thead>
@@ -61,6 +64,7 @@
           </td>
           <td style="color: gray">{{ task.name }}</td>
           <td style="color: gray">{{ task.price }}</td>
+          <td style="color: gray">{{ task.room.name }}</td>
           <td style="width: 40px">
             <div class="dropdown">
               <button class="btn btn-secondary btn-sm" type="button" id="additionalActionDone" data-bs-toggle="dropdown" aria-expanded="false">
