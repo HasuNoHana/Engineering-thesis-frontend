@@ -26,12 +26,28 @@
                        [(ngModel)]="credentials.passwordConfirmation" name="passwordConfirmation"/>
                 <label class="form-label" for="password">Powtórz hasło</label>
               </div>
-<!--              TODO dodac co jesli nie ma jeszcze kodu domu-->
+
               <div class="form-group form-outline mb-4">
-                <input type="text" id="houseJoinCode" class="form-control form-control-lg"
-                       [(ngModel)]="credentials.houseJoinCode" name="houseJoinCode"/>
-                <label class="form-label" for="username">Kod domu</label>
+                <input type="checkbox" name="houseCheckbox" id="houseCheckbox" [(ngModel)]="houseCheckbox" (click)="houseCheckboxChanged()">
+                <label for="houseCheckbox">&nbsp;Mam już dom, nie chcę generować nowego kodu</label><br>
               </div>
+
+              <div *ngIf="houseCheckbox">
+                <div class="form-group form-outline mb-4">
+                  <p>Skoro masz już dom wprowadź proszę jego kod abym mógł dodać Cię do niego :)</p>
+                  <input type="text" id="houseJoinCode" class="form-control form-control-lg"
+                         [(ngModel)]="credentials.houseJoinCode" name="houseJoinCode"/>
+                  <label class="form-label" for="username">Kod domu</label>
+                </div>
+                <div *ngIf="badJoinCode">
+                  <div class="alert alert-danger" role="alert">
+                    Niepoprawny kod domu
+                  </div>
+                </div>
+              </div>
+
+<!--              TODO dodac co jesli nie ma jeszcze kodu domu-->
+
 
               <button class="btn btn-primary btn-lg btn-block" type="submit">Zapisz się</button>
 

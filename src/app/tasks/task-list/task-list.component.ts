@@ -54,4 +54,5 @@ export class TaskListComponent implements OnInit, OnDestroy {
   onDeleteToDo(index: number) {
     this.taskService.deleteToDoTask(index);
   }
+
 }

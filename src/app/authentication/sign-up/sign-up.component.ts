@@ -12,7 +12,8 @@ export class SignUpComponent {
 
 
   credentials = {username: '', password: '', passwordConfirmation: '', houseJoinCode: ''};
-
+  houseCheckbox = false;
+  badJoinCode = false;
 
   constructor(public authService: AuthenticationService,
               private http: HttpClient,
@@ -20,13 +21,32 @@ export class SignUpComponent {
   }
 
   signup() {
+    this.badJoinCode = false;
 
     // TODO validate credentials (check passowrd confirmation)
+    if(this.houseCheckbox) {
+      if(this.credentials.houseJoinCode === '') {
+        this.badJoinCode = true;
+        return;
+      }
+      let userSignup: UserSignup = new UserSignup(this.credentials.username, this.credentials.password, this.credentials.houseJoinCode);
 
-    let userSignup: UserSignup = new UserSignup(this.credentials.username, this.credentials.password, this.credentials.houseJoinCode);
+      this.http.post('api/create-user', userSignup).subscribe(() => {
+        this.router.navigateByUrl('/login');
+      });
 
-    this.http.post('api/create-user', userSignup).subscribe(() => {
-      this.router.navigateByUrl('/login');
-    });
+    } else {
+      let userSignup: UserSignup = new UserSignup(this.credentials.username, this.credentials.password, "");
+
+      this.http.post('api/create-user', userSignup).subscribe(() => {
+        this.router.navigateByUrl('/login');
+      });
+    }
+
+  }
+
+  houseCheckboxChanged() {
+    this.houseCheckbox = !this.houseCheckbox;
+    console.log(this.houseCheckbox);
   }
 }
