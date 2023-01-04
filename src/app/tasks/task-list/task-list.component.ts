@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Subscription} from "rxjs";
 import {TaskService} from "../task.service";
 import {Task} from "../task.model";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-task-list',
@@ -14,7 +15,9 @@ export class TaskListComponent implements OnInit {
   subToDoTasks: Subscription;
   isFetching = false;
 
-  constructor(private taskService: TaskService) {}
+  constructor(private taskService: TaskService,
+              private route: ActivatedRoute,
+              private router: Router) {}
 
   ngOnInit(): void {
     this.getTasks();
@@ -49,6 +52,10 @@ export class TaskListComponent implements OnInit {
 
   onDeleteToDo(index: number) {
     this.taskService.deleteToDoTask(index);
+  }
+
+  onCreateNewTask() {
+    this.router.navigate(['tasks','list','new']);
   }
 
 }
