@@ -77,7 +77,7 @@ export class TaskEditComponent implements OnInit {
         task = this.taskService.getTaskFromDone(this.index);
       }
       taskName = task.name;
-      taskPrice = task.price;
+      taskPrice = task.initialPrice;
       taskRoomName = task.room.name;
       this.defaultRoom = taskRoomName;
     }

@@ -64,7 +64,7 @@ export class TaskService {
 
   addTask(task: Task) {
     console.log(task);
-    let taskDto: TaskDto = new TaskDto(task.name, task.price, task.room.id, task.done);
+    let taskDto: TaskDto = new TaskDto(task.name, task.initialPrice, task.room.id, task.done);
     this.http.post<Task>('http://localhost:4200/api/task', taskDto,{withCredentials: true})
       .subscribe((tasks: Task) => {
         this.toDoTasks.push(task);
