@@ -2,6 +2,7 @@ import {Injectable} from "@angular/core";
 import {Task} from "./task.model";
 import {Subject} from "rxjs";
 import {HttpClient} from "@angular/common/http";
+import {TaskDto} from "./taskDto.model";
 
 @Injectable()
 export class TaskService {
@@ -63,7 +64,8 @@ export class TaskService {
 
   addTask(task: Task) {
     console.log(task);
-    this.http.post<Task>('http://localhost:4200/api/task', task,{withCredentials: true})
+    let taskDto: TaskDto = new TaskDto(task.name, task.price, task.room.id, task.done);
+    this.http.post<Task>('http://localhost:4200/api/task', taskDto,{withCredentials: true})
       .subscribe((tasks: Task) => {
         this.toDoTasks.push(task);
         this.toDoTasksChanged.next(this.toDoTasks.slice());

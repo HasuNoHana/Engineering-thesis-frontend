@@ -41,6 +41,7 @@ export class RoomService {
   getRoomByName(name: string) {
     let r: Room;
     this.rooms.forEach((room) => {
+      console.log("room: ", room.name);
         if (room.name === name) {
           r = room;
         }

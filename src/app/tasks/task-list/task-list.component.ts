@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Subscription} from "rxjs";
 import {TaskService} from "../task.service";
 import {Task} from "../task.model";
@@ -7,7 +7,7 @@ import {Task} from "../task.model";
   selector: 'app-task-list',
   templateUrl: './task-list.component.html'
 })
-export class TaskListComponent implements OnInit, OnDestroy {
+export class TaskListComponent implements OnInit {
   toDoTasks: Task[] = [];
   doneTasks: Task[] = [];
   subDoneTasks: Subscription;
@@ -20,15 +20,11 @@ export class TaskListComponent implements OnInit, OnDestroy {
     this.getTasks();
     this.subToDoTasks = this.taskService.toDoTasksChanged.subscribe((tasks: Task[]) => {
       this.toDoTasks = tasks;
+      console.log(this.toDoTasks);
     });
     this.subDoneTasks = this.taskService.doneTasksChanged.subscribe((tasks: Task[]) => {
       this.doneTasks = tasks;
     });
-  }
-
-  ngOnDestroy() {
-    this.subDoneTasks.unsubscribe();
-    this.subDoneTasks.unsubscribe();
   }
 
   private getTasks() {

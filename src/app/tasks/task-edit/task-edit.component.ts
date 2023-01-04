@@ -39,8 +39,10 @@ export class TaskEditComponent implements OnInit {
   }
 
   onSubmit() {
+    let room = this.roomService.getRoomByName(this.taskForm.value['roomName'])
+    console.log(room);
     let t:Task = new Task(-1, this.taskForm.value['name'],this.taskForm.value['price'],
-      this.roomService.getRoomByName(this.taskForm.value['roomName']),this.taskForm.value['done']);
+      room ,this.taskForm.value['done']);
     if(this.editMode) {
       if(this.editTableToDo) {
         this.taskService.updateToDoTask(this.index, t);
