@@ -1,37 +1,30 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Subscription} from "rxjs";
 import {TaskService} from "../task.service";
 import {Task} from "../task.model";
-import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-task-list',
   templateUrl: './task-list.component.html'
 })
-export class TaskListComponent implements OnInit, OnDestroy {
+export class TaskListComponent implements OnInit {
   toDoTasks: Task[] = [];
   doneTasks: Task[] = [];
   subDoneTasks: Subscription;
   subToDoTasks: Subscription;
   isFetching = false;
 
-  constructor(private taskService: TaskService,
-              private router: Router,
-              private route: ActivatedRoute) {}
+  constructor(private taskService: TaskService) {}
 
   ngOnInit(): void {
     this.getTasks();
     this.subToDoTasks = this.taskService.toDoTasksChanged.subscribe((tasks: Task[]) => {
       this.toDoTasks = tasks;
+      console.log(this.toDoTasks);
     });
     this.subDoneTasks = this.taskService.doneTasksChanged.subscribe((tasks: Task[]) => {
       this.doneTasks = tasks;
     });
-  }
-
-  ngOnDestroy() {
-    this.subDoneTasks.unsubscribe();
-    this.subDoneTasks.unsubscribe();
   }
 
   private getTasks() {
@@ -50,10 +43,6 @@ export class TaskListComponent implements OnInit, OnDestroy {
 
   }
 
-  onCreateNewTask() {
-    this.router.navigate(['new'], {relativeTo: this.route});
-  }
-
   onDeleteDone(index: number) {
     this.taskService.deleteDoneTask(index);
   }
@@ -61,4 +50,5 @@ export class TaskListComponent implements OnInit, OnDestroy {
   onDeleteToDo(index: number) {
     this.taskService.deleteToDoTask(index);
   }
+
 }

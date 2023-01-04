@@ -9,24 +9,26 @@ import {TaskEditComponent} from "./tasks/task-edit/task-edit.component";
 import {LoginComponent} from "./authentication/login/login.component";
 import {OnlyLoggedInUsersGuardService} from "./authentication/only-logged-in-users-guard.service";
 import {SignUpComponent} from "./authentication/sign-up/sign-up.component";
+import {RoomDetailComponent} from "./rooms/room-detail/room-detail.component";
 
 const appRoutes: Routes = [
 
-  {path: '', pathMatch: 'full', redirectTo: 'rooms'},
+  {path: '', pathMatch: 'full', redirectTo: 'tasks'},
   {path: 'login', component: LoginComponent},
   {path: 'signup', component: SignUpComponent},
   {
     path: 'tasks', component: TasksComponent, canActivate: [OnlyLoggedInUsersGuardService], children: [
-      {path: '', component: TaskListComponent},
-      {path: 'new', component: TaskEditComponent},
-      {path: 'todo/:index', component: TaskEditComponent},
-      {path: 'done/:index', component: TaskEditComponent}
+      {path: 'list', component: TaskListComponent},
+      {path: 'list/new', component: TaskEditComponent},
+      {path: 'list/todo/:index', component: TaskEditComponent},
+      {path: 'list/done/:index', component: TaskEditComponent},
     ]
   },
   {
     path: 'rooms', component: RoomsComponent,  canActivate: [OnlyLoggedInUsersGuardService], children: [
       {path: '', component: RoomListComponent},
       {path: 'new', component: RoomEditComponent},
+      {path: 'details/:id', component: RoomDetailComponent},
     ]
   },
 ];

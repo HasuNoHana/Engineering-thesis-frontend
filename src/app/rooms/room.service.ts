@@ -21,6 +21,10 @@ export class RoomService {
     return this.rooms.slice();
   }
 
+  getRoom(roomId: number): Room | undefined {
+    return this.rooms.find(r => r.id === roomId);
+  }
+
   addRoom(room: Room) {
     this.rooms.push(room);
     this.roomsChanged.next(this.rooms.slice());
@@ -37,11 +41,23 @@ export class RoomService {
   getRoomByName(name: string) {
     let r: Room;
     this.rooms.forEach((room) => {
+      console.log("room: ", room.name);
         if (room.name === name) {
           r = room;
         }
     });
     // @ts-ignore
     return r;
+  }
+
+  deleteRoom(roomId: number) {
+    this.http.delete<number>('http://localhost:4200/api/room/delete?id='+roomId,{withCredentials: true})
+      .subscribe((id: number) => {
+        let index = this.rooms.findIndex(function (room){
+          return room.id===roomId;
+        });
+        this.rooms.splice(index,1);
+        this.roomsChanged.next(this.rooms.slice());
+      });
   }
 }
