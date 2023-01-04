@@ -1,3 +1,77 @@
+<!--<form [formGroup]="signUpForm" role="form" (ngSubmit)="signup()">-->
+<!--  <section class="vh-100" style="background-color: #508bfc;">-->
+<!--    <div class="container py-5 h-100">-->
+<!--      <div class="row d-flex justify-content-center align-items-center h-100">-->
+<!--        <div class="col-12 col-md-8 col-lg-6 col-xl-5">-->
+<!--          <div class="card shadow-2-strong" style="border-radius: 1rem;">-->
+<!--            <div class="card-body p-5 text-center">-->
+
+<!--              <h3 class="mb-5">Zapisz się</h3>-->
+
+<!--              <div class="form-group form-outline mb-4">-->
+<!--                <input type="text" id="username" class="form-control form-control-lg" formControlName="username"-->
+<!--                        name="username"/>-->
+<!--                <label class="form-label" for="username">Nazwa użytkownika</label>-->
+<!--&lt;!&ndash;                <div *ngIf="signUpForm.controls['username'].errors?.['required'] &&&ndash;&gt;-->
+<!--&lt;!&ndash;                            signUpForm.controls['username'].touched !== false" class="alert alert-danger">&ndash;&gt;-->
+<!--&lt;!&ndash;                  Nazwa użytkownika nie moze być pusta&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--              </div>-->
+
+<!--              <div class="form-group form-outline mb-4">-->
+<!--                <input type="password" id="password" class="form-control form-control-lg" formControlName="password"-->
+<!--                        name="password"/>-->
+<!--                <label class="form-label" for="password">Hasło</label>-->
+<!--&lt;!&ndash;                <div *ngIf="signUpForm.controls['password'].errors?.['required'] &&&ndash;&gt;-->
+<!--&lt;!&ndash;                            signUpForm.controls['password'].touched !== false" class="alert alert-danger">&ndash;&gt;-->
+<!--&lt;!&ndash;                  Nazwa użytkownika nie moze być pusta&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--              </div>-->
+<!--&lt;!&ndash;         TODO dodac walidacje hasla, jakie sa wymagania i wysietlanie ich w czasie rzeczywistym     &ndash;&gt;-->
+
+<!--              <div class="form-group form-outline mb-4">-->
+<!--                <input type="password" id="passwordConfirmation" class="form-control form-control-lg" -->
+<!--                       formControlName="passwordConfirmation"name="passwordConfirmation"/>-->
+<!--                <label class="form-label" for="password">Powtórz hasło</label>-->
+<!--&lt;!&ndash;                <div *ngIf="signUpForm.controls['passwordConfirmation'].errors?.['required'] &&&ndash;&gt;-->
+<!--&lt;!&ndash;                            signUpForm.controls['passwordConfirmation'].touched !== false" class="alert alert-danger">&ndash;&gt;-->
+<!--&lt;!&ndash;                  Nazwa użytkownika nie moze być pusta&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--              </div>-->
+
+<!--              <div class="form-group form-outline mb-4">-->
+<!--                <input type="checkbox" name="houseCheckbox" id="houseCheckbox" [(ngModel)]="houseCheckbox"-->
+<!--                       [ngModelOptions]="{standalone: true}" (click)="houseCheckboxChanged()">-->
+<!--                <label for="houseCheckbox">&nbsp;Mam już dom, nie chcę generować nowego kodu</label><br>-->
+<!--              </div>-->
+
+<!--              <div *ngIf="houseCheckbox">-->
+<!--                <div class="form-group form-outline mb-4">-->
+<!--                  <p>Skoro masz już dom wprowadź proszę jego kod abym mógł dodać Cię do niego :)</p>-->
+<!--                  <input type="text" id="houseJoinCode" class="form-control form-control-lg" formControlName="houseJoinCode"-->
+<!--                         name="houseJoinCode"/>-->
+<!--                  <label class="form-label" for="username">Kod domu</label>-->
+<!--                </div>-->
+<!--                <div *ngIf="badJoinCode">-->
+<!--                  <div class="alert alert-danger" role="alert">-->
+<!--                    Niepoprawny kod domu-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+
+<!--&lt;!&ndash;              TODO dodac co jesli nie ma jeszcze kodu domu&ndash;&gt;-->
+
+
+<!--              <button class="btn btn-primary btn-lg btn-block" type="submit">Zapisz się</button>-->
+
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </section>-->
+<!--</form>-->
+
 <form role="form" (submit)="signup()">
   <section class="vh-100" style="background-color: #508bfc;">
     <div class="container py-5 h-100">
@@ -19,7 +93,7 @@
                        [(ngModel)]="credentials.password" name="password"/>
                 <label class="form-label" for="password">Hasło</label>
               </div>
-<!--         TODO dodac walidacje hasla, jakie sa wymagania i wysietlanie ich w czasie rzeczywistym     -->
+              <!--         TODO dodac walidacje hasla, jakie sa wymagania i wysietlanie ich w czasie rzeczywistym     -->
 
               <div class="form-group form-outline mb-4">
                 <input type="password" id="passwordConfirmation" class="form-control form-control-lg"
@@ -46,7 +120,7 @@
                 </div>
               </div>
 
-<!--              TODO dodac co jesli nie ma jeszcze kodu domu-->
+              <!--              TODO dodac co jesli nie ma jeszcze kodu domu-->
 
 
               <button class="btn btn-primary btn-lg btn-block" type="submit">Zapisz się</button>
@@ -58,3 +132,4 @@
     </div>
   </section>
 </form>
+
