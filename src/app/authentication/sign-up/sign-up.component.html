@@ -27,11 +27,10 @@
                   Hasło nie moze być puste
                 </div>
               </div>
-<!--         TODO dodac walidacje hasla, jakie sa wymagania i wysietlanie ich w czasie rzeczywistym     -->
 
               <div class="form-group form-outline mb-4">
                 <input type="password" id="passwordConfirmation" class="form-control form-control-lg"
-                       formControlName="passwordConfirmation"name="passwordConfirmation"/>
+                       formControlName="passwordConfirmation" name="passwordConfirmation"/>
                 <label class="form-label" for="password">Powtórz hasło</label>
                 <div *ngIf="signUpForm.controls['passwordConfirmation'].value !== signUpForm.controls['password'].value &&
                             signUpForm.controls['passwordConfirmation'].touched !== false" class="alert alert-danger small">
@@ -58,9 +57,6 @@
                   </div>
                 </div>
               </div>
-
-<!--              TODO dodac co jesli nie ma jeszcze kodu domu-->
-
 
               <button class="btn btn-primary btn-lg btn-block" type="submit">Zapisz się</button>
 
