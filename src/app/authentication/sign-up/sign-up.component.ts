@@ -37,8 +37,9 @@ export class SignUpComponent implements OnInit {
 
   signup() {
     this.badJoinCode = false;
-
-    // TODO validate credentials (check passowrd confirmation)
+    if(!this.signUpForm.valid) {
+      return;
+    }
     if(this.houseCheckbox) {
       if(this.signUpForm.controls['houseJoinCode'].value === '') {
         this.badJoinCode = true;
