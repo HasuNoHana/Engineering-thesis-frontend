@@ -33,14 +33,10 @@ export class TaskListComponent implements OnInit {
   }
 
   onChangeToDoneTask(taskId: number) {
-    // this.taskService.makeTaskDone(taskNumberInList);
-    // this.taskService.moveTaskToDone(taskNumberInList);
     this.taskService.makeTaskDone(taskId);
   }
 
   onChangeToToDoTask(taskId: number) {
-    // this.taskService.makeTaskToDo(taskNumberInList);
-    // this.taskService.moveTaskToToDo(taskNumberInList);
     this.taskService.makeTaskToDo(taskId);
 
   }

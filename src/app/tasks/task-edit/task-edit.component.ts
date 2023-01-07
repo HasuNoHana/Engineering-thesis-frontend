@@ -69,7 +69,6 @@ export class TaskEditComponent implements OnInit {
       if(task === undefined) {
         console.error("Edited task does not exist");
       } else {
-        task = (<Task> task);
         taskName = task.name;
         taskPrice = task.initialPrice;
         taskRoomName = task.room.name;
@@ -86,5 +85,4 @@ export class TaskEditComponent implements OnInit {
     this.taskForm.controls['roomName'].setValue(this.defaultRoom, {onlySelf: true});
   }
 
-  get getTaskFormNameControl() {return this.taskForm.get('name') as FormControl;}
 }
