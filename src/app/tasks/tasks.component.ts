@@ -11,7 +11,5 @@ export class TasksComponent{
               private router: Router) {
   }
 
-  onCreateNewTask() {
-    this.router.navigate(['tasks','list','new']);
-  }
+
 }
