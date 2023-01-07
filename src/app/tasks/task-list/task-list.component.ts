@@ -45,12 +45,8 @@ export class TaskListComponent implements OnInit {
 
   }
 
-  onDeleteDone(index: number) {
-    this.taskService.deleteDoneTask(index);
-  }
-
-  onDeleteToDo(index: number) {
-    this.taskService.deleteToDoTask(index);
+  onDelete(taskId: number) {
+    this.taskService.deleteTask(taskId);
   }
 
 }

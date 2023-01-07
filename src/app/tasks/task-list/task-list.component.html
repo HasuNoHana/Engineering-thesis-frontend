@@ -33,7 +33,7 @@
               </button>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                 <li><a class="dropdown-item" [routerLink]="['/tasks', 'list', 'todo', task.id]">Edytuj</a></li>
-                <li><a class="dropdown-item" (click)="onDeleteToDo(i)">Usuń</a></li>
+                <li><a class="dropdown-item" (click)="onDelete(task.id)">Usuń</a></li>
               </ul>
             </div>
           </td>
@@ -72,7 +72,7 @@
               </button>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                 <li><a class="dropdown-item" [routerLink]="['/tasks', 'list', 'done', task.id]">Edytuj</a></li>
-                <li><a class="dropdown-item" (click)="onDeleteDone(i)">Usuń</a></li>
+                <li><a class="dropdown-item" (click)="onDelete(task.id)">Usuń</a></li>
               </ul>
             </div>
           </td>

@@ -102,14 +102,21 @@ export class TaskService {
   //   return this.doneTasks[index];
   // }
 
-  deleteDoneTask(index: number) {
-    this.doneTasks.splice(index,1);
-    this.doneTasksChanged.next(this.doneTasks.slice());
-  }
+  // deleteDoneTask(index: number) {
+  //   this.doneTasks.splice(index,1);
+  //   this.doneTasksChanged.next(this.doneTasks.slice());
+  // }
+  //
+  // deleteToDoTask(index: number) {
+  //   this.toDoTasks.splice(index,1);
+  //   this.toDoTasksChanged.next(this.toDoTasks.slice());
+  // }
 
-  deleteToDoTask(index: number) {
-    this.toDoTasks.splice(index,1);
-    this.toDoTasksChanged.next(this.toDoTasks.slice());
+  deleteTask(taskId: number) {
+    this.http.delete('http://localhost:4200/api/task?id='+taskId,{withCredentials: true})
+      .subscribe((_: any) => {
+        this.fetchTasks();
+      });
   }
 
   makeTaskDone(taskId: number) {
