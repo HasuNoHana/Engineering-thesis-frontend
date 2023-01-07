@@ -15,7 +15,7 @@ export class TaskEditComponent implements OnInit {
 
   taskForm: FormGroup;
   editMode = false;
-  index: number;
+  currentTaskId: number;
   editTableToDo: boolean;
   rooms: Room[];
   defaultRoom: string;
@@ -31,24 +31,19 @@ export class TaskEditComponent implements OnInit {
       this.roomService.roomsChanged.subscribe((rooms: Room[]) => {
         this.rooms = rooms;
       })
-      this.index = +params['index'];
+      this.currentTaskId = +params['currentTaskId'];
       this.editTableToDo = this.router.url.includes('todo');
-      this.editMode = params['index'] != null;
+      this.editMode = params['currentTaskId'] != null;
       this.initForm();
     })
   }
 
   onSubmit() {
     let room = this.roomService.getRoomByName(this.taskForm.value['roomName'])
-    console.log(room);
     let t:Task = new Task(-1, this.taskForm.value['name'],this.taskForm.value['price'],
       room ,this.taskForm.value['done']);
     if(this.editMode) {
-      if(this.editTableToDo) {
-        this.taskService.updateToDoTask(this.index, t);
-      } else {
-        this.taskService.updateDoneTask(this.index, t);
-      }
+      this.taskService.updateTask(this. currentTaskId, t);
     } else {
       this.taskService.addTask(t);
     }
@@ -70,16 +65,16 @@ export class TaskEditComponent implements OnInit {
     let taskRoomName: any;
 
     if(this.editMode) {
-      let task: Task;
-      if(this.editTableToDo) {
-        task = this.taskService.getTaskFromToDo(this.index);
+      let task = this.taskService.getTask(this.currentTaskId);
+      if(task === undefined) {
+        console.error("Edited task does not exist");
       } else {
-        task = this.taskService.getTaskFromDone(this.index);
+        task = (<Task> task);
+        taskName = task.name;
+        taskPrice = task.initialPrice;
+        taskRoomName = task.room.name;
+        this.defaultRoom = taskRoomName;
       }
-      taskName = task.name;
-      taskPrice = task.initialPrice;
-      taskRoomName = task.room.name;
-      this.defaultRoom = taskRoomName;
     }
 
     this.taskForm = new FormGroup({
