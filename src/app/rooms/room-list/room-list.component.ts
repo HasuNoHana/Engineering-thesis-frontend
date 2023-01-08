@@ -36,6 +36,6 @@ export class RoomListComponent implements OnInit{
   }
 
   onEditRoom(id: number) {
-
+    this.router.navigate(['edit', id], {relativeTo: this.route});
   }
 }

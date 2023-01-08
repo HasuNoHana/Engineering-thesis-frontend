@@ -29,6 +29,7 @@ const appRoutes: Routes = [
       {path: '', component: RoomListComponent},
       {path: 'new', component: RoomEditComponent},
       {path: 'details/:id', component: RoomDetailComponent},
+      {path: 'edit/:id', component: RoomEditComponent},
     ]
   },
 ];
