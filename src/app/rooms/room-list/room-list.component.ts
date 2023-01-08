@@ -31,11 +31,11 @@ export class RoomListComponent implements OnInit{
     this.router.navigate(['details', roomId], {relativeTo: this.route});
   }
 
-  onEditRoom(roomId: number) {
-
-  }
-
   onDeleteRoom(roomId: number) {
     this.roomService.deleteRoom(roomId);
+  }
+
+  onEditRoom(id: number) {
+
   }
 }

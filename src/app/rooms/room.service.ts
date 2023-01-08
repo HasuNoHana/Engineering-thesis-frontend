@@ -2,6 +2,7 @@ import {Injectable} from "@angular/core";
 import {Room} from "./room.model";
 import {Subject} from "rxjs";
 import {HttpClient} from "@angular/common/http";
+import {RoomDto} from "./roomDto.model";
 
 @Injectable({
   providedIn: 'root'
@@ -15,19 +16,12 @@ export class RoomService {
   }
 
   getRooms() {
-    if(this.rooms.length === 0) {
-      this.fetchRooms();
-    }
+    this.fetchRooms();
     return this.rooms.slice();
   }
 
   getRoom(roomId: number): Room | undefined {
     return this.rooms.find(r => r.id === roomId);
-  }
-
-  addRoom(room: Room) {
-    this.rooms.push(room);
-    this.roomsChanged.next(this.rooms.slice());
   }
 
   private fetchRooms() {
@@ -58,6 +52,20 @@ export class RoomService {
         });
         this.rooms.splice(index,1);
         this.roomsChanged.next(this.rooms.slice());
+      });
+  }
+
+  updateRoom(roomId: number, roomDto: RoomDto) {
+    this.http.post<Room>('http://localhost:4200/api/updateRoom?id='+roomId, roomDto,{withCredentials: true})
+      .subscribe((_: any) => {
+        this.fetchRooms();
+      });
+  }
+
+  addRoom(roomDto: RoomDto) {
+    this.http.post<Room>('http://localhost:4200/api/addRoom', roomDto,{withCredentials: true})
+      .subscribe((_: any) => {
+        this.fetchRooms();
       });
   }
 }
