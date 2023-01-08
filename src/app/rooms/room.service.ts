@@ -45,7 +45,7 @@ export class RoomService {
   }
 
   deleteRoom(roomId: number) {
-    this.http.delete<number>('http://localhost:4200/api/room/delete?id='+roomId,{withCredentials: true})
+    this.http.delete<number>('http://localhost:4200/api/deleteRoom?id='+roomId,{withCredentials: true})
       .subscribe((id: number) => {
         let index = this.rooms.findIndex(function (room){
           return room.id===roomId;
