@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {RoomService} from "../room.service";
-import {Room} from "../room.model";
+import {RoomDto} from "../roomDto.model";
 
 @Component({
   selector: 'app-room-edit',
@@ -28,11 +28,15 @@ export class RoomEditComponent implements OnInit {
   }
 
   onSubmit() {
-    if((<Room>this.roomForm.value).image === '') {
-      let room = (<Room>this.roomForm.value);
-      this.roomService.addRoom(new Room(room.id, room.name, this.defaultRoomImage))
+    let roomUrl = this.roomForm.value['image'];
+    if(roomUrl === '') {
+      roomUrl = this.defaultRoomImage;
+    }
+    let roomDto = new RoomDto(this.roomForm.value['name'], roomUrl);
+    if(this.id) {
+      this.roomService.updateRoom(this.id, roomDto);
     } else {
-      this.roomService.addRoom(this.roomForm.value);
+      this.roomService.addRoom(roomDto);
     }
     this.onCancel();
   }

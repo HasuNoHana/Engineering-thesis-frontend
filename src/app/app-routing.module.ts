@@ -20,8 +20,8 @@ const appRoutes: Routes = [
     path: 'tasks', component: TasksComponent, canActivate: [OnlyLoggedInUsersGuardService], children: [
       {path: 'list', component: TaskListComponent},
       {path: 'list/new', component: TaskEditComponent},
-      {path: 'list/todo/:index', component: TaskEditComponent},
-      {path: 'list/done/:index', component: TaskEditComponent},
+      {path: 'list/todo/:currentTaskId', component: TaskEditComponent},
+      {path: 'list/done/:currentTaskId', component: TaskEditComponent},
     ]
   },
   {

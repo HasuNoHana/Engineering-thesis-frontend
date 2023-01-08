@@ -35,23 +35,17 @@ export class TaskListComponent implements OnInit {
     this.doneTasks = this.taskService.getDoneTasks();
   }
 
-  onChangeToDoneTask(taskNumberInList: number) {
-    this.taskService.makeTaskDone(taskNumberInList);
-    this.taskService.moveTaskToDone(taskNumberInList);
+  onChangeToDoneTask(taskId: number) {
+    this.taskService.makeTaskDone(taskId);
   }
 
-  onChangeToToDoTask(taskNumberInList: number) {
-    this.taskService.makeTaskToDo(taskNumberInList);
-    this.taskService.moveTaskToToDo(taskNumberInList);
+  onChangeToToDoTask(taskId: number) {
+    this.taskService.makeTaskToDo(taskId);
 
   }
 
-  onDeleteDone(index: number) {
-    this.taskService.deleteDoneTask(index);
-  }
-
-  onDeleteToDo(index: number) {
-    this.taskService.deleteToDoTask(index);
+  onDelete(taskId: number) {
+    this.taskService.deleteTask(taskId);
   }
 
   onCreateNewTask() {
