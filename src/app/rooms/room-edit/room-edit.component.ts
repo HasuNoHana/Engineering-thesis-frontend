@@ -13,16 +13,17 @@ export class RoomEditComponent implements OnInit {
   id: number;
   roomForm: FormGroup;
   defaultRoomImage = 'https://upload.wikimedia.org/wikipedia/commons/3/31/White_paper.jpg';
+  editMode = false;
 
   constructor(private route: ActivatedRoute,
               private roomService: RoomService,
               private router: Router) { }
 
   ngOnInit(): void {
-    this.route.params.subscribe(
-      (params: Params) => {
-        this.id = +params['id'];//NOSONAR //TODO co to znaczy
-        this.initForm();
+    this.route.params.subscribe((params: Params) => {
+      this.id = +params['id'];
+      this.editMode = this.router.url.includes('edit');
+      this.initForm();
       }
     );
   }
@@ -42,12 +43,27 @@ export class RoomEditComponent implements OnInit {
   }
 
   onCancel() {
-    this.router.navigate(['../'], {relativeTo: this.route});
+    if(this.editMode) {
+      this.editMode = false;
+      this.router.navigate(['../../'], {relativeTo: this.route});
+    } else {
+      this.router.navigate(['../'], {relativeTo: this.route});
+    }
   }
 
   private initForm() {
     let roomName = '';
     let roomImagePath = '';
+
+    if(this.editMode) {
+      let room = this.roomService.getRoom(this.id);
+      if(room === undefined) {
+        console.error("Edited room does not exist");
+      } else {
+        roomName = room.name;
+        roomImagePath = room.image;
+      }
+    }
 
     this.roomForm = new FormGroup({
       'name': new FormControl(roomName, Validators.required),
