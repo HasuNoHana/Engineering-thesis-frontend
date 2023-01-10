@@ -1,4 +1,4 @@
-import {House} from "../house/house.model";
+import {House} from "../houses/house.model";
 
 export class Room {
   public id: number;

@@ -1,0 +1,81 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+
+      <div class="container split1">
+        <div class="column">
+          <div class="col-md-12">
+            <img src="{{user?.image}}" width="300" height="300" alt="..."><br><br>
+            <button type="button" class="btn btn-light btn-lg btn-block">Edytuj</button>
+          </div>
+        </div>
+      </div>
+      <div class="container split2">
+        <div class="column">
+          <div class="col-md-12">
+            <h1>Cześć {{user?.username}}</h1>
+            <h3>Zrobione Zadania: {{user?.points}}</h3>
+            <h3>Liczba punktów: {{user?.points}}/{{user?.range}}</h3><br>
+            <div *ngIf="width>=0" class="progress">
+              <div *ngIf="width>10" class="progress-bar bg-success" role="progressbar" [style.width.%]="width" aria-valuenow="25"
+                   aria-valuemin="0" aria-valuemax="100">{{width}}%</div>
+              <div *ngIf="width<=10" class="progress-bar bg-success" role="progressbar" [style.width.%]="width" aria-valuenow="25"
+                   aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <div *ngIf="width<0" class="progress justify-content-end">
+              <div class="progress-bar bg-danger" role="progressbar" [style.width.%]="width*-1" aria-valuenow="25"
+                   aria-valuemin="0" aria-valuemax="100">{{width}}%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container split3">
+        <div class="column">
+          <div class="col-md-12">
+            <button type="button" class="btn btn-success btn-lg btn-block"
+            (click)="onInviteClicked()">Zaproś</button>
+          </div><br>
+          <div *ngIf="inviteClicked" class="alert alert-warning" role="alert">
+              <p>Kod domu: {{joinCode}}</p><hr>
+              <p>Podaj ten kod osobie która chce dołączyć do Twojego domu, może go wpisać podczas rejestracji.</p>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<div class="container" *ngIf="users">
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table table-hover table-borderless caption-top" aria-describedby="ToDo Tasks List">
+        <thead class="table-light">
+        <tr>
+          <th scope="col">Mieszkaniec</th>
+          <th scope="col">Punkty Zebrane</th>
+          <th scope="col">Punkty Wymagane</th>
+          <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody *ngFor="let user of users">
+        <tr>
+          <td>{{ user?.username }}</td>
+          <td>{{ user?.points }}</td>
+          <td>{{ user?.range }}</td>
+          <td style="width: 40px">
+            <div class="dropdown">
+              <button class="btn btn-light btn-sm" type="button" id="additionalActionToDo" data-bs-toggle="dropdown" aria-expanded="false">
+                ...
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li><a class="dropdown-item" >Edytuj</a></li>
+              </ul>
+            </div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

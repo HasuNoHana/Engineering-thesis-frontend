@@ -10,12 +10,17 @@ import {LoginComponent} from "./authentication/login/login.component";
 import {OnlyLoggedInUsersGuardService} from "./authentication/only-logged-in-users-guard.service";
 import {SignUpComponent} from "./authentication/sign-up/sign-up.component";
 import {RoomDetailComponent} from "./rooms/room-detail/room-detail.component";
+import {HousesComponent} from "./houses/houses.component";
+import {HouseComponent} from "./houses/house/house.component";
 
 const appRoutes: Routes = [
 
   {path: '', pathMatch: 'full', redirectTo: 'tasks'},
   {path: 'login', component: LoginComponent},
   {path: 'signup', component: SignUpComponent},
+  {path: 'my', component: HousesComponent, canActivate: [OnlyLoggedInUsersGuardService], children: [
+      {path: 'house', component: HouseComponent}
+    ]},
   {
     path: 'tasks', component: TasksComponent, canActivate: [OnlyLoggedInUsersGuardService], children: [
       {path: 'list', component: TaskListComponent},
