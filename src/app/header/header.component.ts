@@ -19,7 +19,7 @@ export class HeaderComponent {
     this.houseService.userChanged.subscribe((user: User) => {
       this.image = user.image;
     })
-    this.houseService.getUser();
+    this.houseService.getCurrentUser();
   }
 
   logout() {

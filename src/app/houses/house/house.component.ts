@@ -38,7 +38,7 @@ export class HouseComponent implements OnInit {
       this.user = user;
       this.width = Math.ceil((this.user.points / this.user.range) * 100);
     })
-    this.user = this.houseService.getUser();
+    this.user = this.houseService.getCurrentUser();
     this.width = Math.ceil((this.user.points / this.user.range) * 100);
   }
 

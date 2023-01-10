@@ -24,14 +24,6 @@ export class HouseService {
     this.fetchJoinCode();
   }
 
-  fetchUser() {
-    this.http.get<User>('http://localhost:4200/api/userData',{withCredentials: true})
-      .subscribe((user: User) => {
-        this.user = user;
-        this.userChanged.next(this.user);
-      });
-  }
-
   private fetchUsers() {
     this.http.get<User[]>('http://localhost:4200/api/users',{withCredentials: true})
       .subscribe((users: User[]) => {
@@ -40,16 +32,12 @@ export class HouseService {
       });
   }
 
-  getUsers() {
-    return this.users.slice();
-  }
-
-  getUser() {
-    return this.user;
-  }
-
-  getJoinCode() {
-    return this.joinCode;
+  fetchUser() {
+    this.http.get<User>('http://localhost:4200/api/userData',{withCredentials: true})
+      .subscribe((user: User) => {
+        this.user = user;
+        this.userChanged.next(this.user);
+      });
   }
 
   fetchJoinCode() {
@@ -58,5 +46,28 @@ export class HouseService {
         this.joinCode = joinCode;
         this.joinCodeChanged.next(this.joinCode);
       });
+  }
+
+  editUser(id: number, range: number) {
+    this.http.post<User>('http://localhost:4200/api/editUser?id='+id, {range: range}, {withCredentials: true})
+      .subscribe((_: any) => {
+        this.fetchUsers();
+      });
+  }
+
+  getUsers() {
+    return this.users.slice();
+  }
+
+  getCurrentUser() {
+    return this.user;
+  }
+
+  getJoinCode() {
+    return this.joinCode;
+  }
+
+  getUserById(id: number) {
+    return this.users.find(user => user.id === id);
   }
 }

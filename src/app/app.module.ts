@@ -23,6 +23,7 @@ import {SignUpComponent} from './authentication/sign-up/sign-up.component';
 import {RoomDetailComponent} from './rooms/room-detail/room-detail.component';
 import {HousesComponent} from './houses/houses.component';
 import {HouseComponent} from './houses/house/house.component';
+import {EditUserComponent} from './houses/edit-user/edit-user.component';
 
 @Injectable()
 export class XhrInterceptor implements HttpInterceptor {
@@ -52,6 +53,7 @@ export class XhrInterceptor implements HttpInterceptor {
     RoomDetailComponent,
     HousesComponent,
     HouseComponent,
+    EditUserComponent,
   ],
   imports: [
     BrowserModule,
