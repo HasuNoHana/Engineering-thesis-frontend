@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {HouseService} from "../house.service";
 import {User} from "../user.model";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-user-information',
@@ -17,7 +18,9 @@ export class HouseComponent implements OnInit {
   inviteClicked: boolean;
   user: User;
 
-  constructor(private houseService: HouseService) {}
+  constructor(private houseService: HouseService,
+              private router: Router,
+              private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.getUserAndWidth();
@@ -54,5 +57,9 @@ export class HouseComponent implements OnInit {
       this.joinCode = this.houseService.getJoinCode();
     }
     this.inviteClicked = !this.inviteClicked
+  }
+
+  onEditPhoto() {
+    this.router.navigateByUrl('/my/house/editPhoto');
   }
 }

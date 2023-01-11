@@ -6,14 +6,14 @@
         <div class="column">
           <div class="col-md-12">
             <img src="{{user?.image}}" width="300" height="300" alt="..."><br><br>
-            <button type="button" class="btn btn-light btn-lg btn-block">Edytuj</button>
+            <button type="button" class="btn btn-light btn-lg btn-block" (click)="onEditPhoto()">Edytuj</button>
           </div>
         </div>
       </div>
       <div class="container split2">
         <div class="column">
           <div class="col-md-12">
-            <h1>Cześć {{user?.username}}</h1>
+            <h1>Cześć {{user?.username}}!</h1>
             <h3>Zrobione Zadania: {{user?.points}}</h3>
             <h3>Liczba punktów: {{user?.points}}/{{user?.range}}</h3><br>
             <div *ngIf="width>=0" class="progress">

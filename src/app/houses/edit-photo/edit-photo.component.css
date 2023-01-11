@@ -1,0 +1,13 @@
+.img{
+  width: 150px;
+}
+.card{
+  width: 150px;
+}
+.highlight{
+  border: black;
+}
+.round{
+  border: 5px solid #c4ee92;
+  border-radius: 5%;
+}

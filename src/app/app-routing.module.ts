@@ -13,6 +13,7 @@ import {RoomDetailComponent} from "./rooms/room-detail/room-detail.component";
 import {HousesComponent} from "./houses/houses.component";
 import {HouseComponent} from "./houses/house/house.component";
 import {EditUserComponent} from "./houses/edit-user/edit-user.component";
+import {EditPhotoComponent} from "./houses/edit-photo/edit-photo.component";
 
 const appRoutes: Routes = [
 
@@ -21,7 +22,8 @@ const appRoutes: Routes = [
   {path: 'signup', component: SignUpComponent},
   {path: 'my', component: HousesComponent, canActivate: [OnlyLoggedInUsersGuardService], children: [
       {path: 'house', component: HouseComponent},
-      {path: 'house/editUser/:id', component: EditUserComponent}
+      {path: 'house/editUser/:id', component: EditUserComponent},
+      {path: 'house/editPhoto', component: EditPhotoComponent}
     ]},
   {
     path: 'tasks', component: TasksComponent, canActivate: [OnlyLoggedInUsersGuardService], children: [

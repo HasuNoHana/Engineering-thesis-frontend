@@ -24,6 +24,7 @@ import {RoomDetailComponent} from './rooms/room-detail/room-detail.component';
 import {HousesComponent} from './houses/houses.component';
 import {HouseComponent} from './houses/house/house.component';
 import {EditUserComponent} from './houses/edit-user/edit-user.component';
+import {EditPhotoComponent} from './houses/edit-photo/edit-photo.component';
 
 @Injectable()
 export class XhrInterceptor implements HttpInterceptor {
@@ -54,6 +55,7 @@ export class XhrInterceptor implements HttpInterceptor {
     HousesComponent,
     HouseComponent,
     EditUserComponent,
+    EditPhotoComponent,
   ],
   imports: [
     BrowserModule,

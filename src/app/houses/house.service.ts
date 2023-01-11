@@ -17,11 +17,15 @@ export class HouseService {
   joinCodeChanged = new Subject<string>();
   joinCode: string;
 
+  proposedImagesChanged = new Subject<string[]>();
+  proposedImages: string[]
+
   constructor(private http: HttpClient) {
     this.users = <User[]>[];
     this.fetchUsers();
     this.fetchUser();
     this.fetchJoinCode();
+    this.fetchProposedImages();
   }
 
   private fetchUsers() {
@@ -55,6 +59,22 @@ export class HouseService {
       });
   }
 
+  private fetchProposedImages() {
+    this.http.get<string[]>('http://localhost:4200/api/proposedImages',{withCredentials: true})
+      .subscribe((images: string[]) => {
+        this.proposedImages = images;
+        this.proposedImagesChanged.next(this.proposedImages);
+      });
+  }
+
+  editPhoto(image: String) {
+    console.log("eloo")
+    // this.http.post<User>('http://localhost:4200/api/editUser', {image: image}, {withCredentials: true})
+    //   .subscribe((_: any) => {
+    //     this.fetchUser();
+    //   });
+  }
+
   getUsers() {
     return this.users.slice();
   }
@@ -70,4 +90,10 @@ export class HouseService {
   getUserById(id: number) {
     return this.users.find(user => user.id === id);
   }
+
+  getProposedImages() {
+    return this.proposedImages.slice();
+  }
+
+
 }
