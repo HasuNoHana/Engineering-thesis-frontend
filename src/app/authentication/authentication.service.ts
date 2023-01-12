@@ -30,6 +30,7 @@ export class AuthenticationService {
     this.http.get('http://localhost:4200/api/user', {headers: headers}).subscribe((response: {name?: string}) => {
       if (response['name']) {
         localStorage.setItem("authenticated","true")
+        localStorage.setItem("username",credentials.username);
         this.authenticated = true;
       } else {
         this.authenticated = false;

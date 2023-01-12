@@ -1,12 +1,10 @@
-export class User {
-  id: number
+export class UserDTO {
   username: string
   points: number
   range: number
   image: string
 
-  constructor(id: number, username: string, points: number, range: number, image: string) {
-    this.id = id;
+  constructor(username: string, points: number, range: number, image: string) {
     this.username = username;
     this.points = points;
     this.range = range;

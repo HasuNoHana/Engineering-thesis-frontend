@@ -1,7 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {HouseService} from "../house.service";
 import {User} from "../user.model";
-import {ActivatedRoute, Router} from "@angular/router";
+import {Router} from "@angular/router";
+import {debugLog} from "../../app.component";
+import {HouseBuddy} from "../HouseBuddy.model";
 
 @Component({
   selector: 'app-user-information',
@@ -16,13 +18,14 @@ export class HouseComponent implements OnInit {
   users: User[]
   joinCode: string;
   inviteClicked: boolean;
-  user: User;
+  houseBuddy: HouseBuddy;
 
   constructor(private houseService: HouseService,
-              private router: Router,
-              private route: ActivatedRoute) {}
+              private router: Router) {}
 
   ngOnInit(): void {
+    // @ts-ignore
+    this.username = localStorage.getItem("username");
     this.getUserAndWidth();
     this.getUsers();
     this.getJoinCode();
@@ -37,12 +40,13 @@ export class HouseComponent implements OnInit {
   }
 
   private getUserAndWidth() {
-    this.houseService.userChanged.subscribe((user: User) => {
-      this.user = user;
-      this.width = Math.ceil((this.user.points / this.user.range) * 100);
+    this.houseService.houseBuddyChanged.subscribe((user: HouseBuddy) => {
+      debugLog("Getting new user data", user);
+      this.houseBuddy = user;
+      this.width = Math.ceil((this.houseBuddy.firewoodStackSize / this.houseBuddy.weeklyFirewoodContribution) * 100);
     })
-    this.user = this.houseService.getCurrentUser();
-    this.width = Math.ceil((this.user.points / this.user.range) * 100);
+    this.houseBuddy = this.houseService.getCurrentUser();
+    this.width = Math.ceil((this.houseBuddy.firewoodStackSize / this.houseBuddy.weeklyFirewoodContribution) * 100);
   }
 
   private getJoinCode() {

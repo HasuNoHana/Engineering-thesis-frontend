@@ -21,7 +21,7 @@ export class EditUserComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.houseService.usersChanged.subscribe((users: User[]) => {
+    this.houseService.usersChanged.subscribe((_: any) => {
       let user = this.houseService.getUserById(this.id);
       if(this.user === undefined) {
         console.error("Edited user does not exist");
@@ -47,7 +47,7 @@ export class EditUserComponent implements OnInit {
   }
 
   onSubmit() {
-    this.houseService.editUser(this.id, this.userForm.value['range'])
+    this.houseService.editRange(this.id, this.userForm.value['range'])
     this.onCancel();
   }
 

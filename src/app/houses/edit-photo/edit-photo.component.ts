@@ -10,7 +10,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 })
 export class EditPhotoComponent implements OnInit {
 
-  proposedImages: String[];
+  proposedImages: string[];
   imageForm: FormGroup;
   mouseOver = false;
   selected: number = -1;
@@ -23,8 +23,8 @@ export class EditPhotoComponent implements OnInit {
     this.initForm();
   }
 
-  onImageClicked(image: String) {
-    this.houseService.editPhoto(image);
+  onImageClicked(image: string) {
+    this.houseService.editPhoto( image);
     this.router.navigateByUrl('/my/house');
   }
 

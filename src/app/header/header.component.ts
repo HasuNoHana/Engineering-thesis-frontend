@@ -1,7 +1,7 @@
 import {Component, ElementRef} from '@angular/core';
 import {AuthenticationService} from "../authentication/authentication.service";
-import {User} from "../houses/user.model";
 import {HouseService} from "../houses/house.service";
+import {HouseBuddy} from "../houses/HouseBuddy.model";
 
 @Component({
   selector: 'app-header',
@@ -16,8 +16,8 @@ export class HeaderComponent {
   constructor(private elRef: ElementRef,
               private appService: AuthenticationService,
               private houseService: HouseService) {
-    this.houseService.userChanged.subscribe((user: User) => {
-      this.image = user.image;
+    this.houseService.houseBuddyChanged.subscribe((user: HouseBuddy) => {
+      this.image = user.avatarImageUrl;
     })
     this.houseService.getCurrentUser();
   }

@@ -2,6 +2,9 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {User} from "./user.model";
 import {Subject} from "rxjs";
+import {UserDTO} from "./UserDTO.model";
+import {debugLog} from "../app.component";
+import {HouseBuddy} from "./HouseBuddy.model";
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +14,8 @@ export class HouseService {
   usersChanged = new Subject<User[]>();
   users: User[];
 
-  userChanged = new Subject<User>();
-  user: User;
+  houseBuddyChanged = new Subject<HouseBuddy>();
+  houseBuddy: HouseBuddy;
 
   joinCodeChanged = new Subject<string>();
   joinCode: string;
@@ -20,8 +23,12 @@ export class HouseService {
   proposedImagesChanged = new Subject<string[]>();
   proposedImages: string[]
 
+  username: string;
+
   constructor(private http: HttpClient) {
     this.users = <User[]>[];
+    // @ts-ignore
+    this.username =localStorage.getItem("username");
     this.fetchUsers();
     this.fetchUser();
     this.fetchJoinCode();
@@ -37,10 +44,11 @@ export class HouseService {
   }
 
   fetchUser() {
-    this.http.get<User>('http://localhost:4200/api/userData',{withCredentials: true})
-      .subscribe((user: User) => {
-        this.user = user;
-        this.userChanged.next(this.user);
+    this.http.get<HouseBuddy>('http://localhost:4200/api/currentUserData',{withCredentials: true})
+      .subscribe((user: HouseBuddy) => {
+        debugLog("GET: api/currentUserData, response:", user);
+        this.houseBuddy = user;
+        this.houseBuddyChanged.next(this.houseBuddy);
       });
   }
 
@@ -52,27 +60,32 @@ export class HouseService {
       });
   }
 
-  editUser(id: number, range: number) {
-    this.http.post<User>('http://localhost:4200/api/editUser?id='+id, {range: range}, {withCredentials: true})
-      .subscribe((_: any) => {
-        this.fetchUsers();
+  editUser(id: number, userDTO: UserDTO) {
+    this.http.post<HouseBuddy>('http://localhost:4200/api/editUser?id='+id, userDTO, {withCredentials: true})
+      .subscribe((houseBuddy: HouseBuddy) => {
+        debugLog("POST: api/editUser, request:", userDTO);
+        debugLog("response:", houseBuddy);
+        this.houseBuddy = houseBuddy;
+        this.houseBuddyChanged.next(this.houseBuddy);
       });
   }
 
   private fetchProposedImages() {
-    this.http.get<string[]>('http://localhost:4200/api/proposedImages',{withCredentials: true})
+    this.http.get<string[]>('http://localhost:4200/api/avatarImages',{withCredentials: true})
       .subscribe((images: string[]) => {
         this.proposedImages = images;
         this.proposedImagesChanged.next(this.proposedImages);
       });
   }
 
-  editPhoto(image: String) {
-    console.log("eloo")
-    // this.http.post<User>('http://localhost:4200/api/editUser', {image: image}, {withCredentials: true})
-    //   .subscribe((_: any) => {
-    //     this.fetchUser();
-    //   });
+  editPhoto(image: string) {
+    let user = new UserDTO(this.username, this.houseBuddy.firewoodStackSize, this.houseBuddy.weeklyFirewoodContribution, image);
+    this.editUser(-1, user);
+  }
+
+  editRange(id: number, weeklyFirewoodContribution: number) {
+    let user = new UserDTO(this.username, this.houseBuddy.firewoodStackSize, weeklyFirewoodContribution, this.houseBuddy.avatarImageUrl);
+    this.editUser(id, user);
   }
 
   getUsers() {
@@ -80,7 +93,7 @@ export class HouseService {
   }
 
   getCurrentUser() {
-    return this.user;
+    return this.houseBuddy;
   }
 
   getJoinCode() {
