@@ -35,7 +35,6 @@ export class TaskService {
         this.tasksChanged.next(this.tasks.slice());
         this.toDoTasksChanged.next(this.toDoTasks.slice());
         this.doneTasksChanged.next(this.doneTasks.slice());
-        console.log("tasks ",this.tasks);
       });
   }
 

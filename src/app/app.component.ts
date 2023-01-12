@@ -1,6 +1,13 @@
 import {Component} from '@angular/core';
 import {AuthenticationService} from "./authentication/authentication.service";
 
+export function debugLog(message: string, object: any) {
+  let DEBUG_ON = true;
+  if (DEBUG_ON){
+    console.log(message ," ", object)
+  }
+}
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html'

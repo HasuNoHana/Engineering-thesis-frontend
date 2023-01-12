@@ -21,6 +21,10 @@ import {TaskService} from "./tasks/task.service";
 import {OnlyLoggedInUsersGuardService} from "./authentication/only-logged-in-users-guard.service";
 import {SignUpComponent} from './authentication/sign-up/sign-up.component';
 import {RoomDetailComponent} from './rooms/room-detail/room-detail.component';
+import {HousesComponent} from './houses/houses.component';
+import {HouseComponent} from './houses/house/house.component';
+import {EditUserComponent} from './houses/edit-user/edit-user.component';
+import {EditPhotoComponent} from './houses/edit-photo/edit-photo.component';
 
 @Injectable()
 export class XhrInterceptor implements HttpInterceptor {
@@ -48,6 +52,10 @@ export class XhrInterceptor implements HttpInterceptor {
     HomeComponent,
     SignUpComponent,
     RoomDetailComponent,
+    HousesComponent,
+    HouseComponent,
+    EditUserComponent,
+    EditPhotoComponent,
   ],
   imports: [
     BrowserModule,

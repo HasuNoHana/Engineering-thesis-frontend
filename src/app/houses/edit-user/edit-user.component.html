@@ -1,0 +1,37 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="row">
+      <div class="col-xs-12">
+        <div>
+          <h3>Edytuj punkty użytkownika {{user?.username}}</h3>
+        </div>
+        <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="form-group">
+                <label for="range">Punkty wymagane</label>
+                <input type="number" id="range" formControlName="range" class="form-control">
+                <span *ngIf="!userForm.get('range').valid && userForm.get('range').touched" style="color: red"
+                      class="help-block">
+                  <span *ngIf="userForm.get('range').errors['required']" >
+                    To pole nie może być puste!
+                  </span>
+                </span>
+              </div>
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-xs-12">
+              <button type="submit" class="btn btn-success"
+                      style="margin-right: 3px;"
+                      [disabled]="!userForm.valid">Zapisz</button>
+              <button type="button" class="btn btn-danger" (click)="onCancel()">Anuluj</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+  </div>
+</div>
