@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {AuthenticationService} from "./authentication/authentication.service";
 
-export function debugLog(message: String, object: any) {
+export function debugLog(message: string, object: any) {
   let DEBUG_ON = true;
   if (DEBUG_ON){
     console.log(message ," ", object)
