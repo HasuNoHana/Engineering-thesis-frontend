@@ -20,8 +20,8 @@ export class RoomService {
     return this.rooms.slice();
   }
 
-  getRoom(roomId: number): Room | undefined {
-    return this.rooms.find(r => r.id === roomId);
+  getRoom(roomId: number) {
+    return this.rooms.find(r => r.id === +roomId);
   }
 
   private fetchRooms() {
@@ -35,7 +35,6 @@ export class RoomService {
   getRoomByName(name: string) {
     let r: Room;
     this.rooms.forEach((room) => {
-      console.log("room: ", room.name);
         if (room.name === name) {
           r = room;
         }

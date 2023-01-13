@@ -8,6 +8,13 @@ export function debugLog(message: string, object: any) {
   }
 }
 
+export function debugLogOnlyMessage(message: string) {
+  let DEBUG_ON = true;
+  if (DEBUG_ON){
+    console.log(message)
+  }
+}
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html'

@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Subscription} from "rxjs";
 import {TaskService} from "../task.service";
 import {Task} from "../task.model";
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute, Params, Router} from "@angular/router";
 
 @Component({
   selector: 'app-task-list',
@@ -15,12 +15,26 @@ export class TaskListComponent implements OnInit {
   subToDoTasks: Subscription;
   isFetching = false;
 
+  roomId: number;
+
   constructor(private taskService: TaskService,
               private route: ActivatedRoute,
               private router: Router) {}
 
   ngOnInit(): void {
-    this.getTasks();
+    this.route.params.subscribe((params: Params) => {
+      this.roomId = +params['id'];
+      if(this.roomId){
+        this.getTasksForRoom();
+      } else {
+        this.getAllTasks();
+      }
+    })
+  }
+
+  private getAllTasks() {
+    this.toDoTasks = this.taskService.getToDoTasks();
+    this.doneTasks = this.taskService.getDoneTasks();
     this.subToDoTasks = this.taskService.toDoTasksChanged.subscribe((tasks: Task[]) => {
       this.toDoTasks = tasks;
     });
@@ -29,9 +43,15 @@ export class TaskListComponent implements OnInit {
     });
   }
 
-  private getTasks() {
-    this.toDoTasks = this.taskService.getToDoTasks();
-    this.doneTasks = this.taskService.getDoneTasks();
+  private getTasksForRoom() {
+    this.toDoTasks = this.taskService.getTasksToDoForRoom(this.roomId);
+    this.doneTasks = this.taskService.getTasksDoneForRoom(this.roomId);
+    this.subToDoTasks = this.taskService.toDoTasksForRoomIdChanged.subscribe((tasks: Task[]) => {
+      this.toDoTasks = tasks;
+    });
+    this.subDoneTasks = this.taskService.doneTasksForRoomIdChanged.subscribe((tasks: Task[]) => {
+      this.doneTasks = tasks;
+    });
   }
 
   onChangeToDoneTask(taskId: number) {
@@ -48,7 +68,10 @@ export class TaskListComponent implements OnInit {
   }
 
   onCreateNewTask() {
-    this.router.navigate(['tasks','list','new']);
+    if(this.roomId){
+      this.router.navigate(['newTask'], {relativeTo: this.route});
+    }
+    this.router.navigate(['newTask'], {relativeTo: this.route});
   }
 
 }

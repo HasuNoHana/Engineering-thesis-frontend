@@ -1,16 +1,10 @@
 <div class="row">
   <div class="col-md-5">
     <img [src]="room.image" class="card-img-top" id="theImage" alt="...">
-    <div class="row">
-      <div class="col-xs-12">
-        <br>
-        <button class="btn btn-success"
-                (click)="onCreateNewTask()">Stwórz nowe zadanie</button>
-      </div>
-    </div>
+    <br><br>
+    <h1>{{room.name}}</h1>
   </div>
   <div class="col-md-7">
-    <h1>{{room.name}}</h1>
     <app-task-list></app-task-list>
   </div>
 </div>
