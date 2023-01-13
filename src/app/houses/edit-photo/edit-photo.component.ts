@@ -12,14 +12,13 @@ export class EditPhotoComponent implements OnInit {
 
   proposedImages: string[];
   imageForm: FormGroup;
-  mouseOver = false;
   selected: number = -1;
 
   constructor(private houseService: HouseService,
               private router: Router,) { }
 
   ngOnInit(): void {
-    this.proposedImages = this.houseService.getProposedImages();
+    this.proposedImages = this.houseService.getProposedAvatarImages();
     this.initForm();
   }
 
@@ -40,12 +39,10 @@ export class EditPhotoComponent implements OnInit {
 
   onEnter(index:number) {
     this.selected = index;
-    this.mouseOver = true;
   }
 
   onLeave() {
     this.selected = -1;
-    this.mouseOver = false;
   }
 
   onCancel() {

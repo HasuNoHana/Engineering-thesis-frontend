@@ -1,3 +1,17 @@
 input.ng-invalid.ng-touched {
   border: 1px solid red;
 }
+.img{
+  width: 230px;
+}
+.card{
+  width: 230px;
+
+}
+.highlight{
+  border: black;
+}
+.round{
+  border: 5px solid #c4ee92;
+  border-radius: 5%;
+}

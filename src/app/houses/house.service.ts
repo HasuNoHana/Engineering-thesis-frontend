@@ -104,7 +104,7 @@ export class HouseService {
     return this.users.find(user => user.id === id);
   }
 
-  getProposedImages() {
+  getProposedAvatarImages() {
     return this.proposedImages.slice();
   }
 

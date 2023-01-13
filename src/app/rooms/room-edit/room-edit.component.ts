@@ -14,12 +14,16 @@ export class RoomEditComponent implements OnInit {
   roomForm: FormGroup;
   defaultRoomImage = 'https://upload.wikimedia.org/wikipedia/commons/3/31/White_paper.jpg';
   editMode = false;
+  proposedImages: string[];
+  selected: number = -1;
+
 
   constructor(private route: ActivatedRoute,
               private roomService: RoomService,
               private router: Router) { }
 
   ngOnInit(): void {
+    this.proposedImages = this.roomService.getProposedRoomImages();
     this.route.params.subscribe((params: Params) => {
       this.id = +params['id'];
       this.editMode = this.router.url.includes('edit');
@@ -68,6 +72,21 @@ export class RoomEditComponent implements OnInit {
     this.roomForm = new FormGroup({
       'name': new FormControl(roomName, Validators.required),
       'image': new FormControl(roomImagePath),
+    });
+  }
+
+  onEnter(index:number) {
+    this.selected = index;
+  }
+
+  onLeave() {
+    this.selected = -1;
+  }
+
+  onImageClicked(image: string) {
+    this.roomForm.setValue({
+      'name': this.roomForm.value['name'],
+      'image': image
     });
   }
 }
