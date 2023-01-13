@@ -8,7 +8,6 @@ import {TasksComponent} from './tasks/tasks.component';
 import {TaskListComponent} from './tasks/task-list/task-list.component';
 import {AppRoutingModule} from "./app-routing.module";
 import {HeaderComponent} from './header/header.component';
-import {DropdownDirective} from "./shared/dropdown.directive";
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {RoomsComponent} from './rooms/rooms.component';
 import {RoomListComponent} from './rooms/room-list/room-list.component';
@@ -43,7 +42,6 @@ export class XhrInterceptor implements HttpInterceptor {
     TasksComponent,
     TaskListComponent,
     HeaderComponent,
-    DropdownDirective,
     RoomsComponent,
     RoomListComponent,
     RoomEditComponent,

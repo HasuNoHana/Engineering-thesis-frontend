@@ -5,7 +5,7 @@ import {TaskService} from "../task.service";
 import {Task} from "../task.model";
 import {RoomService} from "../../rooms/room.service";
 import {Room} from "../../rooms/room.model";
-import {debugLog} from "../../app.component";
+import {debugLog, debugLogOnlyMessage} from "../../app.component";
 
 @Component({
   selector: 'app-task-edit',
@@ -19,11 +19,11 @@ export class TaskEditComponent implements OnInit {
   currentTaskId: number;
   editTableToDo: boolean;
   rooms: Room[];
-  defaultRoom: string;
+  defaultRoomName: string;
 
   detailsMode: boolean;
   roomId: number;
-  room: Room;
+  room: Room | undefined;
 
   constructor(private route: ActivatedRoute,
               private taskService: TaskService,
@@ -41,11 +41,13 @@ export class TaskEditComponent implements OnInit {
       this.editMode = params['currentTaskId'] != null;
 
       this.detailsMode = this.router.url.includes('details');
-      this.roomId = params['roomId'];
-      console.log("room id: ", this.roomId);
-      // @ts-ignore
-      this.room = this.roomService.getRoom(this.roomId);
-      console.log("detailsmode ",this.detailsMode);
+      this.roomId = +params['roomId'];
+      let foundRoom = this.roomService.getRoom(this.roomId);
+      if (foundRoom === undefined) {
+        debugLogOnlyMessage("Room with id " + this.roomId + " not found")
+      }
+      this.room = foundRoom;
+
       this.initForm();
     })
   }
@@ -89,11 +91,11 @@ export class TaskEditComponent implements OnInit {
         taskName = task.name;
         taskPrice = task.initialPrice;
         taskRoomName = task.room.name;
-        this.defaultRoom = taskRoomName;
+        this.defaultRoomName = taskRoomName;
       }
     } else if(this.detailsMode) {
         taskRoomName = this.room?.name;
-        this.defaultRoom = this.room?.name;
+        this.defaultRoomName = this.room?.name ?? "";
     }
 
     this.taskForm = new FormGroup({
@@ -102,7 +104,7 @@ export class TaskEditComponent implements OnInit {
         [Validators.required, Validators.min(1)]),
       'roomName': new FormControl(taskRoomName, Validators.required),
     });
-    this.taskForm.controls['roomName'].setValue(this.defaultRoom, {onlySelf: true});
+    this.taskForm.controls['roomName'].setValue(this.defaultRoomName, {onlySelf: true});
   }
 
 }
