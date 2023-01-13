@@ -9,10 +9,22 @@ import {RoomDto} from "./roomDto.model";
 })
 export class RoomService {
   roomsChanged = new Subject<Room[]>();
-  rooms: Room[] = [];
+  private rooms: Room[] = [];
+  proposedImagesChanged = new Subject<string[]>();
+  private proposedRoomImages: string[];
+
 
   constructor(private http: HttpClient) {
+    this.fetchProposedRoomImages();
     this.fetchRooms();
+  }
+
+  private fetchProposedRoomImages() {
+    this.http.get<string[]>('http://localhost:4200/api/roomImages',{withCredentials: true})
+      .subscribe((images: string[]) => {
+        this.proposedRoomImages = images;
+        this.proposedImagesChanged.next(this.proposedRoomImages);
+      });
   }
 
   getRooms() {
@@ -45,7 +57,7 @@ export class RoomService {
 
   deleteRoom(roomId: number) {
     this.http.delete<number>('http://localhost:4200/api/deleteRoom?id='+roomId,{withCredentials: true})
-      .subscribe((id: number) => {
+      .subscribe((_: number) => {
         let index = this.rooms.findIndex(function (room){
           return room.id===roomId;
         });
@@ -66,5 +78,9 @@ export class RoomService {
       .subscribe((_: any) => {
         this.fetchRooms();
       });
+  }
+
+  getProposedRoomImages() {
+    return this.proposedRoomImages.slice();
   }
 }

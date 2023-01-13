@@ -31,8 +31,25 @@
               type="text"
               id="image"
               formControlName="image"
-              class="form-control"
-              #imagePath>
+              class="form-control">
+          </div>
+        </div>
+      </div>
+      <br>
+      <p>Jeśli nie masz pomysłu na obrazek może chcesz wybrać jeden z zaproponowanych przez nas:</p><br>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="row row-cols-1 row-cols-md-5 g-4">
+            <div class="col" *ngFor="let image of proposedImages;let i = index">
+              <div (mouseenter)="onEnter(i)" (mouseleave)="onLeave()">
+                <div class="card " [class.round]="i == selected">
+                  <img [src]="image" class="card-img-top" alt="...">
+                  <a class="stretched-link" (click)="onImageClicked(image)"></a>
+                </div>
+
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
@@ -43,6 +60,7 @@
                   style="margin-right: 3px;"
                   [disabled]="!roomForm.valid">Zapisz</button>
           <button type="button" class="btn btn-danger" (click)="onCancel()">Anuluj</button>
+          <br>
         </div>
       </div>
     </form>
