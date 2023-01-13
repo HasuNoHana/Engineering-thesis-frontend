@@ -43,6 +43,13 @@ export class TaskService {
       });
   }
 
+  updateTask(taskId: number, updatedTask: Task) {
+    let taskDto: TaskDto = new TaskDto(updatedTask.name, updatedTask.initialPrice, updatedTask.room.id, updatedTask.done);
+    this.updateTaskCall(taskId, taskDto).subscribe((_: Task) => {
+      this.fetchTasks();
+    });
+  }
+
   deleteTask(taskId: number) {
     this.deleteTaskCall(taskId).subscribe(( _: any) => {
       this.fetchTasks();
@@ -57,13 +64,6 @@ export class TaskService {
 
   makeTaskToDo(taskId: number) {
     this.makeTaskToDoCall(taskId).subscribe((_: any) => {
-        this.fetchTasks();
-      });
-  }
-
-  updateTask(taskId: number, updatedTask: Task) {
-    let taskDto: TaskDto = new TaskDto(updatedTask.name, updatedTask.initialPrice, updatedTask.room.id, updatedTask.done);
-    this.updateTaskCall(taskId, taskDto).subscribe((_: any) => {
         this.fetchTasks();
       });
   }
@@ -91,7 +91,7 @@ export class TaskService {
   }
 
   updateTaskCall(taskId: number, taskDto: TaskDto) {
-    return this.http.post('http://localhost:4200/api/updateTask?id=' + taskId, taskDto, {withCredentials: true});
+    return this.http.post<Task>('http://localhost:4200/api/updateTask?id=' + taskId, taskDto, {withCredentials: true});
   }
 
 
