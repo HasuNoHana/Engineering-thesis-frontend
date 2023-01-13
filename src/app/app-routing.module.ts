@@ -28,7 +28,7 @@ const appRoutes: Routes = [
   {
     path: 'tasks', component: TasksComponent, canActivate: [OnlyLoggedInUsersGuardService], children: [
       {path: 'list', component: TaskListComponent},
-      {path: 'list/new', component: TaskEditComponent},
+      {path: 'list/newTask', component: TaskEditComponent},
       {path: 'list/todo/:currentTaskId', component: TaskEditComponent},
       {path: 'list/done/:currentTaskId', component: TaskEditComponent},
     ]
@@ -36,7 +36,8 @@ const appRoutes: Routes = [
   {path: 'rooms', component: RoomsComponent,  canActivate: [OnlyLoggedInUsersGuardService], children: [
       {path: '', component: RoomListComponent},
       {path: 'new', component: RoomEditComponent},
-      {path: 'details/:id', component: RoomDetailComponent},
+      {path: 'details/:id', component: RoomDetailComponent, pathMatch: 'full'},
+      {path: 'details/:roomId/newTask', component: TaskEditComponent},
       {path: 'edit/:id', component: RoomEditComponent},
     ]
   },

@@ -5,6 +5,7 @@ import {TaskService} from "../task.service";
 import {Task} from "../task.model";
 import {RoomService} from "../../rooms/room.service";
 import {Room} from "../../rooms/room.model";
+import {debugLog} from "../../app.component";
 
 @Component({
   selector: 'app-task-edit',
@@ -20,6 +21,10 @@ export class TaskEditComponent implements OnInit {
   rooms: Room[];
   defaultRoom: string;
 
+  detailsMode: boolean;
+  roomId: number;
+  room: Room;
+
   constructor(private route: ActivatedRoute,
               private taskService: TaskService,
               private roomService: RoomService,
@@ -34,6 +39,13 @@ export class TaskEditComponent implements OnInit {
       this.currentTaskId = +params['currentTaskId'];
       this.editTableToDo = this.router.url.includes('todo');
       this.editMode = params['currentTaskId'] != null;
+
+      this.detailsMode = this.router.url.includes('details');
+      this.roomId = params['roomId'];
+      console.log("room id: ", this.roomId);
+      // @ts-ignore
+      this.room = this.roomService.getRoom(this.roomId);
+      console.log("detailsmode ",this.detailsMode);
       this.initForm();
     })
   }
@@ -43,8 +55,10 @@ export class TaskEditComponent implements OnInit {
     let t:Task = new Task(-1, this.taskForm.value['name'],this.taskForm.value['price'],
       room ,this.taskForm.value['done']);
     if(this.editMode) {
+      debugLog("Task to be edited: ", t);
       this.taskService.updateTask(this. currentTaskId, t);
     } else {
+      debugLog("Task to be added: ", t);
       this.taskService.addTask(t);
     }
     this.onCancel();
@@ -54,6 +68,9 @@ export class TaskEditComponent implements OnInit {
     if(this.editMode) {
       this.editMode = false;
       this.router.navigate(['../../'], {relativeTo: this.route});
+    } else if(this.detailsMode) {
+      this.detailsMode = false;
+      this.router.navigate(['../'], {relativeTo: this.route});
     } else {
       this.router.navigate(['../'], {relativeTo: this.route});
     }
@@ -74,6 +91,9 @@ export class TaskEditComponent implements OnInit {
         taskRoomName = task.room.name;
         this.defaultRoom = taskRoomName;
       }
+    } else if(this.detailsMode) {
+        taskRoomName = this.room?.name;
+        this.defaultRoom = this.room?.name;
     }
 
     this.taskForm = new FormGroup({

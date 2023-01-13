@@ -9,10 +9,13 @@ export class TaskService {
 
   toDoTasksChanged = new Subject<Task[]>();
   doneTasksChanged = new Subject<Task[]>();
+  toDoTasksForRoomIdChanged = new Subject<Task[]>();
+  doneTasksForRoomIdChanged = new Subject<Task[]>();
   tasksChanged = new Subject<Task[]>();
   private toDoTasks: Task[] = [];
   private doneTasks: Task[] = [];
   private tasks: Task[] = [];
+  private roomId: number;
 
   constructor(private http: HttpClient) {
     this.fetchTasks();
@@ -35,6 +38,10 @@ export class TaskService {
         this.tasksChanged.next(this.tasks.slice());
         this.toDoTasksChanged.next(this.toDoTasks.slice());
         this.doneTasksChanged.next(this.doneTasks.slice());
+        if(this.roomId){
+          this.toDoTasksForRoomIdChanged.next(this.toDoTasks.filter(task => task.room.id === this.roomId).slice());
+          this.doneTasksForRoomIdChanged.next(this.doneTasks.filter(task => task.room.id === this.roomId).slice());
+        }
       });
   }
 
@@ -78,5 +85,15 @@ export class TaskService {
       .subscribe((_: any) => {
         this.fetchTasks();
       });
+  }
+
+  getTasksToDoForRoom(roomId: number) {
+    this.roomId = roomId;
+    return this.toDoTasks.filter(task => task.room.id === roomId).slice();
+  }
+
+  getTasksDoneForRoom(roomId: number) {
+    this.roomId = roomId;
+    return this.doneTasks.filter(task => task.room.id === roomId).slice();
   }
 }
