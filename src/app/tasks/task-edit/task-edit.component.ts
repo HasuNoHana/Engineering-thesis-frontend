@@ -15,11 +15,13 @@ import {debugLog, debugLogOnlyMessage} from "../../app.component";
 export class TaskEditComponent implements OnInit {
 
   taskForm: FormGroup;
+  defaultRoomName: string;
+
   editMode = false;
   currentTaskId: number;
+  task: Task;
   editTableToDo: boolean;
   rooms: Room[];
-  defaultRoomName: string;
 
   detailsMode: boolean;
   roomId: number;
@@ -42,11 +44,13 @@ export class TaskEditComponent implements OnInit {
 
       this.detailsMode = this.router.url.includes('details');
       this.roomId = +params['roomId'];
-      let foundRoom = this.roomService.getRoom(this.roomId);
-      if (foundRoom === undefined) {
-        debugLogOnlyMessage("Room with id " + this.roomId + " not found")
+      if(this.detailsMode){
+        let foundRoom = this.roomService.getRoom(this.roomId);
+        if (foundRoom === undefined) {
+          debugLogOnlyMessage("Room with id " + this.roomId + " not found")
+        }
+        this.room = foundRoom;
       }
-      this.room = foundRoom;
 
       this.initForm();
     })
@@ -54,12 +58,14 @@ export class TaskEditComponent implements OnInit {
 
   onSubmit() {
     let room = this.roomService.getRoomByName(this.taskForm.value['roomName'])
-    let t:Task = new Task(-1, this.taskForm.value['name'],this.taskForm.value['price'],
-      room ,this.taskForm.value['done']);
     if(this.editMode) {
+      let t:Task = new Task(this. currentTaskId, this.taskForm.value['name'], this.taskForm.value['initialPrice'], this.task.currentPrice,
+        room, this.taskForm.value['done'], this.task.lastDoneDate, this.task.repetitionRateInDays);
       debugLog("Task to be edited: ", t);
-      this.taskService.updateTask(this. currentTaskId, t);
+      this.taskService.updateTask(t);
     } else {
+      let t:Task = new Task(-1, this.taskForm.value['name'],this.taskForm.value['initialPrice'], -1,
+        room ,this.taskForm.value['done'], new Date(), -1);
       debugLog("Task to be added: ", t);
       this.taskService.addTask(t);
     }
@@ -80,7 +86,7 @@ export class TaskEditComponent implements OnInit {
 
   private initForm() {
     let taskName = '';
-    let taskPrice: number = 0;
+    let taskInitialPrice: number = 0;
     let taskRoomName: any;
 
     if(this.editMode) {
@@ -88,9 +94,10 @@ export class TaskEditComponent implements OnInit {
       if(task === undefined) {
         console.error("Edited task does not exist");
       } else {
-        taskName = task.name;
-        taskPrice = task.initialPrice;
-        taskRoomName = task.room.name;
+        this.task = task;
+        taskName = this.task.name;
+        taskInitialPrice = this.task.initialPrice;
+        taskRoomName = this.task.room.name;
         this.defaultRoomName = taskRoomName;
       }
     } else if(this.detailsMode) {
@@ -100,7 +107,7 @@ export class TaskEditComponent implements OnInit {
 
     this.taskForm = new FormGroup({
       'name': new FormControl(taskName, Validators.required),
-      'price': new FormControl(taskPrice,
+      'initialPrice': new FormControl(taskInitialPrice,
         [Validators.required, Validators.min(1)]),
       'roomName': new FormControl(taskRoomName, Validators.required),
     });

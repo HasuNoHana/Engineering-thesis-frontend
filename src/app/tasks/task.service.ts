@@ -2,7 +2,6 @@ import {Injectable} from "@angular/core";
 import {Task} from "./task.model";
 import {Observable, Subject} from "rxjs";
 import {HttpClient} from "@angular/common/http";
-import {TaskDto} from "./taskDto.model";
 
 @Injectable()
 export class TaskService {
@@ -37,15 +36,13 @@ export class TaskService {
   }
 
   addTask(task: Task) {
-    let taskDto: TaskDto = new TaskDto(task.name, task.initialPrice, task.room.id, task.done);
-    this.addTaskCall(taskDto).subscribe((_: Task) => {
+    this.addTaskCall(task).subscribe((_: Task) => {
         this.fetchTasks()
       });
   }
 
-  updateTask(taskId: number, updatedTask: Task) {
-    let taskDto: TaskDto = new TaskDto(updatedTask.name, updatedTask.initialPrice, updatedTask.room.id, updatedTask.done);
-    this.updateTaskCall(taskId, taskDto).subscribe((_: Task) => {
+  updateTask(updatedTask: Task) {
+    this.updateTaskCall(updatedTask).subscribe((_: Task) => {
       this.fetchTasks();
     });
   }
@@ -74,8 +71,8 @@ export class TaskService {
     return this.http.get<Task[]>('http://localhost:4200/api/tasks', {withCredentials: true});
   }
 
-  addTaskCall(taskDto: TaskDto) {
-    return this.http.post<Task>('http://localhost:4200/api/addTask', taskDto, {withCredentials: true});
+  addTaskCall(task: Task) {
+    return this.http.post<Task>('http://localhost:4200/api/addTask', task, {withCredentials: true});
   }
 
   deleteTaskCall(taskId: number) {
@@ -90,8 +87,8 @@ export class TaskService {
     return this.http.post('http://localhost:4200/api/makeTaskToDo?id=' + taskId, {withCredentials: true});
   }
 
-  updateTaskCall(taskId: number, taskDto: TaskDto) {
-    return this.http.post<Task>('http://localhost:4200/api/updateTask?id=' + taskId, taskDto, {withCredentials: true});
+  updateTaskCall(task: Task) {
+    return this.http.post<Task>('http://localhost:4200/api/updateTask', task, {withCredentials: true});
   }
 
 

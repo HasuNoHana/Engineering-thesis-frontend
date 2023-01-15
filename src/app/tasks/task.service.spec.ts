@@ -4,7 +4,6 @@ import {House} from "../houses/house.model";
 import {Task} from "./task.model";
 import {TestBed} from "@angular/core/testing";
 import {HttpClientTestingModule, HttpTestingController} from "@angular/common/http/testing";
-import {TaskDto} from "./taskDto.model";
 
 describe('TaskService', () => {
   let httpTestingController: HttpTestingController;
@@ -30,8 +29,8 @@ describe('TaskService', () => {
   let room = new Room(1, 'Room 1', 'image_url', house);
   let room2 = new Room(2, 'Room 2', 'image_url_2', house);
   const expectedTasks: Task[] =
-    [new Task(1, 'Task 1', 10, room, false),
-    new Task(2, 'Task 2', 20, room2, true)];
+    [new Task(1, 'Task 1', 10, 10, room, false, new Date(), 1),
+    new Task(2, 'Task 2', 20, 20, room2, true, new Date, 6)];
 
     service.fetchTasksCall().subscribe(tasks => {
       expect(tasks).toEqual(expectedTasks);
@@ -44,10 +43,9 @@ describe('TaskService', () => {
   it('#addTaskCall should add task', () => {
     let house = new House(1, '1234');
     let room = new Room(1, 'Room 1', 'image_url', house);
-    const expectedTask: Task = new Task(1, 'Task 1', 10, room, false);
-    const taskDTO = new TaskDto(expectedTask.name, expectedTask.initialPrice, expectedTask.room.id, expectedTask.done);
+    const expectedTask: Task = new Task(1, 'Task 1', 10, 10, room, false, new Date(), 1);
 
-    service.addTaskCall(taskDTO).subscribe((actualTask: Task) => {
+    service.addTaskCall(expectedTask).subscribe((actualTask: Task) => {
       expect(actualTask).toEqual(expectedTask);
     });
 
@@ -58,19 +56,17 @@ describe('TaskService', () => {
   });
 
   it('#updateTaskCall should update task', () => {
-    let taskId = 1
     let house = new House(1, '1234');
     let room = new Room(1, 'Room 1', 'image_url', house);
-    const expectedTask: Task = new Task(taskId, 'Task 1', 10, room, false);
-    const taskDTO = new TaskDto(expectedTask.name, expectedTask.initialPrice, expectedTask.room.id, expectedTask.done);
+    const expectedTask: Task = new Task(1, 'Task 1', 10, 10, room, false, new Date(), 1);
 
-    service.updateTaskCall(taskId, taskDTO).subscribe((actualTask: Task) => {
+    service.updateTaskCall(expectedTask).subscribe((actualTask: Task) => {
       expect(actualTask).toEqual(expectedTask);
     });
 
     let requests = httpTestingController.match('http://localhost:4200/api/tasks');
     expect(requests.length).toBe(1);
-    requests = httpTestingController.match('http://localhost:4200/api/updateTask?id='+taskId);
+    requests = httpTestingController.match('http://localhost:4200/api/updateTask');
     expect(requests.length).toBe(1);
   });
 
