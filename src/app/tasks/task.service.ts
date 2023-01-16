@@ -16,9 +16,7 @@ export class TaskService {
   private tasks: Task[] = [];
   private roomId: number;
 
-  constructor(private http: HttpClient) {
-    this.fetchTasks();
-  }
+  constructor(private http: HttpClient) {}
 
   fetchTasks() {
     this.fetchTasksCall().subscribe((tasks: Task[]) => {
@@ -94,20 +92,32 @@ export class TaskService {
 
 
   getTasksToDoForRoom(roomId: number) {
+    if(this.tasks.length === 0){
+      this.fetchTasks();
+    }
     this.roomId = roomId;
     return this.toDoTasks.filter(task => task.room.id === roomId).slice();
   }
 
   getTasksDoneForRoom(roomId: number) {
+    if(this.tasks.length === 0){
+      this.fetchTasks();
+    }
     this.roomId = roomId;
     return this.doneTasks.filter(task => task.room.id === roomId).slice();
   }
 
   getToDoTasks(){
+    if(this.tasks.length === 0){
+      this.fetchTasks();
+    }
     return this.toDoTasks.slice();
   }
 
   getDoneTasks(){
+    if(this.tasks.length === 0){
+      this.fetchTasks();
+    }
     return this.doneTasks.slice();
   }
 

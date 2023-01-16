@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {TaskService} from "../task.service";
-import {Task} from "../task.model";
+import {Task, TaskBuilder} from "../task.model";
 import {RoomService} from "../../rooms/room.service";
 import {Room} from "../../rooms/room.model";
 import {debugLog, debugLogOnlyMessage} from "../../app.component";
@@ -58,14 +58,25 @@ export class TaskEditComponent implements OnInit {
 
   onSubmit() {
     let room = this.roomService.getRoomByName(this.taskForm.value['roomName'])
+    let taskBuilder: TaskBuilder = new TaskBuilder()
+      .setName(this.taskForm.value['name'])
+      .setInitialPrice(this.taskForm.value['initialPrice'])
+      .setRepetitionRateInDays(this.taskForm.value['repetitionRateInDays'])
+      .setRoom(room)
+
     if(this.editMode) {
-      let t:Task = new Task(this. currentTaskId, this.taskForm.value['name'], this.taskForm.value['initialPrice'], this.task.currentPrice,
-        room, this.taskForm.value['done'], this.task.lastDoneDate, this.task.repetitionRateInDays);
+      let t:Task = taskBuilder
+        .setId(this.currentTaskId)
+        .setDone(this.task.done)
+        .setCurrentPrice(this.task.currentPrice)
+        .setLastDoneDate(this.task.lastDoneDate)
+        .setRepetitionRateInDays(this.task.repetitionRateInDays)
+        .build()
+
       debugLog("Task to be edited: ", t);
       this.taskService.updateTask(t);
     } else {
-      let t:Task = new Task(-1, this.taskForm.value['name'],this.taskForm.value['initialPrice'], -1,
-        room ,this.taskForm.value['done'], new Date(), -1);
+      let t:Task = taskBuilder.build()
       debugLog("Task to be added: ", t);
       this.taskService.addTask(t);
     }
@@ -86,8 +97,9 @@ export class TaskEditComponent implements OnInit {
 
   private initForm() {
     let taskName = '';
-    let taskInitialPrice: number = 0;
+    let taskInitialPrice: number = 10;
     let taskRoomName: any;
+    let repetitionRateInDays: number = 7;
 
     if(this.editMode) {
       let task = this.taskService.getTask(this.currentTaskId);
@@ -99,6 +111,7 @@ export class TaskEditComponent implements OnInit {
         taskInitialPrice = this.task.initialPrice;
         taskRoomName = this.task.room.name;
         this.defaultRoomName = taskRoomName;
+        repetitionRateInDays = this.task.repetitionRateInDays;
       }
     } else if(this.detailsMode) {
         taskRoomName = this.room?.name;
@@ -110,6 +123,7 @@ export class TaskEditComponent implements OnInit {
       'initialPrice': new FormControl(taskInitialPrice,
         [Validators.required, Validators.min(1)]),
       'roomName': new FormControl(taskRoomName, Validators.required),
+      'repetitionRateInDays': new FormControl(repetitionRateInDays, Validators.required)
     });
     this.taskForm.controls['roomName'].setValue(this.defaultRoomName, {onlySelf: true});
   }

@@ -1,112 +1,133 @@
+import {HttpClient} from '@angular/common/http';
+import {TestBed} from '@angular/core/testing';
+import {createSpyFromClass, Spy} from 'jasmine-auto-spies';
 import {TaskService} from "./task.service";
-import {Room} from "../rooms/room.model";
 import {House} from "../houses/house.model";
-import {Task} from "./task.model";
-import {TestBed} from "@angular/core/testing";
-import {HttpClientTestingModule, HttpTestingController} from "@angular/common/http/testing";
+import {Room} from "../rooms/room.model";
+import {Task, TaskBuilder} from "./task.model";
 
-describe('TaskService', () => {
-  let httpTestingController: HttpTestingController;
+describe('CustomersService', () => {
   let service: TaskService;
+  let httpSpy: Spy<HttpClient>;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      providers: [
-        TaskService
-      ]
-    });
-    httpTestingController = TestBed.inject(HttpTestingController);
-    service = TestBed.inject(TaskService);
-  });
-
-  afterEach(() => {
-    httpTestingController.verify();
-  });
-
-  it('#fetchTasksCall should fetch all tasks', () => {
   let house = new House(1, '1234');
   let room = new Room(1, 'Room 1', 'image_url', house);
   let room2 = new Room(2, 'Room 2', 'image_url_2', house);
-  const expectedTasks: Task[] =
-    [new Task(1, 'Task 1', 10, 10, room, false, new Date(), 1),
-    new Task(2, 'Task 2', 20, 20, room2, true, new Date, 6)];
 
-    service.fetchTasksCall().subscribe(tasks => {
-      expect(tasks).toEqual(expectedTasks);
+  let expectedTask: Task = new TaskBuilder().setId(1).setName('Task 1').setDone(false).setInitialPrice(10)
+      .setCurrentPrice(10).setRoom(room).setLastDoneDate(new Date()).setRepetitionRateInDays(7).build();
+  let task2: Task = new TaskBuilder().setId(2).setName('Task 2').setDone(false).setInitialPrice(20)
+      .setCurrentPrice(20).setRoom(room2).setLastDoneDate(new Date()).setRepetitionRateInDays(1).build();
+
+  const expectedTasks: Task[] =
+    [expectedTask, task2];
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      providers: [
+        TaskService,
+        { provide: HttpClient, useValue: createSpyFromClass(HttpClient) }
+      ]
     });
 
-    const requests = httpTestingController.match('http://localhost:4200/api/tasks');
-    expect(requests.length).toBe(2);
+    service = TestBed.inject(TaskService);
+    httpSpy = TestBed.inject<any>(HttpClient);
   });
 
-  it('#addTaskCall should add task', () => {
-    let house = new House(1, '1234');
-    let room = new Room(1, 'Room 1', 'image_url', house);
-    const expectedTask: Task = new Task(1, 'Task 1', 10, 10, room, false, new Date(), 1);
+  it('should return an expected list of customers', (done: DoneFn) => {
+    httpSpy.get.and.nextWith(expectedTasks);
+
+    service.fetchTasksCall().subscribe(
+      actualTasks => {
+        expect(actualTasks).toHaveSize(expectedTasks.length);
+        expect(actualTasks).toEqual(expectedTasks);
+        done();
+      },
+      done.fail
+    );
+
+    expect(httpSpy.get.calls.count()).toBe(1);
+    expect(httpSpy.get).toHaveBeenCalledOnceWith('http://localhost:4200/api/tasks',
+      Object({ withCredentials: true }));
+  });
+
+  it('#addTaskCall should add task', (done: DoneFn) => {
+    httpSpy.post.and.nextWith(expectedTask);
 
     service.addTaskCall(expectedTask).subscribe((actualTask: Task) => {
       expect(actualTask).toEqual(expectedTask);
-    });
+        done();
+      },
+      done.fail
+    );
 
-    let requests = httpTestingController.match('http://localhost:4200/api/tasks');
-    expect(requests.length).toBe(1);
-    requests = httpTestingController.match('http://localhost:4200/api/addTask');
-    expect(requests.length).toBe(1);
+    expect(httpSpy.post.calls.count()).toBe(1);
+    expect(httpSpy.post).toHaveBeenCalledOnceWith('http://localhost:4200/api/addTask', expectedTask,
+      Object({ withCredentials: true }));
   });
 
-  it('#updateTaskCall should update task', () => {
-    let house = new House(1, '1234');
-    let room = new Room(1, 'Room 1', 'image_url', house);
-    const expectedTask: Task = new Task(1, 'Task 1', 10, 10, room, false, new Date(), 1);
+  it('#updateTaskCall should update task', (done: DoneFn) => {
+    httpSpy.post.and.nextWith(expectedTask);
 
     service.updateTaskCall(expectedTask).subscribe((actualTask: Task) => {
-      expect(actualTask).toEqual(expectedTask);
-    });
+        expect(actualTask).toEqual(expectedTask);
+        done();
+      },
+      done.fail
+    );
 
-    let requests = httpTestingController.match('http://localhost:4200/api/tasks');
-    expect(requests.length).toBe(1);
-    requests = httpTestingController.match('http://localhost:4200/api/updateTask');
-    expect(requests.length).toBe(1);
+    expect(httpSpy.post.calls.count()).toBe(1);
+    expect(httpSpy.post).toHaveBeenCalledOnceWith('http://localhost:4200/api/updateTask', expectedTask,
+      Object({withCredentials: true}));
   });
 
-  it('#deleteTaskCall should delete task', () => {
+  it('#deleteTaskCall should delete task', (done: DoneFn) => {
     let taskId = 1;
+    httpSpy.delete.and.nextWith(taskId);
 
     service.deleteTaskCall(1).subscribe((actualTaskId: any) => {
       expect(actualTaskId).toEqual(taskId);
-    });
+        done();
+      },
+      done.fail
+    );
 
-    let requests = httpTestingController.match('http://localhost:4200/api/tasks');
-    expect(requests.length).toBe(1);
-    requests = httpTestingController.match('http://localhost:4200/api/task?id='+taskId);
-    expect(requests.length).toBe(1);
+    expect(httpSpy.delete.calls.count()).toBe(1);
+    expect(httpSpy.delete).toHaveBeenCalledOnceWith('http://localhost:4200/api/task?id=' + taskId,
+      {withCredentials: true});
   });
 
-  it('#makeTaskDoneCall should make task done', () => {
+  //
+  it('#makeTaskDoneCall should make task done', (done: DoneFn) => {
     let taskId = 1;
+    httpSpy.post.and.nextWith(taskId);
 
     service.makeTaskDoneCall(1).subscribe((actualTaskId: any) => {
       expect(actualTaskId).toEqual(taskId);
-    });
+        done();
+      },
+      done.fail
+    );
 
-    let requests = httpTestingController.match('http://localhost:4200/api/tasks');
-    expect(requests.length).toBe(1);
-    requests = httpTestingController.match('http://localhost:4200/api/makeTaskDone?id=' + taskId);
-    expect(requests.length).toBe(1);
+    expect(httpSpy.post.calls.count()).toBe(1);
+    expect(httpSpy.post).toHaveBeenCalledOnceWith('http://localhost:4200/api/makeTaskDone?id=' + taskId,
+      {withCredentials: true});
   });
 
-  it('#makeTaskToDoCall should make task todo', () => {
+  it('#makeTaskToDoCall should make task todo', (done: DoneFn) => {
     let taskId = 1;
+    httpSpy.post.and.nextWith(taskId);
 
     service.makeTaskToDoCall(1).subscribe((actualTaskId: any) => {
       expect(actualTaskId).toEqual(taskId);
-    });
+        done();
+      },
+      done.fail
+    );
 
-    let requests = httpTestingController.match('http://localhost:4200/api/tasks');
-    expect(requests.length).toBe(1);
-    requests = httpTestingController.match('http://localhost:4200/api/makeTaskToDo?id=' + taskId);
-    expect(requests.length).toBe(1);
+    expect(httpSpy.post.calls.count()).toBe(1);
+    expect(httpSpy.post).toHaveBeenCalledOnceWith('http://localhost:4200/api/makeTaskToDo?id=' + taskId,
+      {withCredentials: true});
   });
 
 });

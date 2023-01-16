@@ -10,15 +10,46 @@ export class Task {
   public done: boolean;
   public lastDoneDate: Date;
   public repetitionRateInDays: number;
+}
+export class TaskBuilder {
+  private task: Task;
+    constructor() {
+        this.task = new Task();
+    }
 
-  constructor(id: number, name: string, initialPrice: number, currentPrice: number, room: Room, done: boolean, lastDoneDate: Date, repetitionRateInDays: number) {
-    this.id = id;
-    this.name = name;
-    this.initialPrice = initialPrice;
-    this.currentPrice = currentPrice;
-    this.room = room;
-    this.done = done;
-    this.lastDoneDate = lastDoneDate;
-    this.repetitionRateInDays = repetitionRateInDays;
-  }
+    setId(id: number): TaskBuilder {
+      this.task.id = id;
+      return this;
+    }
+    setName(name: string): TaskBuilder {
+      this.task.name = name;
+      return this;
+    }
+    setInitialPrice(initialPrice: number): TaskBuilder {
+      this.task.initialPrice = initialPrice;
+      return this;
+    }
+    setCurrentPrice(currentPrice: number): TaskBuilder {
+      this.task.currentPrice = currentPrice;
+      return this;
+    }
+    setRoom(room: Room): TaskBuilder {
+      this.task.room = room;
+      return this;
+    }
+    setDone(done: boolean): TaskBuilder {
+      this.task.done = done;
+      return this;
+    }
+    setLastDoneDate(lastDoneDate: Date): TaskBuilder {
+      this.task.lastDoneDate = lastDoneDate;
+      return this;
+    }
+    setRepetitionRateInDays(repetitionRateInDays: number): TaskBuilder {
+      this.task.repetitionRateInDays = repetitionRateInDays;
+      return this;
+    }
+    build(): Task {
+      return this.task;
+    }
 }

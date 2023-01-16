@@ -48,6 +48,28 @@
       <div class="row">
         <div class="col-xs-12">
           <div class="form-group">
+            <label for="repetitionRateInDays">Co ile dni należy powtarzać to zadanie?</label>
+            <input
+              type="number"
+              id="repetitionRateInDays"
+              formControlName="repetitionRateInDays"
+              class="form-control">
+            <span *ngIf="!taskForm.get('repetitionRateInDays').valid
+            && taskForm.get('repetitionRateInDays').touched" style="color: red"
+                  class="help-block">
+              <span *ngIf="taskForm.get('repetitionRateInDays').errors['required']" >
+                To pole nie może być puste!
+              </span><br *ngIf="taskForm.get('repetitionRateInDays').errors['required']">
+              <p><span *ngIf="taskForm.get('repetitionRateInDays').value < 1">
+                Liczba dni musi być większa od 0
+              </span>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
             <label for="roomName">Pokój</label>
             <select
               id="roomName"
