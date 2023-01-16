@@ -2,7 +2,6 @@ import {Injectable} from "@angular/core";
 import {Room} from "./room.model";
 import {Subject} from "rxjs";
 import {HttpClient} from "@angular/common/http";
-import {RoomDto} from "./roomDto.model";
 
 @Injectable({
   providedIn: 'root'
@@ -66,15 +65,15 @@ export class RoomService {
       });
   }
 
-  updateRoom(roomId: number, roomDto: RoomDto) {
-    this.http.post<Room>('http://localhost:4200/api/updateRoom?id='+roomId, roomDto,{withCredentials: true})
+  updateRoom(room: Room) {
+    this.http.post<Room>('http://localhost:4200/api/updateRoom', room,{withCredentials: true})
       .subscribe((_: any) => {
         this.fetchRooms();
       });
   }
 
-  addRoom(roomDto: RoomDto) {
-    this.http.post<Room>('http://localhost:4200/api/addRoom', roomDto,{withCredentials: true})
+  addRoom(room: Room) {
+    this.http.post<Room>('http://localhost:4200/api/addRoom', room,{withCredentials: true})
       .subscribe((_: any) => {
         this.fetchRooms();
       });

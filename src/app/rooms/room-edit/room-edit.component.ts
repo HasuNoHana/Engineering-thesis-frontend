@@ -2,7 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {RoomService} from "../room.service";
-import {RoomDto} from "../roomDto.model";
+import {Room} from "../room.model";
+import {House} from "../../houses/house.model";
 
 @Component({
   selector: 'app-room-edit',
@@ -16,6 +17,7 @@ export class RoomEditComponent implements OnInit {
   editMode = false;
   proposedImages: string[];
   selected: number = -1;
+  room: Room;
 
 
   constructor(private route: ActivatedRoute,
@@ -37,11 +39,12 @@ export class RoomEditComponent implements OnInit {
     if(roomUrl === '') {
       roomUrl = this.defaultRoomImage;
     }
-    let roomDto = new RoomDto(this.roomForm.value['name'], roomUrl);
     if(this.id) {
-      this.roomService.updateRoom(this.id, roomDto);
+      let room = new Room(this.room.id, this.roomForm.value['name'], roomUrl, this.room.house);
+      this.roomService.updateRoom(room);
     } else {
-      this.roomService.addRoom(roomDto);
+      let room = new Room(-1, this.roomForm.value['name'], roomUrl, new House(-1, ""));
+      this.roomService.addRoom(room);
     }
     this.onCancel();
   }
@@ -64,6 +67,7 @@ export class RoomEditComponent implements OnInit {
       if(room === undefined) {
         console.error("Edited room does not exist");
       } else {
+        this.room = room;
         roomName = room.name;
         roomImagePath = room.image;
       }

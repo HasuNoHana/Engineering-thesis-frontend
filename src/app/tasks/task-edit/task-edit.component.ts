@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {TaskService} from "../task.service";
-import {Task} from "../task.model";
+import {Task, TaskBuilder} from "../task.model";
 import {RoomService} from "../../rooms/room.service";
 import {Room} from "../../rooms/room.model";
 import {debugLog, debugLogOnlyMessage} from "../../app.component";
@@ -15,11 +15,13 @@ import {debugLog, debugLogOnlyMessage} from "../../app.component";
 export class TaskEditComponent implements OnInit {
 
   taskForm: FormGroup;
+  defaultRoomName: string;
+
   editMode = false;
   currentTaskId: number;
+  task: Task;
   editTableToDo: boolean;
   rooms: Room[];
-  defaultRoomName: string;
 
   detailsMode: boolean;
   roomId: number;
@@ -42,11 +44,13 @@ export class TaskEditComponent implements OnInit {
 
       this.detailsMode = this.router.url.includes('details');
       this.roomId = +params['roomId'];
-      let foundRoom = this.roomService.getRoom(this.roomId);
-      if (foundRoom === undefined) {
-        debugLogOnlyMessage("Room with id " + this.roomId + " not found")
+      if(this.detailsMode){
+        let foundRoom = this.roomService.getRoom(this.roomId);
+        if (foundRoom === undefined) {
+          debugLogOnlyMessage("Room with id " + this.roomId + " not found")
+        }
+        this.room = foundRoom;
       }
-      this.room = foundRoom;
 
       this.initForm();
     })
@@ -54,12 +58,25 @@ export class TaskEditComponent implements OnInit {
 
   onSubmit() {
     let room = this.roomService.getRoomByName(this.taskForm.value['roomName'])
-    let t:Task = new Task(-1, this.taskForm.value['name'],this.taskForm.value['price'],
-      room ,this.taskForm.value['done']);
+    let taskBuilder: TaskBuilder = new TaskBuilder()
+      .setName(this.taskForm.value['name'])
+      .setInitialPrice(this.taskForm.value['initialPrice'])
+      .setRepetitionRateInDays(this.taskForm.value['repetitionRateInDays'])
+      .setRoom(room)
+
     if(this.editMode) {
+      let t:Task = taskBuilder
+        .setId(this.currentTaskId)
+        .setDone(this.task.done)
+        .setCurrentPrice(this.task.currentPrice)
+        .setLastDoneDate(this.task.lastDoneDate)
+        .setRepetitionRateInDays(this.task.repetitionRateInDays)
+        .build()
+
       debugLog("Task to be edited: ", t);
-      this.taskService.updateTask(this. currentTaskId, t);
+      this.taskService.updateTask(t);
     } else {
+      let t:Task = taskBuilder.build()
       debugLog("Task to be added: ", t);
       this.taskService.addTask(t);
     }
@@ -80,18 +97,21 @@ export class TaskEditComponent implements OnInit {
 
   private initForm() {
     let taskName = '';
-    let taskPrice: number = 0;
+    let taskInitialPrice: number = 10;
     let taskRoomName: any;
+    let repetitionRateInDays: number = 7;
 
     if(this.editMode) {
       let task = this.taskService.getTask(this.currentTaskId);
       if(task === undefined) {
         console.error("Edited task does not exist");
       } else {
-        taskName = task.name;
-        taskPrice = task.initialPrice;
-        taskRoomName = task.room.name;
+        this.task = task;
+        taskName = this.task.name;
+        taskInitialPrice = this.task.initialPrice;
+        taskRoomName = this.task.room.name;
         this.defaultRoomName = taskRoomName;
+        repetitionRateInDays = this.task.repetitionRateInDays;
       }
     } else if(this.detailsMode) {
         taskRoomName = this.room?.name;
@@ -100,9 +120,10 @@ export class TaskEditComponent implements OnInit {
 
     this.taskForm = new FormGroup({
       'name': new FormControl(taskName, Validators.required),
-      'price': new FormControl(taskPrice,
+      'initialPrice': new FormControl(taskInitialPrice,
         [Validators.required, Validators.min(1)]),
       'roomName': new FormControl(taskRoomName, Validators.required),
+      'repetitionRateInDays': new FormControl(repetitionRateInDays, Validators.required)
     });
     this.taskForm.controls['roomName'].setValue(this.defaultRoomName, {onlySelf: true});
   }
