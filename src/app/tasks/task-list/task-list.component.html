@@ -15,8 +15,11 @@
         <tr>
           <th scope="col"></th>
           <th scope="col">Nazwa</th>
-          <th scope="col">Cena</th>
+          <th scope="col">Cena początkowa</th>
+          <th scope="col">Obecna cena</th>
           <th scope="col">Pokój</th>
+          <th scope="col">Ostatnio zrobione</th>
+          <th scope="col">Zrobione przez</th>
           <th scope="col"></th>
         </tr>
         </thead>
@@ -32,7 +35,10 @@
           </td>
           <td>{{ task.name }}</td>
           <td>{{ task.initialPrice }}</td>
+          <td>{{ task.currentPrice }}</td>
           <td>{{ task.room.name }}</td>
+          <td>{{ task.lastDoneDate }}</td>
+          <td>{{ taskToUserMap.get(task.lastDoneUserId) }}</td>
           <td style="width: 40px">
             <div class="dropdown">
               <button class="btn btn-secondary btn-sm" type="button" id="additionalActionToDo" data-bs-toggle="dropdown" aria-expanded="false">
@@ -54,8 +60,11 @@
         <tr>
           <th scope="col"></th>
           <th scope="col">Nazwa</th>
-          <th scope="col">Cena</th>
+          <th scope="col">Cena początkowa</th>
+          <th scope="col">Obecna cena</th>
           <th scope="col">Pokój</th>
+          <th scope="col">Ostatnio zrobione</th>
+          <th scope="col">Zrobione przez</th>
           <th scope="col"></th>
         </tr>
         </thead>
@@ -71,7 +80,10 @@
           </td>
           <td style="color: gray">{{ task.name }}</td>
           <td style="color: gray">{{ task.initialPrice }}</td>
+          <td style="color: gray">{{ task.currentPrice }}</td>
           <td style="color: gray">{{ task.room.name }}</td>
+          <td style="color: gray">{{ task.lastDoneDate }}</td>
+          <td style="color: gray">{{ taskToUserMap.get(task.lastDoneUserId) }}</td>
           <td style="width: 40px">
             <div class="dropdown">
               <button class="btn btn-secondary btn-sm" type="button" id="additionalActionDone" data-bs-toggle="dropdown" aria-expanded="false">
