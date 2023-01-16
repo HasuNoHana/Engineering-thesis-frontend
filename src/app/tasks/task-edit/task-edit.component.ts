@@ -70,6 +70,9 @@ export class TaskEditComponent implements OnInit {
         .setDone(this.task.done)
         .setCurrentPrice(this.task.currentPrice)
         .setLastDoneDate(this.task.lastDoneDate)
+        .setPreviousLastDoneDate(this.task.previousLastDoneDate)
+        .setLastDoneUserId(this.task.lastDoneUserId)
+        .setPreviousLastDoneUserId(this.task.previousLastDoneUserId)
         .setRepetitionRateInDays(this.task.repetitionRateInDays)
         .build()
 
