@@ -9,6 +9,9 @@ export class Task {
   public room: Room;
   public done: boolean;
   public lastDoneDate: Date;
+  public previousLastDoneDate: Date;
+  public lastDoneUserId: number;
+  public previousLastDoneUserId: number;
   public repetitionRateInDays: number;
 }
 export class TaskBuilder {
@@ -45,6 +48,18 @@ export class TaskBuilder {
       this.task.lastDoneDate = lastDoneDate;
       return this;
     }
+    setPreviousLastDoneDate(previousLastDoneDate: Date): TaskBuilder {
+      this.task.previousLastDoneDate = previousLastDoneDate;
+      return this;
+    }
+    setLastDoneUserId(lastDoneUserId: number): TaskBuilder {
+      this.task.lastDoneUserId = lastDoneUserId;
+      return this;
+    }
+  setPreviousLastDoneUserId(previousLastDoneUserId: number): TaskBuilder {
+    this.task.previousLastDoneUserId = previousLastDoneUserId;
+    return this;
+  }
     setRepetitionRateInDays(repetitionRateInDays: number): TaskBuilder {
       this.task.repetitionRateInDays = repetitionRateInDays;
       return this;
