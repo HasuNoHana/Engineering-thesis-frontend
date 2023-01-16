@@ -109,4 +109,7 @@ export class HouseService {
   }
 
 
+  getUserWithId(id: number) {
+    return this.users.find(user => user.id === id);
+  }
 }

@@ -2,6 +2,8 @@ import {Injectable} from "@angular/core";
 import {Task} from "./task.model";
 import {Observable, Subject} from "rxjs";
 import {HttpClient} from "@angular/common/http";
+import {HouseService} from "../houses/house.service";
+import {User} from "../houses/user.model";
 
 @Injectable()
 export class TaskService {
@@ -16,7 +18,11 @@ export class TaskService {
   private tasks: Task[] = [];
   private roomId: number;
 
-  constructor(private http: HttpClient) {}
+  taskToUserMapChanged = new Subject<Map<number, string>>();
+  taskToUserMap: Map<number, string> = new Map();
+
+  constructor(private http: HttpClient,
+              private houseService: HouseService) {}
 
   fetchTasks() {
     this.fetchTasksCall().subscribe((tasks: Task[]) => {
@@ -125,4 +131,19 @@ export class TaskService {
     return this.tasks.find(task => task.id === id);
   }
 
+  getTaskToUserMap() {
+    if (this.taskToUserMap.size === 0) {
+      this.fetchUsers();
+    }
+    return this.taskToUserMap;
+  }
+
+  private fetchUsers() {
+    this.houseService.usersChanged.subscribe((users: User[]) => {
+      users.forEach(user => {
+        this.taskToUserMap.set(user.id, user.username);
+      });
+      this.taskToUserMapChanged.next(this.taskToUserMap);
+    });
+  }
 }

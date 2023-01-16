@@ -5,6 +5,7 @@ import {TaskService} from "./task.service";
 import {House} from "../houses/house.model";
 import {Room} from "../rooms/room.model";
 import {Task, TaskBuilder} from "./task.model";
+import {HouseService} from "../houses/house.service";
 
 describe('CustomersService', () => {
   let service: TaskService;
@@ -26,6 +27,7 @@ describe('CustomersService', () => {
     TestBed.configureTestingModule({
       providers: [
         TaskService,
+        { provide: HouseService, useValue: createSpyFromClass(HouseService) },
         { provide: HttpClient, useValue: createSpyFromClass(HttpClient) }
       ]
     });

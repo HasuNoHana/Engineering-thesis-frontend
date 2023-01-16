@@ -14,6 +14,7 @@ export class TaskListComponent implements OnInit {
   subDoneTasks: Subscription;
   subToDoTasks: Subscription;
   isFetching = false;
+  taskToUserMap = new Map();
 
   roomId: number;
 
@@ -29,6 +30,7 @@ export class TaskListComponent implements OnInit {
       } else {
         this.getAllTasks();
       }
+      this.getUsersForTasks()
     })
   }
 
@@ -74,4 +76,10 @@ export class TaskListComponent implements OnInit {
     this.router.navigate(['newTask'], {relativeTo: this.route});
   }
 
+  private getUsersForTasks() {
+    this.taskToUserMap = this.taskService.getTaskToUserMap();
+    this.taskService.taskToUserMapChanged.subscribe((taskToUserMap: Map<number, string>) => {
+      this.taskToUserMap = taskToUserMap;
+    });
+  }
 }
