@@ -35,6 +35,11 @@ export class HouseService {
     this.fetchProposedImages();
   }
 
+  public fetchData() {
+    this.fetchUsers();
+    this.fetchUser();
+  }
+
   private fetchUsers() {
     this.http.get<User[]>('http://localhost:4200/api/users',{withCredentials: true})
       .subscribe((users: User[]) => {
