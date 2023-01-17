@@ -9,8 +9,10 @@
   <div class="col-xs-12">
     <p *ngIf="isFetching">Loading...</p>
     <div *ngIf="!isFetching">
+      <h3>Zadania do Zrobienia</h3>
+      <p>Zaznacz zadanie, aby oznaczyć je jako wykonane</p>
+
       <table class="table table-hover table-borderless caption-top" aria-describedby="ToDo Tasks List">
-        <caption class="table-light">Zadania do Zrobienia</caption>
         <thead class="table-light">
         <tr>
           <th scope="col"></th>
