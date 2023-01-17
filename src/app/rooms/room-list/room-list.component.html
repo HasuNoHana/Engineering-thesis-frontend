@@ -15,8 +15,15 @@
           <img [src]="room.image" class="card-img-top, heightWidth" alt="...">
           <div class="card-body">
             <h5 class="card-title">{{room.name}}</h5>
-            <p class="card-text">Zostało jeszcze 5 zadań do zrobienia</p>
-            <p class="card-text"><small class="text-muted"></small>
+              <p class="card-text" *ngIf="notDoneTasksForRooms.get(room.id) > 3 || notDoneTasksForRooms.get(room.id)==0">
+                Zostało jeszcze {{notDoneTasksForRooms.get(room.id)}} zadań do zrobienia</p>
+              <p class="card-text"><small class="text-muted"></small>
+              <p class="card-text" *ngIf="notDoneTasksForRooms.get(room.id) == 2">
+                Zostało jeszcze {{notDoneTasksForRooms.get(room.id)}} zadania do zrobienia</p>
+              <p class="card-text"><small class="text-muted"></small>
+              <p class="card-text" *ngIf="notDoneTasksForRooms.get(room.id) == 1">
+                Zostało jeszcze {{notDoneTasksForRooms.get(room.id)}} zadanie do zrobienia</p>
+              <p class="card-text"><small class="text-muted"></small>
             <hr>
             <button class="btn btn-success margin"
                     (click)="onRoomDetails(room.id)">Szczegóły</button>

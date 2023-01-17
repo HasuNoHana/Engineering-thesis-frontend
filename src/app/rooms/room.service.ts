@@ -2,6 +2,7 @@ import {Injectable} from "@angular/core";
 import {Room} from "./room.model";
 import {Subject} from "rxjs";
 import {HttpClient} from "@angular/common/http";
+import {TaskService} from "../tasks/task.service";
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +13,11 @@ export class RoomService {
   proposedImagesChanged = new Subject<string[]>();
   private proposedRoomImages: string[];
 
+  notDoneTasksForRooms: Map<number, number> = new Map();
 
-  constructor(private http: HttpClient) {
+
+  constructor(private http: HttpClient,
+              private taskService: TaskService) {
     this.fetchProposedRoomImages();
     this.fetchRooms();
   }
@@ -81,5 +85,13 @@ export class RoomService {
 
   getProposedRoomImages() {
     return this.proposedRoomImages.slice();
+  }
+
+  getNotDoneTasksForRooms() {
+    this.rooms.forEach((room) => {
+      this.notDoneTasksForRooms.set(room.id, this.taskService.getNotDoneTasksForRoom(room.id).length);
+    })
+    return this.notDoneTasksForRooms;
+
   }
 }

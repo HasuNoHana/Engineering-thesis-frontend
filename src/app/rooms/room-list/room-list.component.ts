@@ -11,6 +11,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 export class RoomListComponent implements OnInit{
 
   rooms: Room[];
+  notDoneTasksForRooms: Map<number, number> = new Map();
 
   constructor(private roomService: RoomService,
               private router: Router,
@@ -20,7 +21,9 @@ export class RoomListComponent implements OnInit{
     this.rooms = this.roomService.getRooms();
     this.roomService.roomsChanged.subscribe((rooms: Room[]) => {
       this.rooms = rooms;
+      this.notDoneTasksForRooms = this.roomService.getNotDoneTasksForRooms();
     })
+    this.notDoneTasksForRooms = this.roomService.getNotDoneTasksForRooms();
   }
 
   onNewRoom() {
