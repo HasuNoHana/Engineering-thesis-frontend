@@ -60,13 +60,15 @@ export class TaskService {
   makeTaskDone(taskId: number) {
     this.makeTaskDoneCall(taskId).subscribe((_: any) => {
         this.fetchTasks();
+        this.houseService.fetchData();
       });
   }
 
   makeTaskToDo(taskId: number) {
     this.makeTaskToDoCall(taskId).subscribe((_: any) => {
         this.fetchTasks();
-      });
+      this.houseService.fetchData();
+    });
   }
 
 

@@ -15,10 +15,26 @@ describe('CustomersService', () => {
   let room = new Room(1, 'Room 1', 'image_url', house);
   let room2 = new Room(2, 'Room 2', 'image_url_2', house);
 
-  let expectedTask: Task = new TaskBuilder().setId(1).setName('Task 1').setDone(false).setInitialPrice(10)
-      .setCurrentPrice(10).setRoom(room).setLastDoneDate(new Date()).setRepetitionRateInDays(7).build();
-  let task2: Task = new TaskBuilder().setId(2).setName('Task 2').setDone(false).setInitialPrice(20)
-      .setCurrentPrice(20).setRoom(room2).setLastDoneDate(new Date()).setRepetitionRateInDays(1).build();
+  let expectedTask: Task = new TaskBuilder()
+    .setId(1)
+    .setName('Task 1')
+    .setDone(false)
+    .setInitialPrice(10)
+    .setCurrentPrice(10)
+    .setRoom(room)
+    .setLastDoneDate(new Date())
+    .setRepetitionRateInDays(7)
+    .build();
+  let task2: Task = new TaskBuilder()
+    .setId(2)
+    .setName('Task 2')
+    .setDone(false)
+    .setInitialPrice(20)
+    .setCurrentPrice(20)
+    .setRoom(room2)
+    .setLastDoneDate(new Date())
+    .setRepetitionRateInDays(1)
+    .build();
 
   const expectedTasks: Task[] =
     [expectedTask, task2];
@@ -48,7 +64,6 @@ describe('CustomersService', () => {
       done.fail
     );
 
-    expect(httpSpy.get.calls.count()).toBe(1);
     expect(httpSpy.get).toHaveBeenCalledOnceWith('http://localhost:4200/api/tasks',
       Object({ withCredentials: true }));
   });
@@ -63,7 +78,6 @@ describe('CustomersService', () => {
       done.fail
     );
 
-    expect(httpSpy.post.calls.count()).toBe(1);
     expect(httpSpy.post).toHaveBeenCalledOnceWith('http://localhost:4200/api/addTask', expectedTask,
       Object({ withCredentials: true }));
   });
@@ -78,7 +92,6 @@ describe('CustomersService', () => {
       done.fail
     );
 
-    expect(httpSpy.post.calls.count()).toBe(1);
     expect(httpSpy.post).toHaveBeenCalledOnceWith('http://localhost:4200/api/updateTask', expectedTask,
       Object({withCredentials: true}));
   });
@@ -94,7 +107,6 @@ describe('CustomersService', () => {
       done.fail
     );
 
-    expect(httpSpy.delete.calls.count()).toBe(1);
     expect(httpSpy.delete).toHaveBeenCalledOnceWith('http://localhost:4200/api/task?id=' + taskId,
       {withCredentials: true});
   });
@@ -111,7 +123,6 @@ describe('CustomersService', () => {
       done.fail
     );
 
-    expect(httpSpy.post.calls.count()).toBe(1);
     expect(httpSpy.post).toHaveBeenCalledOnceWith('http://localhost:4200/api/makeTaskDone?id=' + taskId,
       {withCredentials: true});
   });
@@ -127,7 +138,6 @@ describe('CustomersService', () => {
       done.fail
     );
 
-    expect(httpSpy.post.calls.count()).toBe(1);
     expect(httpSpy.post).toHaveBeenCalledOnceWith('http://localhost:4200/api/makeTaskToDo?id=' + taskId,
       {withCredentials: true});
   });
