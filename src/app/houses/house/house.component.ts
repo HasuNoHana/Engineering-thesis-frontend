@@ -19,6 +19,7 @@ export class HouseComponent implements OnInit {
   joinCode: string;
   inviteClicked: boolean;
   houseBuddy: HouseBuddy;
+  doneTasksThisWeek: number;
 
   constructor(private houseService: HouseService,
               private router: Router) {}
@@ -29,6 +30,7 @@ export class HouseComponent implements OnInit {
     this.getUserAndWidth();
     this.getUsers();
     this.getJoinCode();
+    this.getDoneTasksThisWeek();
   }
 
 
@@ -65,5 +67,13 @@ export class HouseComponent implements OnInit {
 
   onEditPhoto() {
     this.router.navigateByUrl('/my/house/editPhoto');
+  }
+
+  private getDoneTasksThisWeek() {
+    this.houseService.doneTasksThisWeekChanged.subscribe((doneTasksThisWeek: number) => {
+      this.doneTasksThisWeek = doneTasksThisWeek;
+      console.log(doneTasksThisWeek);
+    })
+    this.doneTasksThisWeek = this.houseService.getDoneTasksThisWeek();
   }
 }

@@ -14,7 +14,7 @@
         <div class="column">
           <div class="col-md-12">
             <h1>Cześć {{username}}!</h1>
-            <h3>Zrobione Zadania: {{houseBuddy?.firewoodStackSize}}</h3>
+            <h3>Zrobione Zadania: {{doneTasksThisWeek}}</h3>
             <h3>Liczba punktów: {{houseBuddy?.firewoodStackSize}}/{{houseBuddy?.weeklyFirewoodContribution}}</h3><br>
             <div *ngIf="width>=0" class="progress">
               <div *ngIf="width>10" class="progress-bar bg-success" role="progressbar" [style.width.%]="width" aria-valuenow="25"
@@ -37,7 +37,7 @@
           </div><br>
           <div *ngIf="inviteClicked" class="alert alert-warning" role="alert">
               <p>Kod domu: {{joinCode}}</p><hr>
-              <p>Podaj ten kod osobie która chce dołączyć do Twojego domu, może go wpisać podczas rejestracji.</p>
+              <p>Podaj ten kod osobie, która chce dołączyć do Twojego domu, może go wpisać podczas rejestracji.</p>
           </div>
 
         </div>
@@ -49,6 +49,9 @@
 <div class="container" *ngIf="users">
   <div class="row">
     <div class="col-md-12">
+      <br>
+      <h2>Punkty zebrane przez mieszkańców</h2>
+      <br>
       <table class="table table-hover table-borderless caption-top" aria-describedby="ToDo Tasks List">
         <thead class="table-light">
         <tr>

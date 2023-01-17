@@ -25,6 +25,9 @@ export class HouseService {
 
   username: string;
 
+  doneTasksThisWeekChanged = new Subject<number>();
+  doneTasksThisWeek: number;
+
   constructor(private http: HttpClient) {
     this.users = <User[]>[];
     // @ts-ignore
@@ -33,11 +36,14 @@ export class HouseService {
     this.fetchUser();
     this.fetchJoinCode();
     this.fetchProposedImages();
+    this.fetchDoneTasksThisWeek();
   }
 
   public fetchData() {
     this.fetchUsers();
     this.fetchUser();
+    this.fetchUsers();
+    this.fetchDoneTasksThisWeek();
   }
 
   private fetchUsers() {
@@ -54,6 +60,15 @@ export class HouseService {
         debugLog("GET: api/currentUserData, response:", user);
         this.houseBuddy = user;
         this.houseBuddyChanged.next(this.houseBuddy);
+      });
+  }
+
+  fetchDoneTasksThisWeek() {
+    this.http.get<number>('http://localhost:4200/api/doneTasksThisWeek',{withCredentials: true})
+      .subscribe((doneTasksThisWeek: number) => {
+        debugLog("GET: api/currentUserData, response:", doneTasksThisWeek);
+        this.doneTasksThisWeek = doneTasksThisWeek;
+        this.doneTasksThisWeekChanged.next(this.doneTasksThisWeek);
       });
   }
 
@@ -116,5 +131,9 @@ export class HouseService {
 
   getUserWithId(id: number) {
     return this.users.find(user => user.id === id);
+  }
+
+  getDoneTasksThisWeek() {
+    return this.doneTasksThisWeek;
   }
 }
