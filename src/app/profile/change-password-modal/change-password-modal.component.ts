@@ -1,7 +1,8 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {ProfileService} from "../profile.service";
+import {ModalInformationService} from "../modal-information.service";
 
 @Component({
   selector: 'app-change-password-modal',
@@ -10,21 +11,24 @@ import {ProfileService} from "../profile.service";
 export class ChangePasswordModalComponent implements OnInit {
   closeResult = '';
   changePasswordForm: FormGroup;
-  @Output("passwordChanged") passwordChanged = new EventEmitter<boolean>();
+  @ViewChild("content",{static:true}) content:ElementRef;
 
   constructor(private modalService: NgbModal,
-              private profileService: ProfileService) { }
+              private profileService: ProfileService,
+              private modalInformationService: ModalInformationService) { }
 
   ngOnInit(): void {
+    this.modalInformationService.passwordChangeSignal.subscribe((_: any) => {
+      this.open(this.content)
+    })
     this.initForm();
   }
 
   open(content:any) {
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
       (result) => {
-        console.log("tak")
-        this.profileService.changePassword(this.changePasswordForm.value.password);
-        this.passwordChanged.emit(true);
+        this.profileService.changePassword(this.changePasswordForm.value.currentPassword,
+          this.changePasswordForm.value.password)
       },
       (reason) => {
       },
@@ -34,6 +38,7 @@ export class ChangePasswordModalComponent implements OnInit {
   private initForm() {
 
     this.changePasswordForm = new FormGroup({
+      'currentPassword': new FormControl("", Validators.required),
       'password': new FormControl("", Validators.required),
       'repeatedPassword': new FormControl("", [Validators.required])
     });

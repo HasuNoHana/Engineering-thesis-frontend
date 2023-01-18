@@ -3,6 +3,8 @@ import {HouseBuddy} from "../houses/HouseBuddy.model";
 import {HouseService} from "../houses/house.service";
 import {Router} from "@angular/router";
 import {debugLog} from "../app.component";
+import {ModalInformationService} from "./modal-information.service";
+import {ProfileService} from "./profile.service";
 
 @Component({
   selector: 'app-profile',
@@ -15,11 +17,21 @@ export class ProfileComponent implements OnInit {
   inviteClicked: boolean;
   houseBuddy: HouseBuddy;
   passwordChanged: boolean = false;
+  passwordChangeMessage: string = "none";
 
   constructor(private houseService: HouseService,
-              private router: Router) { }
+              private router: Router,
+              private modalInformationService: ModalInformationService,
+              private profileService: ProfileService) { }
 
   ngOnInit(): void {
+    this.profileService.passwordChangeSuccess.subscribe((isSuccess: boolean) => {
+      if(isSuccess) {
+        this.passwordChangeMessage = "success"; //NOSONAR
+      } else {
+        this.passwordChangeMessage = "error"; //NOSONAR
+      }
+    })
     this.getJoinCode();
     this.getUserAndWidth();
   }
@@ -52,4 +64,11 @@ export class ProfileComponent implements OnInit {
     this.router.navigateByUrl('/my/house/editPhoto');
   }
 
+  onUserDelete() {
+    this.modalInformationService.onDeleteUser();
+  }
+
+  onPasswordChange() {
+    this.modalInformationService.onPasswordChange();
+  }
 }

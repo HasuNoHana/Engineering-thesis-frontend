@@ -9,12 +9,9 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-light" data-dismiss="modal"
-            (click)="modal.dismiss('Cross click')">Nie</button>
+            (click)="modal.dismiss('Cross click')">Anuluj</button>
     <button type="button" class="btn btn-dark"
             (click)="modal.close('Save click')">Usuń użytkownika</button>
   </div>
 </ng-template>
-
-<button class="btn btn-lg btn-danger" (click)="open(content)">Usuń użytkownika</button>
-
 <pre>{{ closeResult }}</pre>
