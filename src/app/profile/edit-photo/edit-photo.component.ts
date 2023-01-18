@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {HouseService} from "../house.service";
+import {HouseService} from "../../houses/house.service";
 import {Router} from "@angular/router";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 
@@ -24,7 +24,7 @@ export class EditPhotoComponent implements OnInit {
 
   onImageClicked(image: string) {
     this.houseService.editPhoto( image);
-    this.router.navigateByUrl('/my/house');
+    this.onCancel();
   }
 
   private initForm() {
@@ -46,6 +46,6 @@ export class EditPhotoComponent implements OnInit {
   }
 
   onCancel() {
-    this.router.navigateByUrl('/my/house');
+    this.router.navigateByUrl('/dashboard');
   }
 }

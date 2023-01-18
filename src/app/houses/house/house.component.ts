@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {HouseService} from "../house.service";
 import {User} from "../user.model";
 import {Router} from "@angular/router";
@@ -16,10 +16,10 @@ export class HouseComponent implements OnInit {
   image: string;
   width:number;
   users: User[]
-  joinCode: string;
-  inviteClicked: boolean;
   houseBuddy: HouseBuddy;
   doneTasksThisWeek: number;
+
+  @Output() newItemEvent = new EventEmitter<string>();
 
   constructor(private houseService: HouseService,
               private router: Router) {}
@@ -29,7 +29,6 @@ export class HouseComponent implements OnInit {
     this.username = localStorage.getItem("username");
     this.getUserAndWidth();
     this.getUsers();
-    this.getJoinCode();
     this.getDoneTasksThisWeek();
   }
 
@@ -51,23 +50,7 @@ export class HouseComponent implements OnInit {
     this.width = Math.ceil((this.houseBuddy.firewoodStackSize / this.houseBuddy.weeklyFirewoodContribution) * 100);
   }
 
-  private getJoinCode() {
-    this.houseService.joinCodeChanged.subscribe((joinCode: string) => {
-      this.joinCode = joinCode;
-    })
-    this.joinCode = this.houseService.getJoinCode();
-  }
 
-  onInviteClicked() {
-    if(this.inviteClicked) {
-      this.joinCode = this.houseService.getJoinCode();
-    }
-    this.inviteClicked = !this.inviteClicked
-  }
-
-  onEditPhoto() {
-    this.router.navigateByUrl('/my/house/editPhoto');
-  }
 
   private getDoneTasksThisWeek() {
     this.houseService.doneTasksThisWeekChanged.subscribe((doneTasksThisWeek: number) => {

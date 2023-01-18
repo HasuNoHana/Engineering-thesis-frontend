@@ -13,13 +13,15 @@ import {RoomDetailComponent} from "./rooms/room-detail/room-detail.component";
 import {HousesComponent} from "./houses/houses.component";
 import {HouseComponent} from "./houses/house/house.component";
 import {EditUserComponent} from "./houses/edit-user/edit-user.component";
-import {EditPhotoComponent} from "./houses/edit-photo/edit-photo.component";
+import {EditPhotoComponent} from "./profile/edit-photo/edit-photo.component";
+import {ProfileComponent} from "./profile/profile.component";
 
 const appRoutes: Routes = [
 
   {path: '', pathMatch: 'full', redirectTo: 'tasks'},
   {path: 'login', component: LoginComponent},
   {path: 'signup', component: SignUpComponent},
+  {path: 'dashboard', component: ProfileComponent},
   {path: 'my', component: HousesComponent, canActivate: [OnlyLoggedInUsersGuardService], children: [
       {path: 'house', component: HouseComponent},
       {path: 'house/editUser/:id', component: EditUserComponent},

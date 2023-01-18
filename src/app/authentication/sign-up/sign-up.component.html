@@ -34,7 +34,7 @@
                 <label class="form-label" for="password">Powtórz hasło</label>
                 <div *ngIf="signUpForm.controls['passwordConfirmation'].value !== signUpForm.controls['password'].value &&
                             signUpForm.controls['passwordConfirmation'].touched !== false" class="alert alert-danger small">
-                  Wprowadzone hasło musi być takie samo jak powtórzone!
+                  Powtórzone hasło musi być takie samo jak hasło!
                 </div>
               </div>
 

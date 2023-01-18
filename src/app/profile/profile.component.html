@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="row">
+
+      <div class="col text-center">
+        <img src="{{houseBuddy?.avatarImageUrl}}" width="300" height="300" alt="..."><br><br>
+        <button type="button" class="btn btn-light btn-lg btn-block"
+                (click)="onEditPhoto()">Edytuj</button>
+      </div>
+
+      <div class="col-6 text-center">
+          <h3>Witaj w swoim profilu zuza!</h3>
+          <p >W tym miejscu możesz zedytować swój profil lub go usunąć</p>
+      </div>
+
+      <div class="col text-center">
+            <app-komponent></app-komponent>
+            <app-change-password-modal (passwordChanged)="passwordChanged = true"></app-change-password-modal>
+            <div *ngIf="passwordChanged" class="alert alert-success small">
+              Zmiana hasła zakończona sukcesem!
+            </div>
+            <div><button type="button" class="btn btn-success btn-lg btn-block"
+                         (click)="onInviteClicked()">Zaproś do domu nową osobę</button></div><br>
+            <div *ngIf="inviteClicked" class="alert alert-warning" role="alert">
+              <p>Kod domu: {{joinCode}}</p><hr>
+              <p>Podaj ten kod osobie, która chce dołączyć do Twojego domu, może go wpisać podczas rejestracji.</p>
+            </div>
+      </div>
+  </div>
+</div>
+

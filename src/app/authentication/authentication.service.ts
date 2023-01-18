@@ -21,7 +21,7 @@ export class AuthenticationService {
   }
 
 
-  authenticate(credentials: { username: string; password: string; }, callback: () => any) {
+  authenticate(credentials: { username: string; password: string; }, callback: (b: boolean) => any) {
 
     const headers = new HttpHeaders(credentials ? {
       authorization: 'Basic ' + btoa(credentials.username + ':' + credentials.password)
@@ -35,7 +35,9 @@ export class AuthenticationService {
       } else {
         this.authenticated = false;
       }
-      return callback && callback();
+      return callback && callback(true);
+    }, error => {
+      return callback && callback(false);
     });
   }
 
