@@ -14,7 +14,6 @@ import {RoomListComponent} from './rooms/room-list/room-list.component';
 import {RoomEditComponent} from './rooms/room-edit/room-edit.component';
 import {TaskEditComponent} from './tasks/task-edit/task-edit.component';
 import {LoginComponent} from './authentication/login/login.component';
-import {HomeComponent} from './home-page/home.component';
 import {AuthenticationService} from "./authentication/authentication.service";
 import {TaskService} from "./tasks/task.service";
 import {OnlyLoggedInUsersGuardService} from "./authentication/only-logged-in-users-guard.service";
@@ -47,7 +46,6 @@ export class XhrInterceptor implements HttpInterceptor {
     RoomEditComponent,
     TaskEditComponent,
     LoginComponent,
-    HomeComponent,
     SignUpComponent,
     RoomDetailComponent,
     HousesComponent,
