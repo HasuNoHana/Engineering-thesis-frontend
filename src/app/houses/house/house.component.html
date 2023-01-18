@@ -5,8 +5,7 @@
       <div class="container split1">
         <div class="column">
           <div class="col-md-12">
-            <img src="{{houseBuddy?.avatarImageUrl}}" width="300" height="300" alt="..."><br><br>
-            <button type="button" class="btn btn-light btn-lg btn-block" (click)="onEditPhoto()">Edytuj</button>
+            <img src="{{houseBuddy?.avatarImageUrl}}" width="300" height="300" alt="...">
           </div>
         </div>
       </div>
@@ -29,19 +28,7 @@
           </div>
         </div>
       </div>
-      <div class="container split3">
-        <div class="column">
-          <div class="col-md-12">
-            <button type="button" class="btn btn-success btn-lg btn-block"
-            (click)="onInviteClicked()">Zaproś</button>
-          </div><br>
-          <div *ngIf="inviteClicked" class="alert alert-warning" role="alert">
-              <p>Kod domu: {{joinCode}}</p><hr>
-              <p>Podaj ten kod osobie, która chce dołączyć do Twojego domu, może go wpisać podczas rejestracji.</p>
-          </div>
 
-        </div>
-      </div>
 
     </div>
   </div>

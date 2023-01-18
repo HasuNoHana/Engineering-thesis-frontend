@@ -4,7 +4,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 30%;
+  width: 40%;
   float: left;
 }
 .split2 {
@@ -13,16 +13,7 @@
   display: flex;
   align-items: center;
   justify-content: left;
-  width: 55%;
-  float: left;
-}
-.split3 {
-  text-align: center;
-  padding: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 15%;
+  width: 60%;
   float: left;
 }
 img{

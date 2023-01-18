@@ -10,6 +10,7 @@ import {Router} from '@angular/router';
 export class LoginComponent {
 
   credentials = {username: '', password: ''};
+  failedToAuthenticate: boolean = false;
 
   constructor(public authService: AuthenticationService,
               private http: HttpClient,
@@ -17,8 +18,13 @@ export class LoginComponent {
   }
 
   login() {
-    this.authService.authenticate(this.credentials, () => {
-      this.router.navigateByUrl('/tasks/list');
+    this.authService.authenticate(this.credentials, (noError: boolean) => {
+      if (noError) {
+        this.failedToAuthenticate = false
+        this.router.navigateByUrl('/tasks/list');
+      } else {
+        this.failedToAuthenticate = true
+      }
     });
     return false;
   }

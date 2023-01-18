@@ -22,7 +22,10 @@ import {RoomDetailComponent} from './rooms/room-detail/room-detail.component';
 import {HousesComponent} from './houses/houses.component';
 import {HouseComponent} from './houses/house/house.component';
 import {EditUserComponent} from './houses/edit-user/edit-user.component';
-import {EditPhotoComponent} from './houses/edit-photo/edit-photo.component';
+import {EditPhotoComponent} from './profile/edit-photo/edit-photo.component';
+import {DeleteUserModal} from './profile/delete-user-modal/delete-user-modal.component';
+import {ProfileComponent} from './profile/profile.component';
+import {ChangePasswordModalComponent} from './profile/change-password-modal/change-password-modal.component';
 
 @Injectable()
 export class XhrInterceptor implements HttpInterceptor {
@@ -52,6 +55,9 @@ export class XhrInterceptor implements HttpInterceptor {
     HouseComponent,
     EditUserComponent,
     EditPhotoComponent,
+    DeleteUserModal,
+    ProfileComponent,
+    ChangePasswordModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -59,7 +65,7 @@ export class XhrInterceptor implements HttpInterceptor {
     ReactiveFormsModule,
     HttpClientModule,
     AppRoutingModule,
-    NgbModule
+    NgbModule,
   ],
   providers: [
     AuthenticationService,

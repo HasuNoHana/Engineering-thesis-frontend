@@ -36,6 +36,10 @@ export class SignUpComponent implements OnInit {
   }
 
   signup() {
+    if(this.signUpForm.controls['password'].value !== this.signUpForm.controls['passwordConfirmation'].value) {
+      return;
+    }
+
     this.badJoinCode = false;
     if(!this.signUpForm.valid) {
       return;
@@ -78,3 +82,5 @@ export class SignUpComponent implements OnInit {
     console.log(this.houseCheckbox);
   }
 }
+
+

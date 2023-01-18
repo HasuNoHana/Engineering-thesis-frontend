@@ -68,7 +68,9 @@ export class TaskListComponent implements OnInit {
   }
 
   onDelete(taskId: number) {
-    this.taskService.deleteTask(taskId);
+    if(confirm("Czy na pewno chcesz usunąć to zadanie?")) {
+      this.taskService.deleteTask(taskId);
+    }
   }
 
   onCreateNewTask() {

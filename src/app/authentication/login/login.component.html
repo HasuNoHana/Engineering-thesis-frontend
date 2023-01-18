@@ -19,6 +19,9 @@
                        [(ngModel)]="credentials.password" name="password"/>
                 <label class="form-label" for="password">Hasło</label>
               </div>
+              <div *ngIf="failedToAuthenticate" class="alert alert-danger small">
+                Logowanie nie powiodło się. Sprawdź nazwę użytkownika i hasło.
+              </div>
 
               <button class="btn btn-primary btn-lg btn-block" type="submit">Zaloguj się</button>
 
