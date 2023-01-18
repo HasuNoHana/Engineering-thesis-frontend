@@ -32,14 +32,17 @@
               id="initialPrice"
               formControlName="initialPrice"
               class="form-control">
-            <span *ngIf="!taskForm.get('initialPrice').valid
-            && taskForm.get('initialPrice').touched" style="color: red"
-                  class="help-block">
+              <span *ngIf="!taskForm.get('initialPrice').valid
+              && taskForm.get('initialPrice').touched" style="color: red"
+                    class="help-block">
               <span *ngIf="taskForm.get('initialPrice').errors['required']" >
-                To pole nie może być puste!
+                To pole nie może być puste i musi być liczbą!
               </span><br *ngIf="taskForm.get('initialPrice').errors['required']">
+              <span *ngIf="taskForm.get('initialPrice').errors['pattern']" >
+                Wpisana wartość musi być liczbą całowitą!
+              </span><br *ngIf="taskForm.get('initialPrice').errors['pattern']">
               <p><span *ngIf="taskForm.get('initialPrice').value < 1">
-                Cena musi być większa od 0
+                Cena musi być większa od 0!
               </span>
             </span>
           </div>
@@ -54,14 +57,17 @@
               id="repetitionRateInDays"
               formControlName="repetitionRateInDays"
               class="form-control">
-            <span *ngIf="!taskForm.get('repetitionRateInDays').valid
-            && taskForm.get('repetitionRateInDays').touched" style="color: red"
-                  class="help-block">
+              <span *ngIf="!taskForm.get('repetitionRateInDays').valid
+              && taskForm.get('repetitionRateInDays').touched" style="color: red"
+                    class="help-block">
               <span *ngIf="taskForm.get('repetitionRateInDays').errors['required']" >
-                To pole nie może być puste!
+                To pole nie może być puste i musi być liczbą!
               </span><br *ngIf="taskForm.get('repetitionRateInDays').errors['required']">
+              <span *ngIf="taskForm.get('repetitionRateInDays').errors['pattern']" >
+                Wpisana wartość musi być liczbą całowitą!
+              </span><br *ngIf="taskForm.get('repetitionRateInDays').errors['pattern']">
               <p><span *ngIf="taskForm.get('repetitionRateInDays').value < 1">
-                Liczba dni musi być większa od 0
+                Liczba dni musi być większa od 0!
               </span>
             </span>
           </div>

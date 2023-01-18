@@ -13,12 +13,13 @@ import {House} from "../../houses/house.model";
 export class RoomEditComponent implements OnInit {
   id: number;
   roomForm: FormGroup;
-  defaultRoomImage = 'https://upload.wikimedia.org/wikipedia/commons/3/31/White_paper.jpg';
+  defaultRoomImage = 'https://upload.wikimedia.org/wikipedia/commons/3/31/Cib-nextdoor_%28CoreUI_Icons_v1.0.0%29.svg';
   editMode = false;
   proposedImages: string[];
   selected: number = -1;
   room: Room;
 
+  urlPattern = 'https?://([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?';
 
   constructor(private route: ActivatedRoute,
               private roomService: RoomService,
@@ -75,7 +76,7 @@ export class RoomEditComponent implements OnInit {
 
     this.roomForm = new FormGroup({
       'name': new FormControl(roomName, Validators.required),
-      'image': new FormControl(roomImagePath),
+      'image': new FormControl(roomImagePath, Validators.pattern(this.urlPattern)),
     });
   }
 
