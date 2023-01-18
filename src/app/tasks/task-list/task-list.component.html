@@ -4,12 +4,12 @@
             (click)="onCreateNewTask()">Stwórz nowe zadanie</button>
   </div>
 </div>
-<hr>
+<!--<hr>--><br>
 <div class="row">
   <div class="col-xs-12">
     <p *ngIf="isFetching">Loading...</p>
     <div *ngIf="!isFetching">
-      <h3>Zadania do Zrobienia</h3>
+      <h5>Zadania do wykonania</h5>
       <p>Zaznacz zadanie, aby oznaczyć je jako wykonane</p>
 
       <table class="table table-hover table-borderless caption-top" aria-describedby="ToDo Tasks List">
@@ -19,9 +19,9 @@
           <th scope="col">Nazwa</th>
           <th scope="col">Cena początkowa</th>
           <th scope="col">Obecna cena</th>
-          <th scope="col">Pokój</th>
-          <th scope="col">Ostatnio zrobione</th>
-          <th scope="col">Zrobione przez</th>
+          <th scope="col" *ngIf="roomDetails">Pokój</th>
+          <th scope="col">Ostatnio wykonane</th>
+          <th scope="col">Wykonane przez</th>
           <th scope="col"></th>
         </tr>
         </thead>
@@ -38,7 +38,7 @@
           <td>{{ task.name }}</td>
           <td>{{ task.initialPrice }}</td>
           <td>{{ task.currentPrice }}</td>
-          <td>{{ task.room.name }}</td>
+          <td *ngIf="roomDetails">{{ task.room.name }}</td>
           <td>{{ task.lastDoneDate }}</td>
           <td>{{ taskToUserMap.get(task.lastDoneUserId) }}</td>
           <td style="width: 40px">
@@ -56,17 +56,19 @@
         </tbody>
       </table>
 
+      <br>
+      <h5>Wykonane zadania</h5>
+      <p>Odzaznacz wykonane przez siebie zadanie jeśli się pomyliłeś</p>
       <table class="table table-hover table-borderless caption-top " aria-describedby="Done Tasks List">
-        <caption class="table-light">Zrobione Zadania</caption>
         <thead class="table-light">
         <tr>
           <th scope="col"></th>
           <th scope="col">Nazwa</th>
           <th scope="col">Cena początkowa</th>
           <th scope="col">Obecna cena</th>
-          <th scope="col">Pokój</th>
-          <th scope="col">Ostatnio zrobione</th>
-          <th scope="col">Zrobione przez</th>
+          <th scope="col" *ngIf="roomDetails">Pokój</th>
+          <th scope="col">Ostatnio wykonane</th>
+          <th scope="col">Wykonane przez</th>
           <th scope="col"></th>
         </tr>
         </thead>
@@ -83,7 +85,7 @@
           <td style="color: gray">{{ task.name }}</td>
           <td style="color: gray">{{ task.initialPrice }}</td>
           <td style="color: gray">{{ task.currentPrice }}</td>
-          <td style="color: gray">{{ task.room.name }}</td>
+          <td style="color: gray" *ngIf="roomDetails">{{ task.room.name }}</td>
           <td style="color: gray">{{ task.lastDoneDate }}</td>
           <td style="color: gray">{{ taskToUserMap.get(task.lastDoneUserId) }}</td>
           <td style="width: 40px">

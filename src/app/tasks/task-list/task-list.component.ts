@@ -15,6 +15,7 @@ export class TaskListComponent implements OnInit {
   subToDoTasks: Subscription;
   isFetching = false;
   taskToUserMap = new Map();
+  roomDetails: boolean = true;
 
   roomId: number;
 
@@ -26,6 +27,7 @@ export class TaskListComponent implements OnInit {
     this.route.params.subscribe((params: Params) => {
       this.roomId = +params['id'];
       if(this.roomId){
+        this.roomDetails = false;
         this.getTasksForRoom();
       } else {
         this.getAllTasks();
