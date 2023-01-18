@@ -124,9 +124,10 @@ export class TaskEditComponent implements OnInit {
     this.taskForm = new FormGroup({
       'name': new FormControl(taskName, Validators.required),
       'initialPrice': new FormControl(taskInitialPrice,
-        [Validators.required, Validators.min(1)]),
+        [Validators.required, Validators.min(1), Validators.pattern(/^-?\d+$/)]),
       'roomName': new FormControl(taskRoomName, Validators.required),
-      'repetitionRateInDays': new FormControl(repetitionRateInDays, Validators.required)
+      'repetitionRateInDays': new FormControl(repetitionRateInDays,
+        [Validators.required, Validators.min(1), Validators.pattern(/^-?\d+$/)])
     });
     this.taskForm.controls['roomName'].setValue(this.defaultRoomName, {onlySelf: true});
   }

@@ -28,10 +28,18 @@
           <div class="form-group">
             <label for="image">Ścieżka do obrazu</label>
             <input
-              type="text"
+              type="url"
               id="image"
+              name="image"
               formControlName="image"
               class="form-control">
+            <span *ngIf="!roomForm.get('image').valid
+            && roomForm.get('image').touched" style="color: red"
+                  class="help-block">
+              <span *ngIf="roomForm.get('image').errors['pattern']" >
+                To pole musi zawierać poprawny adres url albo może być puste!
+              </span>
+            </span>
           </div>
         </div>
       </div>
