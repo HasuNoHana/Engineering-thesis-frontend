@@ -48,6 +48,7 @@ export class EditUserComponent implements OnInit {
 
   onSubmit() {
     this.houseService.editRange(this.id, this.userForm.value['range'])
+    this.houseService.fetchData();
     this.onCancel();
   }
 

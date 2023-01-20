@@ -27,15 +27,17 @@ export class HouseComponent implements OnInit {
   ngOnInit(): void {
     // @ts-ignore
     this.username = localStorage.getItem("username");
-    this.getUserAndWidth();
     this.getUsers();
+    this.getUserAndWidth();
     this.getDoneTasksThisWeek();
   }
 
 
   private getUsers() {
     this.houseService.usersChanged.subscribe((users: User[]) => {
+      console.log("aaaaa")
       this.users = users;
+      console.log(this.users)
     })
     this.users = this.houseService.getUsers();
   }
@@ -44,10 +46,11 @@ export class HouseComponent implements OnInit {
     this.houseService.houseBuddyChanged.subscribe((user: HouseBuddy) => {
       debugLog("Getting new user data", user);
       this.houseBuddy = user;
-      this.width = Math.ceil((this.houseBuddy.firewoodStackSize / this.houseBuddy.weeklyFirewoodContribution) * 100);
+      this.width = Math.ceil((this.houseBuddy.currentPoints / this.houseBuddy.weeklyContribution) * 100);
     })
     this.houseBuddy = this.houseService.getCurrentUser();
-    this.width = Math.ceil((this.houseBuddy.firewoodStackSize / this.houseBuddy.weeklyFirewoodContribution) * 100);
+    console.log(this.houseBuddy);
+    this.width = Math.ceil((this.houseBuddy.currentPoints / this.houseBuddy.weeklyContribution) * 100);
   }
 
 

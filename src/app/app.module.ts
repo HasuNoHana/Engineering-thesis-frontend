@@ -26,6 +26,7 @@ import {EditPhotoComponent} from './profile/edit-photo/edit-photo.component';
 import {DeleteUserModal} from './profile/delete-user-modal/delete-user-modal.component';
 import {ProfileComponent} from './profile/profile.component';
 import {ChangePasswordModalComponent} from './profile/change-password-modal/change-password-modal.component';
+import {DevPageComponent} from './dev/dev-page/dev-page.component';
 
 @Injectable()
 export class XhrInterceptor implements HttpInterceptor {
@@ -58,6 +59,7 @@ export class XhrInterceptor implements HttpInterceptor {
     DeleteUserModal,
     ProfileComponent,
     ChangePasswordModalComponent,
+    DevPageComponent,
   ],
   imports: [
     BrowserModule,
