@@ -3,7 +3,6 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {RoomService} from "../room.service";
 import {Room} from "../room.model";
-import {House} from "../../houses/house.model";
 
 @Component({
   selector: 'app-room-edit',
@@ -41,10 +40,10 @@ export class RoomEditComponent implements OnInit {
       roomUrl = this.defaultRoomImage;
     }
     if(this.id) {
-      let room = new Room(this.room.id, this.roomForm.value['name'], roomUrl, this.room.house);
+      let room = new Room(this.room.id, this.roomForm.value['name'], roomUrl, this.room.tasksNotDone);
       this.roomService.updateRoom(room);
     } else {
-      let room = new Room(-1, this.roomForm.value['name'], roomUrl, new House(-1, ""));
+      let room = new Room(-1, this.roomForm.value['name'], roomUrl, 0);
       this.roomService.addRoom(room);
     }
     this.onCancel();

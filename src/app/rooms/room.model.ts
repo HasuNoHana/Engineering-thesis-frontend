@@ -1,15 +1,13 @@
-import {House} from "../houses/house.model";
-
 export class Room {
   public id: number;
   public name: string;
   public image: string;
-  public house: House;
+  public tasksNotDone: number;
 
-  constructor(id: number, name: string, img: string, house: House) {
+  constructor(id: number, name: string, img: string, tasksNotDone: number) {
     this.id = id;
     this.name = name;
     this.image = img;
-    this.house = house;
+    this.tasksNotDone = tasksNotDone;
   }
 }

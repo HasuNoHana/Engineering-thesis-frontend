@@ -11,8 +11,6 @@ import {Room} from "../room.model";
 export class RoomDetailComponent implements OnInit {
 
   room: Room;
-  notDoneTasksForRooms: Map<number, number> = new Map();
-  notDoneTasksForCurrent: number;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -24,8 +22,6 @@ export class RoomDetailComponent implements OnInit {
       let room = this.roomService.getRoom(roomId);
       if(room){
         this.room = room
-        this.notDoneTasksForRooms = this.roomService.getNotDoneTasksForRooms();
-        this.notDoneTasksForCurrent = this.notDoneTasksForRooms.get(this.room.id) ?? 0;
       }
     })
   }

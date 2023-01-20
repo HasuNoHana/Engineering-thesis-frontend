@@ -21,19 +21,8 @@ export class RoomListComponent implements OnInit{
     this.rooms = this.roomService.getRooms();
     this.roomService.roomsChanged.subscribe((rooms: Room[]) => {
       this.rooms = rooms;
-
-      this.notDoneTasksForRooms = this.roomService.getNotDoneTasksForRooms();
-      console.log("my", this.notDoneTasksForRooms)
     })
 
-    // console.log("a")
-    this.roomService.createNotDoneTasksForRooms();
-    this.notDoneTasksForRooms = this.roomService.getNotDoneTasksForRooms();
-    console.log("b", this.notDoneTasksForRooms)
-    // this.roomService.notDoneTasksForRoomsChanged.subscribe((notDoneTasksForRooms: Map<number, number>) => {
-    //   console.log("yay")
-    //   this.notDoneTasksForRooms = notDoneTasksForRooms;
-    // });
   }
 
   onNewRoom() {
