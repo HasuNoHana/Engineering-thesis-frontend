@@ -4,20 +4,20 @@
       <div class="container split1">
         <div class="column">
           <div class="col-md-12">
-            <img [src]="room.image" class="card-img-top" id="theImage" alt="...">
+            <img [src]="room?.image" class="card-img-top" id="theImage" alt="...">
             <br><br>
             <div style="text-align: left">
-              <h3 style="text-align: left">{{room.name}}</h3>
-              <p class="card-text" *ngIf="room.tasksNotDone > 3">
-                Zostało jeszcze {{room.tasksNotDone}} zadań do zrobienia</p>
+              <h3 style="text-align: left">{{room?.name}}</h3>
+              <p class="card-text" *ngIf="room?.tasksNotDone > 3">
+                Zostało jeszcze {{room?.tasksNotDone}} zadań do zrobienia</p>
               <p class="card-text"><small class="text-muted"></small>
-              <p class="card-text" *ngIf="room.tasksNotDone == 2">
-                Zostały jeszcze {{room.tasksNotDone}} zadania do zrobienia</p>
+              <p class="card-text" *ngIf="room?.tasksNotDone == 2">
+                Zostały jeszcze {{room?.tasksNotDone}} zadania do zrobienia</p>
               <p class="card-text"><small class="text-muted"></small>
-              <p class="card-text" *ngIf="room.tasksNotDone == 1">
-                Zostało jeszcze {{room.tasksNotDone}} zadanie do zrobienia</p>
+              <p class="card-text" *ngIf="room?.tasksNotDone == 1">
+                Zostało jeszcze {{room?.tasksNotDone}} zadanie do zrobienia</p>
               <p class="card-text"><small class="text-muted"></small>
-              <p class="card-text" *ngIf="room.tasksNotDone == 0">
+              <p class="card-text" *ngIf="room?.tasksNotDone == 0">
                 Super! Nie ma już zadań do zrobienia w tym pokoju!</p>
               <p class="card-text"><small class="text-muted"></small>
             </div>

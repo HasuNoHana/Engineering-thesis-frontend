@@ -12,7 +12,6 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {RoomsComponent} from './rooms/rooms.component';
 import {RoomListComponent} from './rooms/room-list/room-list.component';
 import {RoomEditComponent} from './rooms/room-edit/room-edit.component';
-import {TaskEditComponent} from './tasks/task-edit/task-edit.component';
 import {LoginComponent} from './authentication/login/login.component';
 import {AuthenticationService} from "./authentication/authentication.service";
 import {TaskService} from "./tasks/task.service";
@@ -27,6 +26,7 @@ import {DeleteUserModal} from './profile/delete-user-modal/delete-user-modal.com
 import {ProfileComponent} from './profile/profile.component';
 import {ChangePasswordModalComponent} from './profile/change-password-modal/change-password-modal.component';
 import {DevPageComponent} from './dev/dev-page/dev-page.component';
+import {editTaskModalComponent} from "./tasks/edit-task-modal/edit-task-modal.component";
 
 @Injectable()
 export class XhrInterceptor implements HttpInterceptor {
@@ -40,27 +40,27 @@ export class XhrInterceptor implements HttpInterceptor {
 }
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    TasksComponent,
-    TaskListComponent,
-    HeaderComponent,
-    RoomsComponent,
-    RoomListComponent,
-    RoomEditComponent,
-    TaskEditComponent,
-    LoginComponent,
-    SignUpComponent,
-    RoomDetailComponent,
-    HousesComponent,
-    HouseComponent,
-    EditUserComponent,
-    EditPhotoComponent,
-    DeleteUserModal,
-    ProfileComponent,
-    ChangePasswordModalComponent,
-    DevPageComponent,
-  ],
+    declarations: [
+        AppComponent,
+        TasksComponent,
+        TaskListComponent,
+        HeaderComponent,
+        RoomsComponent,
+        RoomListComponent,
+        RoomEditComponent,
+        LoginComponent,
+        SignUpComponent,
+        RoomDetailComponent,
+        HousesComponent,
+        HouseComponent,
+        EditUserComponent,
+        EditPhotoComponent,
+        DeleteUserModal,
+        ProfileComponent,
+        ChangePasswordModalComponent,
+        DevPageComponent,
+        editTaskModalComponent,
+    ],
   imports: [
     BrowserModule,
     FormsModule,

@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {RoomService} from "../room.service";
 import {Room} from "../room.model";
+import {debugLogOnlyMessage} from "../../app.component";
 
 @Component({
   selector: 'app-room-detail',
@@ -19,10 +20,14 @@ export class RoomDetailComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
       let roomId = +params['id'];
-      let room = this.roomService.getRoom(roomId);
-      if(room){
-        this.room = room
-      }
+      debugLogOnlyMessage("OnInit room detail, room id: "+roomId);
+
+      this.roomService.roomsChanged.subscribe((_:any) => {
+        let room = this.roomService.getRoom(roomId);
+        if(room){
+          this.room = room
+        }
+      })
     })
   }
 

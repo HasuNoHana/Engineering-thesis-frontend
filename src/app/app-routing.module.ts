@@ -5,7 +5,6 @@ import {RoomsComponent} from "./rooms/rooms.component";
 import {RoomEditComponent} from "./rooms/room-edit/room-edit.component";
 import {RoomListComponent} from "./rooms/room-list/room-list.component";
 import {TaskListComponent} from "./tasks/task-list/task-list.component";
-import {TaskEditComponent} from "./tasks/task-edit/task-edit.component";
 import {LoginComponent} from "./authentication/login/login.component";
 import {OnlyLoggedInUsersGuardService} from "./authentication/only-logged-in-users-guard.service";
 import {SignUpComponent} from "./authentication/sign-up/sign-up.component";
@@ -31,17 +30,13 @@ const appRoutes: Routes = [
     ]},
   {
     path: 'tasks', component: TasksComponent, canActivate: [OnlyLoggedInUsersGuardService], children: [
-      {path: 'list', component: TaskListComponent},
-      {path: 'list/newTask', component: TaskEditComponent},
-      {path: 'list/todo/:currentTaskId', component: TaskEditComponent},
-      {path: 'list/done/:currentTaskId', component: TaskEditComponent},
+      {path: 'list', component: TaskListComponent}
     ]
   },
   {path: 'rooms', component: RoomsComponent,  canActivate: [OnlyLoggedInUsersGuardService], children: [
       {path: '', component: RoomListComponent},
       {path: 'new', component: RoomEditComponent},
       {path: 'details/:id', component: RoomDetailComponent, pathMatch: 'full'},
-      {path: 'details/:roomId/newTask', component: TaskEditComponent},
       {path: 'edit/:id', component: RoomEditComponent},
     ]
   },

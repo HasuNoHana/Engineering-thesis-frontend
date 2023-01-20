@@ -15,7 +15,7 @@
           <img [src]="room.image" class="card-img-top, heightWidth" alt="...">
           <div class="card-body">
             <h5 class="card-title">{{room.name}}</h5>
-              <p class="card-text" *ngIf="room.tasksNotDone > 3">
+              <p class="card-text" *ngIf="room.tasksNotDone >= 3">
                 Zostało jeszcze {{room.tasksNotDone}} zadań do zrobienia</p>
               <p class="card-text"><small class="text-muted"></small>
               <p class="card-text" *ngIf="room.tasksNotDone == 2">

@@ -1,37 +1,36 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Subscription} from "rxjs";
 import {TaskService} from "../task.service";
 import {Task} from "../task.model";
 import {ActivatedRoute, Params, Router} from "@angular/router";
+import {ModalInformationService} from "../../profile/modal-information.service";
+import {debugLogOnlyMessage} from "../../app.component";
 
 @Component({
   selector: 'app-task-list',
   templateUrl: './task-list.component.html'
 })
-export class TaskListComponent implements OnInit, OnDestroy {
+export class TaskListComponent implements OnInit {
   toDoTasks: Task[] = [];
   doneTasks: Task[] = [];
   subDoneTasks: Subscription;
   subToDoTasks: Subscription;
   isFetching = false;
   taskToUserMap = new Map();
-  roomDetails: boolean = true;
+  roomDetails: boolean = false;
 
   roomId: number;
 
   constructor(private taskService: TaskService,
               private route: ActivatedRoute,
-              private router: Router) {}
-  ngOnDestroy() {
-    console.log("onDerstoy")
-  }
+              private router: Router,
+              private modalInformationService: ModalInformationService) {}
 
   ngOnInit(): void {
-    console.log("onInit")
     this.route.params.subscribe((params: Params) => {
       this.roomId = +params['id'];
       if(this.roomId){
-        this.roomDetails = false;
+        this.roomDetails = true;
         this.getTasksForRoom();
       } else {
         this.getAllTasks();
@@ -78,10 +77,13 @@ export class TaskListComponent implements OnInit, OnDestroy {
   }
 
   onCreateNewTask() {
-    if(this.roomId){
-      this.router.navigate(['newTask'], {relativeTo: this.route});
+    if(this.roomDetails) {
+      console.log("onCreateNerTask")
+      this.modalInformationService.onRoomDetails(this.roomId);
+    } else {
+      debugLogOnlyMessage("create new task button clicked");
+      this.modalInformationService.onNewTask();
     }
-    this.router.navigate(['newTask'], {relativeTo: this.route});
   }
 
   private getUsersForTasks() {
@@ -89,5 +91,9 @@ export class TaskListComponent implements OnInit, OnDestroy {
     this.taskService.taskToUserMapChanged.subscribe((taskToUserMap: Map<number, string>) => {
       this.taskToUserMap = taskToUserMap;
     });
+  }
+
+  onEditTask(task: Task) {
+    this.modalInformationService.onEditTask(task);
   }
 }

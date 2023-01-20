@@ -148,8 +148,4 @@ export class TaskService {
       this.taskToUserMapChanged.next(this.taskToUserMap);
     });
   }
-
-  getNotDoneTasksForRoom(id: number) {
-    return this.tasks.filter(task => task.room.id === id && !task.done);
-  }
 }

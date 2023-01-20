@@ -2,6 +2,7 @@ import {Injectable} from "@angular/core";
 import {Room} from "./room.model";
 import {Subject} from "rxjs";
 import {HttpClient} from "@angular/common/http";
+import {debugLog} from "../app.component";
 
 @Injectable({
   providedIn: 'root'
@@ -29,24 +30,25 @@ export class RoomService {
 
   getRooms() {
     this.fetchRooms();
-    return this.rooms.slice();
+    return this.rooms?.slice();
   }
 
   getRoom(roomId: number) {
-    return this.rooms.find(r => r.id === +roomId);
+    return this.rooms?.find(r => r.id === +roomId);
   }
 
   private fetchRooms() {
     this.http.get<Room[]>('http://localhost:4200/api/rooms',{withCredentials: true})
       .subscribe((rooms: Room[]) => {
         this.rooms = rooms;
-        this.roomsChanged.next(this.rooms.slice());
+        debugLog("GET: rooms: " , this.rooms);
+        this.roomsChanged.next(this.rooms?.slice());
       });
   }
 
   getRoomByName(name: string) {
     let r: Room;
-    this.rooms.forEach((room) => {
+    this.rooms?.forEach((room) => {
         if (room.name === name) {
           r = room;
         }
@@ -58,11 +60,11 @@ export class RoomService {
   deleteRoom(roomId: number) {
     this.http.delete<number>('http://localhost:4200/api/deleteRoom?id='+roomId,{withCredentials: true})
       .subscribe((_: number) => {
-        let index = this.rooms.findIndex(function (room){
+        let index = this.rooms?.findIndex(function (room){
           return room.id===roomId;
         });
-        this.rooms.splice(index,1);
-        this.roomsChanged.next(this.rooms.slice());
+        this.rooms?.splice(index,1);
+        this.roomsChanged.next(this.rooms?.slice());
       });
   }
 
