@@ -3,6 +3,7 @@ import {Room} from "./room.model";
 import {Subject} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {TaskService} from "../tasks/task.service";
+import {debugLog} from "../app.component";
 
 @Injectable({
   providedIn: 'root'
@@ -10,9 +11,11 @@ import {TaskService} from "../tasks/task.service";
 export class RoomService {
   roomsChanged = new Subject<Room[]>();
   private rooms: Room[] = [];
+
   proposedImagesChanged = new Subject<string[]>();
   private proposedRoomImages: string[];
 
+  notDoneTasksForRoomsChanged = new Subject<Map<number,number>>();
   notDoneTasksForRooms: Map<number, number> = new Map();
 
 
@@ -20,6 +23,7 @@ export class RoomService {
               private taskService: TaskService) {
     this.fetchProposedRoomImages();
     this.fetchRooms();
+    this.createNotDoneTasksForRooms();
   }
 
   private fetchProposedRoomImages() {
@@ -44,6 +48,7 @@ export class RoomService {
       .subscribe((rooms: Room[]) => {
         this.rooms = rooms;
         this.roomsChanged.next(this.rooms.slice());
+        this.createNotDoneTasksForRooms();
       });
   }
 
@@ -88,10 +93,17 @@ export class RoomService {
   }
 
   getNotDoneTasksForRooms() {
+    // this.createNotDoneTasksForRooms();
+    debugLog("get notDoneTasksForRooms ", this.notDoneTasksForRooms)
+    return this.notDoneTasksForRooms;
+
+  }
+
+  createNotDoneTasksForRooms() {
     this.rooms.forEach((room) => {
       this.notDoneTasksForRooms.set(room.id, this.taskService.getNotDoneTasksForRoom(room.id).length);
     })
-    return this.notDoneTasksForRooms;
-
+    this.notDoneTasksForRoomsChanged.next(this.notDoneTasksForRooms);
+    debugLog("creating notDoneTasksForRooms: ", this.notDoneTasksForRooms);
   }
 }

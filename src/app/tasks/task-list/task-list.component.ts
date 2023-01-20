@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from "rxjs";
 import {TaskService} from "../task.service";
 import {Task} from "../task.model";
@@ -8,7 +8,7 @@ import {ActivatedRoute, Params, Router} from "@angular/router";
   selector: 'app-task-list',
   templateUrl: './task-list.component.html'
 })
-export class TaskListComponent implements OnInit {
+export class TaskListComponent implements OnInit, OnDestroy {
   toDoTasks: Task[] = [];
   doneTasks: Task[] = [];
   subDoneTasks: Subscription;
@@ -22,8 +22,12 @@ export class TaskListComponent implements OnInit {
   constructor(private taskService: TaskService,
               private route: ActivatedRoute,
               private router: Router) {}
+  ngOnDestroy() {
+    console.log("onDerstoy")
+  }
 
   ngOnInit(): void {
+    console.log("onInit")
     this.route.params.subscribe((params: Params) => {
       this.roomId = +params['id'];
       if(this.roomId){
