@@ -14,13 +14,9 @@
               id="name"
               formControlName="name"
               class="form-control">
-            <span *ngIf="!taskForm.get('name').valid
-            && taskForm.get('name').touched"
-                  class="help-block">
-              <span *ngIf="taskForm.get('name').errors['required']" style="color: red">
-                To pole nie może być puste!
-              </span>
-            </span>
+            <div *ngIf="!taskForm?.get('name')?.valid && taskForm?.get('name')?.touched" class="alert alert-danger small">
+              To pole nie może być puste!
+            </div>
           </div>
         </div>
       </div>
@@ -33,19 +29,21 @@
               id="initialPrice"
               formControlName="initialPrice"
               class="form-control">
-            <span *ngIf="!taskForm.get('initialPrice').valid
-              && taskForm.get('initialPrice').touched" style="color: red"
-                  class="help-block">
-              <span *ngIf="taskForm.get('initialPrice').errors['required']" >
-                To pole nie może być puste i musi być liczbą!
-              </span><br *ngIf="taskForm.get('initialPrice').errors['required']">
-              <span *ngIf="taskForm.get('initialPrice').errors['pattern']" >
-                Wpisana wartość musi być liczbą całowitą!
-              </span><br *ngIf="taskForm.get('initialPrice').errors['pattern']">
-              <p><span *ngIf="taskForm.get('initialPrice').value < 1">
-                Cena musi być większa od 0!
-              </span>
-            </span>
+            <div *ngIf="!taskForm?.get('initialPrice')?.valid &&
+            taskForm?.get('initialPrice')?.touched &&
+            taskForm?.get('initialPrice')?.errors['required']" class="alert alert-danger small">
+              To pole nie może być puste i musi być liczbą!
+            </div>
+            <div *ngIf="!taskForm?.get('initialPrice')?.valid &&
+            taskForm?.get('initialPrice')?.touched &&
+            taskForm?.get('initialPrice')?.errors['pattern']" class="alert alert-danger small">
+              Wpisana wartość musi być liczbą całowitą!
+            </div>
+            <div *ngIf="!taskForm?.get('initialPrice')?.valid &&
+            taskForm?.get('initialPrice')?.touched &&
+            taskForm?.get('initialPrice')?.value < 1" class="alert alert-danger small">
+              Cena musi być większa od 0!
+            </div>
           </div>
         </div>
       </div>
@@ -58,19 +56,21 @@
               id="repetitionRateInDays"
               formControlName="repetitionRateInDays"
               class="form-control">
-            <span *ngIf="!taskForm.get('repetitionRateInDays').valid
-              && taskForm.get('repetitionRateInDays').touched" style="color: red"
-                  class="help-block">
-              <span *ngIf="taskForm.get('repetitionRateInDays').errors['required']" >
-                To pole nie może być puste i musi być liczbą!
-              </span><br *ngIf="taskForm.get('repetitionRateInDays').errors['required']">
-              <span *ngIf="taskForm.get('repetitionRateInDays').errors['pattern']" >
-                Wpisana wartość musi być liczbą całowitą!
-              </span><br *ngIf="taskForm.get('repetitionRateInDays').errors['pattern']">
-              <p><span *ngIf="taskForm.get('repetitionRateInDays').value < 1">
-                Liczba dni musi być większa od 0!
-              </span>
-            </span>
+            <div *ngIf="!taskForm?.get('repetitionRateInDays')?.valid &&
+            taskForm?.get('repetitionRateInDays')?.touched &&
+            taskForm?.get('repetitionRateInDays')?.errors['required']" class="alert alert-danger small">
+              To pole nie może być puste i musi być liczbą!
+            </div>
+            <div *ngIf="!taskForm?.get('repetitionRateInDays')?.valid &&
+            taskForm?.get('repetitionRateInDays')?.touched &&
+            taskForm?.get('repetitionRateInDays')?.errors['pattern']" class="alert alert-danger small">
+              Wpisana wartość musi być liczbą całowitą!
+            </div>
+            <div *ngIf="!taskForm?.get('repetitionRateInDays')?.valid &&
+            taskForm?.get('repetitionRateInDays')?.touched &&
+            taskForm?.get('repetitionRateInDays')?.value < 1" class="alert alert-danger small">
+              Cena musi być większa od 0!
+            </div>
           </div>
         </div>
       </div>
@@ -88,13 +88,11 @@
                 *ngFor="let room of rooms">
                 {{room.name}}</option>
             </select>
-            <span *ngIf="!taskForm.get('roomName').valid
-            && taskForm.get('roomName').touched"
-                  class="help-block">
-              <span *ngIf="taskForm.get('roomName').errors['required']" style="color: red">
-                To pole nie może być puste!
-              </span>
-            </span>
+            <div *ngIf="!taskForm?.get('roomName')?.valid &&
+            taskForm?.get('roomName')?.touched &&
+            taskForm?.get('roomName')?.errors['required']" class="alert alert-danger small">
+              To pole nie może być puste!
+            </div>
           </div>
         </div>
       </div>
@@ -103,7 +101,7 @@
   <div class="modal-footer">
     <button type="button" class="btn btn-light" data-dismiss="modal"
             (click)="modal.dismiss('Cross click')">Anuluj</button>
-    <button type="button" class="btn btn-dark" [disabled]="!taskForm.valid"
+    <button type="button" class="btn btn-dark" [disabled]="!taskForm?.valid"
             (click)="modal.close('Save click')">{{acceptMessage}}</button>
   </div>
 </ng-template>
