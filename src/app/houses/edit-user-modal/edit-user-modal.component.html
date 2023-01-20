@@ -9,6 +9,7 @@
         <div class="col-xs-12">
           <div class="form-group">
             <label for="range">Punkty wymagane</label>
+            <label for="range" class="text-danger">*</label>
             <input type="number" id="range" formControlName="range" class="form-control">
             <div *ngIf="!userForm?.get('range')?.valid &&
             userForm?.get('range')?.touched &&

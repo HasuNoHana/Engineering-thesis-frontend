@@ -12,6 +12,7 @@
                 <input type="text" id="username" class="form-control form-control-lg" formControlName="username"
                         name="username"/>
                 <label class="form-label" for="username">Nazwa użytkownika</label>
+                <label for="username" class="text-danger">*</label>
                 <div *ngIf="signUpForm.controls['username'].errors?.['required'] &&
                             signUpForm.controls['username'].touched !== false" class="alert alert-danger small">
                   Nazwa użytkownika nie moze być pusta
@@ -22,6 +23,7 @@
                 <input type="password" id="password" class="form-control form-control-lg" formControlName="password"
                         name="password"/>
                 <label class="form-label" for="password">Hasło</label>
+                <label for="password" class="text-danger">*</label>
                 <div *ngIf="signUpForm.controls['password'].errors?.['required'] &&
                             signUpForm.controls['password'].touched !== false" class="alert alert-danger small">
                   Hasło nie moze być puste
@@ -32,6 +34,7 @@
                 <input type="password" id="passwordConfirmation" class="form-control form-control-lg"
                        formControlName="passwordConfirmation" name="passwordConfirmation"/>
                 <label class="form-label" for="password">Powtórz hasło</label>
+                <label for="password" class="text-danger">*</label>
                 <div *ngIf="signUpForm.controls['passwordConfirmation'].value !== signUpForm.controls['password'].value &&
                             signUpForm.controls['passwordConfirmation'].touched !== false" class="alert alert-danger small">
                   Powtórzone hasło musi być takie samo jak hasło!

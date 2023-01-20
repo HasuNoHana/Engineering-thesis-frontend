@@ -27,14 +27,15 @@
               <button class="btn btn-lg btn-block btn-danger" (click)="onUserDelete()">Usuń użytkownika</button>
               <button type="button" class="btn btn-success btn-lg btn-block" (click)="onInviteClicked()"
               >Zaproś nową osobę</button>
-              <div *ngIf="inviteClicked" class="alert alert-warning" role="alert">
-                <p>Kod domu: {{joinCode}}</p><hr>
-                <p>Podaj ten kod osobie, która chce dołączyć do Twojego domu, może go wpisać podczas rejestracji.</p>
-              </div>
+            </div><br><br>
 
-              <app-komponent></app-komponent>
-              <app-change-password-modal></app-change-password-modal>
+            <div *ngIf="inviteClicked" class="alert alert-warning" role="alert">
+              <p>Kod domu: {{joinCode}}</p><hr>
+              <p>Podaj ten kod osobie, która chce dołączyć do Twojego domu, może go wpisać podczas rejestracji.</p>
             </div>
+
+            <app-komponent></app-komponent>
+            <app-change-password-modal></app-change-password-modal>
           </div>
         </div>
 
