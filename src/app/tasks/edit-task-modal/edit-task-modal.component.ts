@@ -12,7 +12,7 @@ import {TaskService} from "../task.service";
   selector: 'app-edit-task-modal',
   templateUrl: './edit-task-modal.component.html'
 })
-export class editTaskModalComponent implements OnInit, OnDestroy {
+export class EditTaskModalComponent implements OnInit, OnDestroy {
   closeResult = '';
   taskForm: FormGroup;
   @ViewChild("content",{static:true}) content:ElementRef;
@@ -122,7 +122,7 @@ export class editTaskModalComponent implements OnInit, OnDestroy {
   private initFormEmpty() {
     let taskName = '';
     let taskInitialPrice: number = 10;
-    let taskRoomName: any;
+    let taskRoomName: string = '';
     let repetitionRateInDays: number = 7;
 
     this.taskForm = new FormGroup({

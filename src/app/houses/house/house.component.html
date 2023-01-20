@@ -33,6 +33,7 @@
     </div>
   </div>
 </div>
+<app-edit-user-modal></app-edit-user-modal>
 <div class="container" *ngIf="users">
   <div class="row">
     <div class="col-md-12">
@@ -59,7 +60,7 @@
                 ...
               </button>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                <li><a class="dropdown-item" [routerLink]="['/my', 'house', 'editUser', user?.id]">Edytuj</a></li>
+                <li><a class="dropdown-item" (click)="onEditUserRange(user)">Edytuj</a></li>
               </ul>
             </div>
           </td>

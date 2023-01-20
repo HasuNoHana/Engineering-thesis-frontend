@@ -20,13 +20,13 @@ import {SignUpComponent} from './authentication/sign-up/sign-up.component';
 import {RoomDetailComponent} from './rooms/room-detail/room-detail.component';
 import {HousesComponent} from './houses/houses.component';
 import {HouseComponent} from './houses/house/house.component';
-import {EditUserComponent} from './houses/edit-user/edit-user.component';
 import {EditPhotoComponent} from './profile/edit-photo/edit-photo.component';
 import {DeleteUserModal} from './profile/delete-user-modal/delete-user-modal.component';
 import {ProfileComponent} from './profile/profile.component';
 import {ChangePasswordModalComponent} from './profile/change-password-modal/change-password-modal.component';
 import {DevPageComponent} from './dev/dev-page/dev-page.component';
-import {editTaskModalComponent} from "./tasks/edit-task-modal/edit-task-modal.component";
+import {EditTaskModalComponent} from "./tasks/edit-task-modal/edit-task-modal.component";
+import {EditUserModalComponent} from "./houses/edit-user-modal/edit-user-modal.component";
 
 @Injectable()
 export class XhrInterceptor implements HttpInterceptor {
@@ -53,13 +53,13 @@ export class XhrInterceptor implements HttpInterceptor {
         RoomDetailComponent,
         HousesComponent,
         HouseComponent,
-        EditUserComponent,
         EditPhotoComponent,
         DeleteUserModal,
         ProfileComponent,
         ChangePasswordModalComponent,
         DevPageComponent,
-        editTaskModalComponent,
+        EditTaskModalComponent,
+        EditUserModalComponent
     ],
   imports: [
     BrowserModule,

@@ -89,6 +89,7 @@ export class HouseService {
         debugLog("response:", houseBuddy);
         this.houseBuddy = houseBuddy;
         this.houseBuddyChanged.next(this.houseBuddy);
+        this.fetchData();
       });
   }
 

@@ -3,6 +3,8 @@ import {HouseService} from "../house.service";
 import {User} from "../user.model";
 import {Router} from "@angular/router";
 import {HouseBuddy} from "../HouseBuddy.model";
+import {ModalInformationService} from "../../profile/modal-information.service";
+import {debugLogOnlyMessage} from "../../app.component";
 
 @Component({
   selector: 'app-user-information',
@@ -21,7 +23,8 @@ export class HouseComponent implements OnInit,OnDestroy {
   @Output() newItemEvent = new EventEmitter<string>();
 
   constructor(private houseService: HouseService,
-              private router: Router) {}
+              private router: Router,
+              private modalInformationService: ModalInformationService) {}
   ngOnDestroy() {
     console.log("onDerstoyHouse")
   }
@@ -62,5 +65,10 @@ export class HouseComponent implements OnInit,OnDestroy {
       this.doneTasksThisWeek = doneTasksThisWeek;
     })
     this.doneTasksThisWeek = this.houseService.getDoneTasksThisWeek();
+  }
+
+  onEditUserRange(user: User) {
+    debugLogOnlyMessage("onEditUserRange button clicked")
+    this.modalInformationService.onEditUserRange(user)
   }
 }
