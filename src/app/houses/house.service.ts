@@ -66,7 +66,7 @@ export class HouseService {
   fetchDoneTasksThisWeek() {
     this.http.get<number>('http://localhost:4200/api/doneTasksThisWeek',{withCredentials: true})
       .subscribe((doneTasksThisWeek: number) => {
-        debugLog("GET: api/currentUserData, response:", doneTasksThisWeek);
+        debugLog("GET: api/doneTasksThisWeek, response:", doneTasksThisWeek);
         this.doneTasksThisWeek = doneTasksThisWeek;
         this.doneTasksThisWeekChanged.next(this.doneTasksThisWeek);
       });
@@ -99,12 +99,12 @@ export class HouseService {
   }
 
   editPhoto(image: string) {
-    let user = new UserDTO(this.username, this.houseBuddy.firewoodStackSize, this.houseBuddy.weeklyFirewoodContribution, image);
+    let user = new UserDTO(this.username, this.houseBuddy.currentPoints, this.houseBuddy.weeklyContribution, image);
     this.editUser(-1, user);
   }
 
   editRange(id: number, weeklyFirewoodContribution: number) {
-    let user = new UserDTO(this.username, this.houseBuddy.firewoodStackSize, weeklyFirewoodContribution, this.houseBuddy.avatarImageUrl);
+    let user = new UserDTO(this.username, this.houseBuddy.currentPoints, weeklyFirewoodContribution, this.houseBuddy.avatarImageUrl);
     this.editUser(id, user);
   }
 

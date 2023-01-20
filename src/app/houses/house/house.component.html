@@ -14,7 +14,7 @@
           <div class="col-md-12">
             <h1>Cześć {{username}}!</h1>
             <h3>Zrobione Zadania: {{doneTasksThisWeek}}</h3>
-            <h3>Liczba punktów: {{houseBuddy?.firewoodStackSize}}/{{houseBuddy?.weeklyFirewoodContribution}}</h3><br>
+            <h3>Liczba punktów: {{houseBuddy.currentPoints}}/{{houseBuddy.weeklyContribution}}</h3><br>
             <div *ngIf="width>=0" class="progress">
               <div *ngIf="width>10" class="progress-bar bg-success" role="progressbar" [style.width.%]="width" aria-valuenow="25"
                    aria-valuemin="0" aria-valuemax="100">{{width}}%</div>

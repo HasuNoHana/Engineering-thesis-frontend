@@ -1,13 +1,13 @@
 export class HouseBuddy {
   id: number
-  firewoodStackSize: number
-  weeklyFirewoodContribution: number
+  currentPoints: number
+  weeklyContribution: number
   avatarImageUrl: string
 
   constructor(id: number, firewoodStackSize: number, weeklyFirewoodContribution: number, avatarImageUrl: string) {
     this.id = id;
-    this.firewoodStackSize = firewoodStackSize;
-    this.weeklyFirewoodContribution = weeklyFirewoodContribution;
+    this.currentPoints = firewoodStackSize;
+    this.weeklyContribution = weeklyFirewoodContribution;
     this.avatarImageUrl = avatarImageUrl;
   }
 }
