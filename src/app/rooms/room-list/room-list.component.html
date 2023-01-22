@@ -4,6 +4,7 @@
             (click)="onNewRoom()">Stwórz nowy pokój</button>
   </div>
 </div>
+<app-edit-room-modal></app-edit-room-modal>
 <br>
 <div class="row">
   <div class="col-xs-12">
@@ -16,22 +17,22 @@
           <div class="card-body">
             <h5 class="card-title">{{room.name}}</h5>
               <p class="card-text" *ngIf="room.tasksNotDone >= 3">
-                Zostało jeszcze {{room.tasksNotDone}} zadań do zrobienia</p>
+                Zostało jeszcze {{room.tasksNotDone}} zadań do wykonania</p>
               <p class="card-text"><small class="text-muted"></small>
               <p class="card-text" *ngIf="room.tasksNotDone == 2">
-                Zostały jeszcze {{room.tasksNotDone}} zadania do zrobienia</p>
+                Zostały jeszcze {{room.tasksNotDone}} zadania do wykonania</p>
               <p class="card-text"><small class="text-muted"></small>
               <p class="card-text" *ngIf="room.tasksNotDone == 1">
-                Zostało jeszcze {{room.tasksNotDone}} zadanie do zrobienia</p>
+                Zostało jeszcze {{room.tasksNotDone}} zadanie do wykonania</p>
               <p class="card-text"><small class="text-muted"></small>
               <p class="card-text" *ngIf="room.tasksNotDone == 0">
-                Super! Nie ma już zadań do zrobienia w tym pokoju!</p>
+                Super! Nie ma już zadań do wykonania w tym pokoju!</p>
               <p class="card-text"><small class="text-muted"></small>
             <hr>
             <button class="btn btn-success margin"
                     (click)="onRoomDetails(room.id)">Szczegóły</button>
             <button class="btn btn-info margin"
-                    (click)="onEditRoom(room.id)">Edytuj</button>
+                    (click)="onEditRoom(room)">Edytuj</button>
             <button class="btn btn-danger"
                     (click)="onDeleteRoom(room.id)">Usuń</button>
           </div>

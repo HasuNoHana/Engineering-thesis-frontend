@@ -129,6 +129,7 @@ export class HouseService {
   }
 
   getProposedAvatarImages() {
+    this.fetchProposedImages()
     return this.proposedImages.slice();
   }
 

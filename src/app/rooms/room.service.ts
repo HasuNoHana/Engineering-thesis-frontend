@@ -12,7 +12,7 @@ export class RoomService {
   private rooms: Room[] = [];
 
   proposedImagesChanged = new Subject<string[]>();
-  private proposedRoomImages: string[];
+  private proposedRoomImages: string[] = [];
 
 
   constructor(private http: HttpClient) {

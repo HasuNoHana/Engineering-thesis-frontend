@@ -11,7 +11,6 @@ import {HeaderComponent} from './header/header.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {RoomsComponent} from './rooms/rooms.component';
 import {RoomListComponent} from './rooms/room-list/room-list.component';
-import {RoomEditComponent} from './rooms/room-edit/room-edit.component';
 import {LoginComponent} from './authentication/login/login.component';
 import {AuthenticationService} from "./authentication/authentication.service";
 import {TaskService} from "./tasks/task.service";
@@ -27,6 +26,7 @@ import {ChangePasswordModalComponent} from './profile/change-password-modal/chan
 import {DevPageComponent} from './dev/dev-page/dev-page.component';
 import {EditTaskModalComponent} from "./tasks/edit-task-modal/edit-task-modal.component";
 import {EditUserModalComponent} from "./houses/edit-user-modal/edit-user-modal.component";
+import {EditRoomModalComponent} from "./rooms/edit-room-modal/edit-room-modal.component";
 
 @Injectable()
 export class XhrInterceptor implements HttpInterceptor {
@@ -47,7 +47,6 @@ export class XhrInterceptor implements HttpInterceptor {
         HeaderComponent,
         RoomsComponent,
         RoomListComponent,
-        RoomEditComponent,
         LoginComponent,
         SignUpComponent,
         RoomDetailComponent,
@@ -59,7 +58,8 @@ export class XhrInterceptor implements HttpInterceptor {
         ChangePasswordModalComponent,
         DevPageComponent,
         EditTaskModalComponent,
-        EditUserModalComponent
+        EditUserModalComponent,
+        EditRoomModalComponent
     ],
   imports: [
     BrowserModule,

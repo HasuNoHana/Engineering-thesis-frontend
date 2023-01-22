@@ -14,6 +14,7 @@ export class AuthenticationService {
   logout() {
     this.http.post('api/logout', {}).pipe(finalize(() => {
       localStorage.setItem("authenticated","false")
+      localStorage.removeItem("username");
       this.authenticated = false;
       this.router.navigateByUrl('/login').then(()=>{window.location.reload()})
     })).subscribe();

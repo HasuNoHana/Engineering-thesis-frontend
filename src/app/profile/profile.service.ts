@@ -25,6 +25,8 @@ export class ProfileService {
   deleteUser() {
     this.http.delete<Room>('http://localhost:4200/api/deleteCurrentUser',{withCredentials: true})
       .subscribe((_: any) => {
+        localStorage.removeItem("username");
+        localStorage.setItem("authenticated","false")
       });
   }
 }

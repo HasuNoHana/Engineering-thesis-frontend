@@ -13,7 +13,7 @@
         <div class="column">
           <div class="col-md-12">
             <h1>Cześć {{username}}!</h1>
-            <h3>Zrobione Zadania: {{doneTasksThisWeek}}</h3>
+            <h3>Zadania wykonane w tym tygodniu: {{doneTasksThisWeek}}</h3>
             <h3>Liczba punktów: {{houseBuddy?.currentPoints}}/{{houseBuddy?.weeklyContribution}}</h3><br>
             <div *ngIf="width>=0" class="progress">
               <div *ngIf="width>10" class="progress-bar bg-success" role="progressbar" [style.width.%]="width" aria-valuenow="25"
@@ -44,8 +44,8 @@
         <thead class="table-light">
         <tr>
           <th scope="col">Mieszkaniec</th>
-          <th scope="col">Punkty Zebrane</th>
-          <th scope="col">Punkty Wymagane</th>
+          <th scope="col">Punkty zebrane</th>
+          <th scope="col">Punkty wymagane</th>
           <th scope="col"></th>
         </tr>
         </thead>

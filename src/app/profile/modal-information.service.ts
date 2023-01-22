@@ -3,6 +3,7 @@ import {Subject} from "rxjs";
 import {Task} from "../tasks/task.model";
 import {debugLogOnlyMessage} from "../app.component";
 import {User} from "../houses/user.model";
+import {Room} from "../rooms/room.model";
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,8 @@ export class ModalInformationService {
   editTaskSignal = new Subject<Task>();
   newTaskDetailSignal = new Subject<number>();
   editUserRangeSignal = new Subject<User>();
+  newRoomSignal = new Subject<boolean>();
+  editRoomSignal = new Subject<Room>();
 
   onDeleteUser() {
     this.deleteUserSignal.next(true);
@@ -29,6 +32,11 @@ export class ModalInformationService {
     this.newTaskSignal.next(true);
   }
 
+  onNewRoom() {
+    debugLogOnlyMessage("emitting event new room");
+    this.newRoomSignal.next(true);
+  }
+
   onEditTask(task: Task) {
     this.editTaskSignal.next(task);
   }
@@ -40,5 +48,10 @@ export class ModalInformationService {
   onEditUserRange(user: User) {
     debugLogOnlyMessage("send event edit user range")
     this.editUserRangeSignal.next(user);
+  }
+
+  onEditRoom(room: Room) {
+    debugLogOnlyMessage("send event edit room")
+    this.editRoomSignal.next(room);
   }
 }

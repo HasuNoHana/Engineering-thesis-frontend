@@ -18,6 +18,7 @@ export class ProfileComponent implements OnInit {
   houseBuddy: HouseBuddy;
   passwordChanged: boolean = false;
   passwordChangeMessage: string = "none";
+  username: string | null;
 
   constructor(private houseService: HouseService,
               private router: Router,
@@ -25,6 +26,7 @@ export class ProfileComponent implements OnInit {
               private profileService: ProfileService) { }
 
   ngOnInit(): void {
+    this.username = localStorage.getItem("username");
     this.profileService.passwordChangeSuccess.subscribe((isSuccess: boolean) => {
       if(isSuccess) {
         this.passwordChangeMessage = "success"; //NOSONAR

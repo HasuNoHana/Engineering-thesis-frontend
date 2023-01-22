@@ -1,6 +1,6 @@
 <ng-template #content let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Zmiana hasła</h4>
+    <h4 class="modal-title" id="modal-basic-title">Zmiana wymaganych punktów</h4>
     <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
   </div>
   <div class="modal-body">
@@ -35,7 +35,7 @@
     <button type="button" class="btn btn-light" data-dismiss="modal"
             (click)="modal.dismiss('Cross click')">Anuluj</button>
     <button type="button" class="btn btn-dark" [disabled]="!userForm.valid"
-            (click)="modal.close('Save click')">Zmień hasło</button>
+            (click)="modal.close('Save click')">Zmień wymaganie</button>
   </div>
 </ng-template>
 <pre>{{ closeResult }}</pre>
