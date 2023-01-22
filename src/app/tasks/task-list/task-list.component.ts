@@ -70,10 +70,8 @@ export class TaskListComponent implements OnInit {
 
   }
 
-  onDelete(taskId: number) {
-    if(confirm("Czy na pewno chcesz usunąć to zadanie?")) {
-      this.taskService.deleteTask(taskId);
-    }
+  onDeleteTask(taskId: number) {
+    this.taskService.deleteTask(taskId);
   }
 
   onCreateNewTask() {
@@ -95,5 +93,9 @@ export class TaskListComponent implements OnInit {
 
   onEditTask(task: Task) {
     this.modalInformationService.onEditTask(task);
+  }
+
+  openSureDeleteModal(taskId: number) {
+    this.modalInformationService.onDeleteTask(taskId);
   }
 }

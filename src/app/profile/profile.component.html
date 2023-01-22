@@ -35,7 +35,10 @@
               <p>Podaj ten kod osobie, która chce dołączyć do Twojego domu, może go wpisać podczas rejestracji.</p>
             </div>
 
-            <app-komponent></app-komponent>
+            <app-delete-modal buttonInfo="Usuń użytkownika"
+                              messageObject="swojego użytkownika"
+                              title="Usunięcie użytkownika"
+                              (sureThatDelete)="onDeleteUser()"></app-delete-modal>
             <app-change-password-modal></app-change-password-modal>
           </div>
         </div>

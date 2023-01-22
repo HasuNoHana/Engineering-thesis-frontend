@@ -20,7 +20,7 @@ import {RoomDetailComponent} from './rooms/room-detail/room-detail.component';
 import {HousesComponent} from './houses/houses.component';
 import {HouseComponent} from './houses/house/house.component';
 import {EditPhotoComponent} from './profile/edit-photo/edit-photo.component';
-import {DeleteUserModal} from './profile/delete-user-modal/delete-user-modal.component';
+import {DeleteModal} from './shared/delete-user-modal/delete-modal.component';
 import {ProfileComponent} from './profile/profile.component';
 import {ChangePasswordModalComponent} from './profile/change-password-modal/change-password-modal.component';
 import {DevPageComponent} from './dev/dev-page/dev-page.component';
@@ -53,7 +53,7 @@ export class XhrInterceptor implements HttpInterceptor {
         HousesComponent,
         HouseComponent,
         EditPhotoComponent,
-        DeleteUserModal,
+        DeleteModal,
         ProfileComponent,
         ChangePasswordModalComponent,
         DevPageComponent,

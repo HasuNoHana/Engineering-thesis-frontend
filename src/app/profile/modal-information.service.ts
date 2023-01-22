@@ -10,7 +10,7 @@ import {Room} from "../rooms/room.model";
 })
 export class ModalInformationService {
 
-  deleteUserSignal = new Subject<boolean>();
+  deleteSignal = new Subject<number>();
   passwordChangeSignal = new Subject<boolean>();
   newTaskSignal = new Subject<boolean>();
   editTaskSignal = new Subject<Task>();
@@ -20,7 +20,7 @@ export class ModalInformationService {
   editRoomSignal = new Subject<Room>();
 
   onDeleteUser() {
-    this.deleteUserSignal.next(true);
+    this.deleteSignal.next(-1);
   }
 
   onPasswordChange() {
@@ -53,5 +53,9 @@ export class ModalInformationService {
   onEditRoom(room: Room) {
     debugLogOnlyMessage("send event edit room")
     this.editRoomSignal.next(room);
+  }
+
+  onDeleteTask(taskId: number) {
+    this.deleteSignal.next(taskId);
   }
 }

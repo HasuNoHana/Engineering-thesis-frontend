@@ -5,7 +5,11 @@
   </div>
 </div>
 <app-edit-task-modal></app-edit-task-modal>
-<!--<hr>--><br>
+<app-delete-modal buttonInfo="Usuń zadanie"
+                  messageObject="wybrane zadanie"
+                  title="Usunięcie zadania"
+                  (sureThatDelete)="onDeleteTask($event)"></app-delete-modal>
+<br>
 <div class="row">
   <div class="col-xs-12">
     <p *ngIf="isFetching">Loading...</p>
@@ -49,7 +53,7 @@
               </button>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                 <li><a class="dropdown-item" (click)="onEditTask(task)">Edytuj</a></li>
-                <li><a class="dropdown-item" (click)="onDelete(task.id)">Usuń</a></li>
+                <li><a class="dropdown-item" (click)="openSureDeleteModal(task.id)">Usuń</a></li>
               </ul>
             </div>
           </td>
@@ -96,7 +100,7 @@
               </button>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                 <li><a class="dropdown-item" (click)="onEditTask(task)">Edytuj</a></li>
-                <li><a class="dropdown-item" (click)="onDelete(task.id)">Usuń</a></li>
+                <li><a class="dropdown-item" (click)="openSureDeleteModal(task.id)">Usuń</a></li>
               </ul>
             </div>
           </td>

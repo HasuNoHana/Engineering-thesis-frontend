@@ -1,17 +1,17 @@
 <ng-template #content let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Usunięcie użytkownika</h4>
+    <h4 class="modal-title" id="modal-basic-title">{{title}}</h4>
     <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
   </div>
   <div class="modal-body">
-    <p>Czy na pewno chcesz usunąć swojego użytkownika?</p>
+    <p>Czy na pewno chcesz usunąć {{messageObject}}?</p>
     <p><strong>Ta operacja jest nieodwracalna.</strong></p>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-light" data-dismiss="modal"
             (click)="modal.dismiss('Cross click')">Anuluj</button>
     <button type="button" class="btn btn-dark"
-            (click)="modal.close('Save click')">Usuń użytkownika</button>
+            (click)="modal.close('Save click')">{{buttonInfo}}</button>
   </div>
 </ng-template>
 <pre>{{ closeResult }}</pre>
