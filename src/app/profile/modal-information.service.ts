@@ -18,6 +18,7 @@ export class ModalInformationService {
   editUserRangeSignal = new Subject<User>();
   newRoomSignal = new Subject<boolean>();
   editRoomSignal = new Subject<Room>();
+  editPhotoSignal = new Subject<boolean>();
 
   onDeleteUser() {
     this.deleteSignal.next(-1);
@@ -57,5 +58,9 @@ export class ModalInformationService {
 
   onDeleteTask(taskId: number) {
     this.deleteSignal.next(taskId);
+  }
+
+  onEditPhoto() {
+    this.editPhotoSignal.next(true);
   }
 }

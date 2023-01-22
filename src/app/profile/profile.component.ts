@@ -25,7 +25,7 @@ export class ProfileComponent implements OnInit {
               private router: Router,
               private modalInformationService: ModalInformationService,
               private profileService: ProfileService,
-              private authenticationService: AuthenticationService,) { }
+              private authenticationService: AuthenticationService) { }
 
   ngOnInit(): void {
     this.username = localStorage.getItem("username");
@@ -65,7 +65,8 @@ export class ProfileComponent implements OnInit {
 
   onEditPhoto() {
     this.passwordChanged = false;
-    this.router.navigateByUrl('/my/house/editPhoto');
+    this.modalInformationService.onEditPhoto();
+    // this.router.navigateByUrl('/my/house/editPhoto');
   }
 
   onUserDelete() {

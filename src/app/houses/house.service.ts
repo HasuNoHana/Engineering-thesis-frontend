@@ -21,7 +21,7 @@ export class HouseService {
   joinCode: string;
 
   proposedImagesChanged = new Subject<string[]>();
-  proposedImages: string[]
+  proposedImages: string[] = []
 
   username: string;
 

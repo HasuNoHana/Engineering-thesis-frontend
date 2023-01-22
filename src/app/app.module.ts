@@ -27,6 +27,7 @@ import {DevPageComponent} from './dev/dev-page/dev-page.component';
 import {EditTaskModalComponent} from "./tasks/edit-task-modal/edit-task-modal.component";
 import {EditUserModalComponent} from "./houses/edit-user-modal/edit-user-modal.component";
 import {EditRoomModalComponent} from "./rooms/edit-room-modal/edit-room-modal.component";
+import {EditPhotoModalComponent} from "./profile/edit-photo-modal/edit-photo-modal.component";
 
 @Injectable()
 export class XhrInterceptor implements HttpInterceptor {
@@ -59,7 +60,8 @@ export class XhrInterceptor implements HttpInterceptor {
         DevPageComponent,
         EditTaskModalComponent,
         EditUserModalComponent,
-        EditRoomModalComponent
+        EditRoomModalComponent,
+        EditPhotoModalComponent
     ],
   imports: [
     BrowserModule,
