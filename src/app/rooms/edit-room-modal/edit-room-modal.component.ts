@@ -109,14 +109,6 @@ export class EditRoomModalComponent implements OnInit, OnDestroy {
     });
   }
 
-  onEnter(index:number) {
-    this.selected = index;
-  }
-
-  onLeave() {
-    this.selected = -1;
-  }
-
   onImageClicked(image: string) {
     this.roomForm.setValue({
       'name': this.roomForm.value['name'],

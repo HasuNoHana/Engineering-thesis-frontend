@@ -28,6 +28,7 @@ import {EditTaskModalComponent} from "./tasks/edit-task-modal/edit-task-modal.co
 import {EditUserModalComponent} from "./houses/edit-user-modal/edit-user-modal.component";
 import {EditRoomModalComponent} from "./rooms/edit-room-modal/edit-room-modal.component";
 import {EditPhotoModalComponent} from "./profile/edit-photo-modal/edit-photo-modal.component";
+import {ProposedImagesComponent} from './shared/proposed-images/proposed-images.component';
 
 @Injectable()
 export class XhrInterceptor implements HttpInterceptor {
@@ -61,7 +62,8 @@ export class XhrInterceptor implements HttpInterceptor {
         EditTaskModalComponent,
         EditUserModalComponent,
         EditRoomModalComponent,
-        EditPhotoModalComponent
+        EditPhotoModalComponent,
+        ProposedImagesComponent
     ],
   imports: [
     BrowserModule,

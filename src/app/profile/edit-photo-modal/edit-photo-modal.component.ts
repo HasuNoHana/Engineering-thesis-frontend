@@ -18,13 +18,11 @@ export class EditPhotoModalComponent implements OnInit, OnDestroy {
 
   subscriptions: Array<any> = [];
 
-  defaultRoomImage = 'https://upload.wikimedia.org/wikipedia/commons/3/31/Cib-nextdoor_%28CoreUI_Icons_v1.0.0%29.svg';
   proposedImages: string[];
   selected: number = -1;
   room: Room;
 
   urlPattern = 'https?://.*';
-
 
   constructor(private modalService: NgbModal,
               private modalInformationService: ModalInformationService,
@@ -67,14 +65,6 @@ export class EditPhotoModalComponent implements OnInit, OnDestroy {
       'imageUrl': new FormControl("",
         [Validators.required, Validators.pattern(this.urlPattern)])
     });
-  }
-
-  onEnter(index:number) {
-    this.selected = index;
-  }
-
-  onLeave() {
-    this.selected = -1;
   }
 
   onImageClicked(image: string) {

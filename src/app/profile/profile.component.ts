@@ -66,7 +66,6 @@ export class ProfileComponent implements OnInit {
   onEditPhoto() {
     this.passwordChanged = false;
     this.modalInformationService.onEditPhoto();
-    // this.router.navigateByUrl('/my/house/editPhoto');
   }
 
   onUserDelete() {
