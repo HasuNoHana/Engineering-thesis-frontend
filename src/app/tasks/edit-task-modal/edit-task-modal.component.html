@@ -1,0 +1,112 @@
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">{{header}}</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="taskForm">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="name">Nazwa</label>
+            <label for="name" class="text-danger">*</label>
+            <input
+              type="text"
+              id="name"
+              formControlName="name"
+              class="form-control">
+            <div *ngIf="!taskForm?.get('name')?.valid && taskForm?.get('name')?.touched" class="alert alert-danger small">
+              To pole nie może być puste!
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group" >
+            <label for="initialPrice">Cena początkowa</label>
+            <label for="initialPrice" class="text-danger">*</label>
+            <input
+              type="number"
+              id="initialPrice"
+              formControlName="initialPrice"
+              class="form-control">
+            <div *ngIf="!taskForm?.get('initialPrice')?.valid &&
+            taskForm?.get('initialPrice')?.touched &&
+            taskForm?.get('initialPrice')?.errors['required']" class="alert alert-danger small">
+              To pole nie może być puste i musi być liczbą!
+            </div>
+            <div *ngIf="!taskForm?.get('initialPrice')?.valid &&
+            taskForm?.get('initialPrice')?.touched &&
+            taskForm?.get('initialPrice')?.errors['pattern']" class="alert alert-danger small">
+              Wpisana wartość musi być liczbą całowitą!
+            </div>
+            <div *ngIf="!taskForm?.get('initialPrice')?.valid &&
+            taskForm?.get('initialPrice')?.touched &&
+            taskForm?.get('initialPrice')?.value < 1" class="alert alert-danger small">
+              Cena musi być większa od 0!
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="repetitionRateInDays">Okres powtarzania zadania w dniach</label>
+            <label for="repetitionRateInDays" class="text-danger">*</label>
+            <input
+              type="number"
+              id="repetitionRateInDays"
+              formControlName="repetitionRateInDays"
+              class="form-control">
+            <div *ngIf="!taskForm?.get('repetitionRateInDays')?.valid &&
+            taskForm?.get('repetitionRateInDays')?.touched &&
+            taskForm?.get('repetitionRateInDays')?.errors['required']" class="alert alert-danger small">
+              To pole nie może być puste i musi być liczbą!
+            </div>
+            <div *ngIf="!taskForm?.get('repetitionRateInDays')?.valid &&
+            taskForm?.get('repetitionRateInDays')?.touched &&
+            taskForm?.get('repetitionRateInDays')?.errors['pattern']" class="alert alert-danger small">
+              Wpisana wartość musi być liczbą całowitą!
+            </div>
+            <div *ngIf="!taskForm?.get('repetitionRateInDays')?.valid &&
+            taskForm?.get('repetitionRateInDays')?.touched &&
+            taskForm?.get('repetitionRateInDays')?.value < 1" class="alert alert-danger small">
+              Cena musi być większa od 0!
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="roomName">Pokój</label>
+            <label for="roomName" class="text-danger">*</label>
+            <select
+              id="roomName"
+              name="roomName"
+              class="form-control"
+              formControlName="roomName">
+              <option
+                [ngValue]="room.name"
+                *ngFor="let room of rooms">
+                {{room.name}}</option>
+            </select>
+            <div *ngIf="!taskForm?.get('roomName')?.valid &&
+            taskForm?.get('roomName')?.touched &&
+            taskForm?.get('roomName')?.errors['required']" class="alert alert-danger small">
+              To pole nie może być puste!
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" data-dismiss="modal"
+            (click)="modal.dismiss('Cross click')">Anuluj</button>
+    <button type="button" class="btn btn-dark" [disabled]="!taskForm?.valid"
+            (click)="modal.close('Save click')">{{acceptMessage}}</button>
+  </div>
+</ng-template>
+<pre>{{ closeResult }}</pre>

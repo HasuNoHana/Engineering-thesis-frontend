@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Room} from "../room.model";
 import {RoomService} from "../room.service";
 import {ActivatedRoute, Router} from "@angular/router";
+import {ModalInformationService} from "../../profile/modal-information.service";
 
 @Component({
   selector: 'app-room-list',
@@ -11,23 +12,22 @@ import {ActivatedRoute, Router} from "@angular/router";
 export class RoomListComponent implements OnInit{
 
   rooms: Room[];
-  notDoneTasksForRooms: Map<number, number> = new Map();
 
   constructor(private roomService: RoomService,
               private router: Router,
-              private route: ActivatedRoute) {}
+              private route: ActivatedRoute,
+              private modalInformationService: ModalInformationService) {}
 
   ngOnInit() {
     this.rooms = this.roomService.getRooms();
     this.roomService.roomsChanged.subscribe((rooms: Room[]) => {
       this.rooms = rooms;
-      this.notDoneTasksForRooms = this.roomService.getNotDoneTasksForRooms();
     })
-    this.notDoneTasksForRooms = this.roomService.getNotDoneTasksForRooms();
+
   }
 
   onNewRoom() {
-    this.router.navigate(['new'], {relativeTo: this.route});
+    this.modalInformationService.onNewRoom();
   }
 
   onRoomDetails(roomId: number) {
@@ -38,7 +38,7 @@ export class RoomListComponent implements OnInit{
     this.roomService.deleteRoom(roomId);
   }
 
-  onEditRoom(id: number) {
-    this.router.navigate(['edit', id], {relativeTo: this.route});
+  onEditRoom(room: Room) {
+    this.modalInformationService.onEditRoom(room);
   }
 }

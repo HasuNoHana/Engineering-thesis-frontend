@@ -1,16 +1,17 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
 import {HouseService} from "../house.service";
 import {User} from "../user.model";
 import {Router} from "@angular/router";
-import {debugLog} from "../../app.component";
 import {HouseBuddy} from "../HouseBuddy.model";
+import {ModalInformationService} from "../../profile/modal-information.service";
+import {debugLogOnlyMessage} from "../../app.component";
 
 @Component({
   selector: 'app-user-information',
   templateUrl: './house.component.html',
   styleUrls: ['./house.component.css']
 })
-export class HouseComponent implements OnInit {
+export class HouseComponent implements OnInit,OnDestroy {
 
   username: string;
   image: string;
@@ -22,9 +23,14 @@ export class HouseComponent implements OnInit {
   @Output() newItemEvent = new EventEmitter<string>();
 
   constructor(private houseService: HouseService,
-              private router: Router) {}
+              private router: Router,
+              private modalInformationService: ModalInformationService) {}
+  ngOnDestroy() {
+    console.log("onDerstoyHouse")
+  }
 
   ngOnInit(): void {
+    console.log("onInitHouse")
     // @ts-ignore
     this.username = localStorage.getItem("username");
     this.getUsers();
@@ -34,32 +40,35 @@ export class HouseComponent implements OnInit {
 
 
   private getUsers() {
+    this.houseService.fetchUsers();
     this.houseService.usersChanged.subscribe((users: User[]) => {
-      console.log("aaaaa")
       this.users = users;
-      console.log(this.users)
     })
     this.users = this.houseService.getUsers();
   }
 
   private getUserAndWidth() {
+    this.houseService.fetchUser();
     this.houseService.houseBuddyChanged.subscribe((user: HouseBuddy) => {
-      debugLog("Getting new user data", user);
       this.houseBuddy = user;
-      this.width = Math.ceil((this.houseBuddy.currentPoints / this.houseBuddy.weeklyContribution) * 100);
+      this.width = Math.ceil((this.houseBuddy?.currentPoints / this.houseBuddy?.weeklyContribution) * 100);
     })
     this.houseBuddy = this.houseService.getCurrentUser();
-    console.log(this.houseBuddy);
-    this.width = Math.ceil((this.houseBuddy.currentPoints / this.houseBuddy.weeklyContribution) * 100);
+    this.width = Math.ceil((this.houseBuddy?.currentPoints / this.houseBuddy?.weeklyContribution) * 100);
   }
 
 
 
   private getDoneTasksThisWeek() {
+    this.houseService.fetchDoneTasksThisWeek();
     this.houseService.doneTasksThisWeekChanged.subscribe((doneTasksThisWeek: number) => {
       this.doneTasksThisWeek = doneTasksThisWeek;
-      console.log(doneTasksThisWeek);
     })
     this.doneTasksThisWeek = this.houseService.getDoneTasksThisWeek();
+  }
+
+  onEditUserRange(user: User) {
+    debugLogOnlyMessage("onEditUserRange button clicked")
+    this.modalInformationService.onEditUserRange(user)
   }
 }

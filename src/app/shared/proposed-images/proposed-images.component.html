@@ -1,0 +1,15 @@
+<p>Jeśli nie masz pomysłu na zdjęcie może chcesz wybrać jedno z zaproponowanych przez nas:</p><br>
+<div class="row">
+  <div class="col-xs-12">
+    <div class="row row-cols-1 row-cols-md-4 g-4">
+      <div class="col" *ngFor="let image of proposedImages;let i = index">
+        <div (mouseenter)="onEnter(i)" (mouseleave)="onLeave()">
+          <div class="card " [class.round]="i == selected">
+            <img [src]="image" class="card-img-top" alt="...">
+            <a class="stretched-link" (click)="onImageClicked(image)"></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

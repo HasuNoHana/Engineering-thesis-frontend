@@ -5,6 +5,7 @@ import {Router} from "@angular/router";
 import {debugLog} from "../app.component";
 import {ModalInformationService} from "./modal-information.service";
 import {ProfileService} from "./profile.service";
+import {AuthenticationService} from "../authentication/authentication.service";
 
 @Component({
   selector: 'app-profile',
@@ -18,13 +19,16 @@ export class ProfileComponent implements OnInit {
   houseBuddy: HouseBuddy;
   passwordChanged: boolean = false;
   passwordChangeMessage: string = "none";
+  username: string | null;
 
   constructor(private houseService: HouseService,
               private router: Router,
               private modalInformationService: ModalInformationService,
-              private profileService: ProfileService) { }
+              private profileService: ProfileService,
+              private authenticationService: AuthenticationService) { }
 
   ngOnInit(): void {
+    this.username = localStorage.getItem("username");
     this.profileService.passwordChangeSuccess.subscribe((isSuccess: boolean) => {
       if(isSuccess) {
         this.passwordChangeMessage = "success"; //NOSONAR
@@ -61,7 +65,7 @@ export class ProfileComponent implements OnInit {
 
   onEditPhoto() {
     this.passwordChanged = false;
-    this.router.navigateByUrl('/my/house/editPhoto');
+    this.modalInformationService.onEditPhoto();
   }
 
   onUserDelete() {
@@ -70,5 +74,10 @@ export class ProfileComponent implements OnInit {
 
   onPasswordChange() {
     this.modalInformationService.onPasswordChange();
+  }
+
+  onDeleteUser() {
+    this.profileService.deleteUser();
+    this.authenticationService.logout();
   }
 }

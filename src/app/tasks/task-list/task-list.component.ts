@@ -3,6 +3,8 @@ import {Subscription} from "rxjs";
 import {TaskService} from "../task.service";
 import {Task} from "../task.model";
 import {ActivatedRoute, Params, Router} from "@angular/router";
+import {ModalInformationService} from "../../profile/modal-information.service";
+import {debugLogOnlyMessage} from "../../app.component";
 
 @Component({
   selector: 'app-task-list',
@@ -15,19 +17,20 @@ export class TaskListComponent implements OnInit {
   subToDoTasks: Subscription;
   isFetching = false;
   taskToUserMap = new Map();
-  roomDetails: boolean = true;
+  roomDetails: boolean = false;
 
   roomId: number;
 
   constructor(private taskService: TaskService,
               private route: ActivatedRoute,
-              private router: Router) {}
+              private router: Router,
+              private modalInformationService: ModalInformationService) {}
 
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
       this.roomId = +params['id'];
       if(this.roomId){
-        this.roomDetails = false;
+        this.roomDetails = true;
         this.getTasksForRoom();
       } else {
         this.getAllTasks();
@@ -67,17 +70,18 @@ export class TaskListComponent implements OnInit {
 
   }
 
-  onDelete(taskId: number) {
-    if(confirm("Czy na pewno chcesz usunąć to zadanie?")) {
-      this.taskService.deleteTask(taskId);
-    }
+  onDeleteTask(taskId: number) {
+    this.taskService.deleteTask(taskId);
   }
 
   onCreateNewTask() {
-    if(this.roomId){
-      this.router.navigate(['newTask'], {relativeTo: this.route});
+    if(this.roomDetails) {
+      console.log("onCreateNerTask")
+      this.modalInformationService.onRoomDetails(this.roomId);
+    } else {
+      debugLogOnlyMessage("create new task button clicked");
+      this.modalInformationService.onNewTask();
     }
-    this.router.navigate(['newTask'], {relativeTo: this.route});
   }
 
   private getUsersForTasks() {
@@ -85,5 +89,13 @@ export class TaskListComponent implements OnInit {
     this.taskService.taskToUserMapChanged.subscribe((taskToUserMap: Map<number, string>) => {
       this.taskToUserMap = taskToUserMap;
     });
+  }
+
+  onEditTask(task: Task) {
+    this.modalInformationService.onEditTask(task);
+  }
+
+  openSureDeleteModal(taskId: number) {
+    this.modalInformationService.onDeleteTask(taskId);
   }
 }

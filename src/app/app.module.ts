@@ -11,8 +11,6 @@ import {HeaderComponent} from './header/header.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {RoomsComponent} from './rooms/rooms.component';
 import {RoomListComponent} from './rooms/room-list/room-list.component';
-import {RoomEditComponent} from './rooms/room-edit/room-edit.component';
-import {TaskEditComponent} from './tasks/task-edit/task-edit.component';
 import {LoginComponent} from './authentication/login/login.component';
 import {AuthenticationService} from "./authentication/authentication.service";
 import {TaskService} from "./tasks/task.service";
@@ -21,12 +19,16 @@ import {SignUpComponent} from './authentication/sign-up/sign-up.component';
 import {RoomDetailComponent} from './rooms/room-detail/room-detail.component';
 import {HousesComponent} from './houses/houses.component';
 import {HouseComponent} from './houses/house/house.component';
-import {EditUserComponent} from './houses/edit-user/edit-user.component';
 import {EditPhotoComponent} from './profile/edit-photo/edit-photo.component';
-import {DeleteUserModal} from './profile/delete-user-modal/delete-user-modal.component';
+import {DeleteModal} from './shared/delete-user-modal/delete-modal.component';
 import {ProfileComponent} from './profile/profile.component';
 import {ChangePasswordModalComponent} from './profile/change-password-modal/change-password-modal.component';
 import {DevPageComponent} from './dev/dev-page/dev-page.component';
+import {EditTaskModalComponent} from "./tasks/edit-task-modal/edit-task-modal.component";
+import {EditUserModalComponent} from "./houses/edit-user-modal/edit-user-modal.component";
+import {EditRoomModalComponent} from "./rooms/edit-room-modal/edit-room-modal.component";
+import {EditPhotoModalComponent} from "./profile/edit-photo-modal/edit-photo-modal.component";
+import {ProposedImagesComponent} from './shared/proposed-images/proposed-images.component';
 
 @Injectable()
 export class XhrInterceptor implements HttpInterceptor {
@@ -40,27 +42,29 @@ export class XhrInterceptor implements HttpInterceptor {
 }
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    TasksComponent,
-    TaskListComponent,
-    HeaderComponent,
-    RoomsComponent,
-    RoomListComponent,
-    RoomEditComponent,
-    TaskEditComponent,
-    LoginComponent,
-    SignUpComponent,
-    RoomDetailComponent,
-    HousesComponent,
-    HouseComponent,
-    EditUserComponent,
-    EditPhotoComponent,
-    DeleteUserModal,
-    ProfileComponent,
-    ChangePasswordModalComponent,
-    DevPageComponent,
-  ],
+    declarations: [
+        AppComponent,
+        TasksComponent,
+        TaskListComponent,
+        HeaderComponent,
+        RoomsComponent,
+        RoomListComponent,
+        LoginComponent,
+        SignUpComponent,
+        RoomDetailComponent,
+        HousesComponent,
+        HouseComponent,
+        EditPhotoComponent,
+        DeleteModal,
+        ProfileComponent,
+        ChangePasswordModalComponent,
+        DevPageComponent,
+        EditTaskModalComponent,
+        EditUserModalComponent,
+        EditRoomModalComponent,
+        EditPhotoModalComponent,
+        ProposedImagesComponent
+    ],
   imports: [
     BrowserModule,
     FormsModule,

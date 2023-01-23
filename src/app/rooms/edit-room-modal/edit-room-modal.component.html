@@ -1,0 +1,55 @@
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">{{header}}</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="roomForm">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="name">Nazwa Pokoju</label>
+            <label for="name" class="text-danger">*</label>
+            <input
+              type="text"
+              id="name"
+              formControlName="name"
+              class="form-control">
+            <div *ngIf="!roomForm?.get('name')?.valid &&
+            roomForm?.get('name')?.touched &&
+            roomForm?.get('name')?.errors['required']" class="alert alert-danger small">
+              To pole nie może być puste!
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="image">Ścieżka do zdjęcia</label>
+            <input
+              type="url"
+              id="image"
+              name="image"
+              formControlName="image"
+              class="form-control">
+            <div *ngIf="!roomForm?.get('image')?.valid &&
+            roomForm?.get('image')?.touched &&
+            roomForm?.get('image')?.errors['pattern']" class="alert alert-danger small">
+              To pole musi zawierać poprawny adres url albo może być puste!
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+      <app-proposed-images [proposedImages]="proposedImages" (imageClicked)="onImageClicked($event)"></app-proposed-images>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" data-dismiss="modal"
+            (click)="modal.dismiss('Cross click')">Anuluj</button>
+    <button type="button" class="btn btn-dark" [disabled]="!roomForm?.valid"
+            (click)="modal.close('Save click')">{{acceptMessage}}</button>
+  </div>
+</ng-template>
+<pre>{{ closeResult }}</pre>

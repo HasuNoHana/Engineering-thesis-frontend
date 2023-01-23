@@ -3,7 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {User} from "./user.model";
 import {Subject} from "rxjs";
 import {UserDTO} from "./UserDTO.model";
-import {debugLog} from "../app.component";
+import {debugLog, debugLogOnlyMessage} from "../app.component";
 import {HouseBuddy} from "./HouseBuddy.model";
 
 @Injectable({
@@ -21,7 +21,7 @@ export class HouseService {
   joinCode: string;
 
   proposedImagesChanged = new Subject<string[]>();
-  proposedImages: string[]
+  proposedImages: string[] = []
 
   username: string;
 
@@ -46,9 +46,10 @@ export class HouseService {
     this.fetchDoneTasksThisWeek();
   }
 
-  private fetchUsers() {
+   fetchUsers() {
     this.http.get<User[]>('http://localhost:4200/api/users',{withCredentials: true})
       .subscribe((users: User[]) => {
+        debugLogOnlyMessage("GET: api/users");
         this.users = users;
         this.usersChanged.next(this.users.slice());
       });
@@ -75,6 +76,7 @@ export class HouseService {
   fetchJoinCode() {
     this.http.get<string>('http://localhost:4200/api/joinCode',{withCredentials: true})
       .subscribe((joinCode: string) => {
+        debugLogOnlyMessage("GET: api/joinCode");
         this.joinCode = joinCode;
         this.joinCodeChanged.next(this.joinCode);
       });
@@ -87,12 +89,14 @@ export class HouseService {
         debugLog("response:", houseBuddy);
         this.houseBuddy = houseBuddy;
         this.houseBuddyChanged.next(this.houseBuddy);
+        this.fetchData();
       });
   }
 
   private fetchProposedImages() {
     this.http.get<string[]>('http://localhost:4200/api/avatarImages',{withCredentials: true})
       .subscribe((images: string[]) => {
+        debugLogOnlyMessage("GET: api/avatarImages");
         this.proposedImages = images;
         this.proposedImagesChanged.next(this.proposedImages);
       });
@@ -125,6 +129,7 @@ export class HouseService {
   }
 
   getProposedAvatarImages() {
+    this.fetchProposedImages()
     return this.proposedImages.slice();
   }
 

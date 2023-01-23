@@ -6,10 +6,15 @@
         <button type="button" class="btn btn-light btn-lg btn-block"
                 (click)="onEditPhoto()">Edytuj</button>
       </div>
-
       <div class="col-6 text-center">
-          <h3>Witaj w swoim profilu zuza!</h3>
-          <p >W tym miejscu możesz zedytować swój profil lub go usunąć</p>
+          <h3>Witaj w swoim profilu {{username}}!</h3>
+          <p >W tym miejscu możesz zedytować swój profil lub go usunąć</p><br><br><br><br><br><br>
+          <p *ngIf="passwordChangeMessage === 'error'" class="alert alert-danger " role="alert"  >
+            Nieudana zmiana hasła
+          </p>
+          <div *ngIf="passwordChangeMessage === 'success'" class="alert alert-success" role="alert" >
+            Zmiana hasła zakończona sukcesem!
+          </div>
       </div>
 
       <div class="col text-center">
@@ -17,28 +22,29 @@
           <div id="reading-sidebar" class="col-xs-3 panel-default"></div>
           <div id="reading-sidebar-contents" class="panel-body">
             <div class="btn-group-lg btn-group-vertical">
-              <div *ngIf="passwordChangeMessage === 'error'" class="alert alert-danger" role="alert">
-                Nieudana zmiana hasła
-              </div>
-              <div *ngIf="passwordChangeMessage === 'success'" class="alert alert-success" role="alert">
-                Zmiana hasła zakończona sukcesem!
-              </div>
               <button class="btn btn-lg btn-block btn-dark" (click)="onPasswordChange()">Zmień hasło</button>
+              <p></p>
               <button class="btn btn-lg btn-block btn-danger" (click)="onUserDelete()">Usuń użytkownika</button>
+              <p></p>
               <button type="button" class="btn btn-success btn-lg btn-block" (click)="onInviteClicked()"
               >Zaproś nową osobę</button>
-              <div *ngIf="inviteClicked" class="alert alert-warning" role="alert">
-                <p>Kod domu: {{joinCode}}</p><hr>
-                <p>Podaj ten kod osobie, która chce dołączyć do Twojego domu, może go wpisać podczas rejestracji.</p>
-              </div>
+            </div><br><br>
 
-              <app-komponent></app-komponent>
-              <app-change-password-modal></app-change-password-modal>
+            <div *ngIf="inviteClicked" class="alert alert-warning" role="alert">
+              <p>Kod domu: {{joinCode}}</p><hr>
+              <p>Podaj ten kod osobie, która chce dołączyć do Twojego domu, może go wpisać podczas rejestracji.</p>
             </div>
+
+            <app-delete-modal buttonInfo="Usuń użytkownika"
+                              messageObject="swojego użytkownika"
+                              title="Usunięcie użytkownika"
+                              (sureThatDelete)="onDeleteUser()"></app-delete-modal>
+            <app-change-password-modal></app-change-password-modal>
           </div>
         </div>
 
       </div>
   </div>
 </div>
+<app-edit-photo-modal></app-edit-photo-modal>
 

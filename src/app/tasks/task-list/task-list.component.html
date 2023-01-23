@@ -4,7 +4,12 @@
             (click)="onCreateNewTask()">Stwórz nowe zadanie</button>
   </div>
 </div>
-<!--<hr>--><br>
+<app-edit-task-modal></app-edit-task-modal>
+<app-delete-modal buttonInfo="Usuń zadanie"
+                  messageObject="wybrane zadanie"
+                  title="Usunięcie zadania"
+                  (sureThatDelete)="onDeleteTask($event)"></app-delete-modal>
+<br>
 <div class="row">
   <div class="col-xs-12">
     <p *ngIf="isFetching">Loading...</p>
@@ -19,7 +24,7 @@
           <th scope="col">Nazwa</th>
           <th scope="col">Cena początkowa</th>
           <th scope="col">Obecna cena</th>
-          <th scope="col" *ngIf="roomDetails">Pokój</th>
+          <th scope="col" *ngIf="!roomDetails">Pokój</th>
           <th scope="col">Ostatnio wykonane</th>
           <th scope="col">Wykonane przez</th>
           <th scope="col"></th>
@@ -38,7 +43,7 @@
           <td>{{ task.name }}</td>
           <td>{{ task.initialPrice }}</td>
           <td>{{ task.currentPrice }}</td>
-          <td *ngIf="roomDetails">{{ task.room.name }}</td>
+          <td *ngIf="!roomDetails">{{ task.room.name }}</td>
           <td>{{ task.lastDoneDate }}</td>
           <td>{{ taskToUserMap.get(task.lastDoneUserId) }}</td>
           <td style="width: 40px">
@@ -47,8 +52,8 @@
                 ...
               </button>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                <li><a class="dropdown-item" [routerLink]="['/tasks', 'list', 'todo', task.id]">Edytuj</a></li>
-                <li><a class="dropdown-item" (click)="onDelete(task.id)">Usuń</a></li>
+                <li><a class="dropdown-item" (click)="onEditTask(task)">Edytuj</a></li>
+                <li><a class="dropdown-item" (click)="openSureDeleteModal(task.id)">Usuń</a></li>
               </ul>
             </div>
           </td>
@@ -58,7 +63,7 @@
 
       <br>
       <h5>Wykonane zadania</h5>
-      <p>Odzaznacz wykonane przez siebie zadanie jeśli się pomyliłeś</p>
+      <p>Odznacz wykonane przez siebie zadanie, jeśli się pomyliłeś</p>
       <table class="table table-hover table-borderless caption-top " aria-describedby="Done Tasks List">
         <thead class="table-light">
         <tr>
@@ -66,7 +71,7 @@
           <th scope="col">Nazwa</th>
           <th scope="col">Cena początkowa</th>
           <th scope="col">Obecna cena</th>
-          <th scope="col" *ngIf="roomDetails">Pokój</th>
+          <th scope="col" *ngIf="!roomDetails">Pokój</th>
           <th scope="col">Ostatnio wykonane</th>
           <th scope="col">Wykonane przez</th>
           <th scope="col"></th>
@@ -85,7 +90,7 @@
           <td style="color: gray">{{ task.name }}</td>
           <td style="color: gray">{{ task.initialPrice }}</td>
           <td style="color: gray">{{ task.currentPrice }}</td>
-          <td style="color: gray" *ngIf="roomDetails">{{ task.room.name }}</td>
+          <td style="color: gray" *ngIf="!roomDetails">{{ task.room.name }}</td>
           <td style="color: gray">{{ task.lastDoneDate }}</td>
           <td style="color: gray">{{ taskToUserMap.get(task.lastDoneUserId) }}</td>
           <td style="width: 40px">
@@ -94,8 +99,8 @@
                 ...
               </button>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                <li><a class="dropdown-item" [routerLink]="['/tasks', 'list', 'done', task.id]">Edytuj</a></li>
-                <li><a class="dropdown-item" (click)="onDelete(task.id)">Usuń</a></li>
+                <li><a class="dropdown-item" (click)="onEditTask(task)">Edytuj</a></li>
+                <li><a class="dropdown-item" (click)="openSureDeleteModal(task.id)">Usuń</a></li>
               </ul>
             </div>
           </td>

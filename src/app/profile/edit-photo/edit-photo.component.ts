@@ -19,6 +19,9 @@ export class EditPhotoComponent implements OnInit {
 
   ngOnInit(): void {
     this.proposedImages = this.houseService.getProposedAvatarImages();
+    this.houseService.proposedImagesChanged.subscribe((images: string[]) => {
+      this.proposedImages = images;
+    })
     this.initForm();
   }
 

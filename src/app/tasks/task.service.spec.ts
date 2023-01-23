@@ -2,7 +2,6 @@ import {HttpClient} from '@angular/common/http';
 import {TestBed} from '@angular/core/testing';
 import {createSpyFromClass, Spy} from 'jasmine-auto-spies';
 import {TaskService} from "./task.service";
-import {House} from "../houses/house.model";
 import {Room} from "../rooms/room.model";
 import {Task, TaskBuilder} from "./task.model";
 import {HouseService} from "../houses/house.service";
@@ -11,9 +10,8 @@ describe('CustomersService', () => {
   let service: TaskService;
   let httpSpy: Spy<HttpClient>;
 
-  let house = new House(1, '1234');
-  let room = new Room(1, 'Room 1', 'image_url', house);
-  let room2 = new Room(2, 'Room 2', 'image_url_2', house);
+  let room = new Room(1, 'Room 1', 'image_url', 5);
+  let room2 = new Room(2, 'Room 2', 'image_url_2', 3);
 
   let expectedTask: Task = new TaskBuilder()
     .setId(1)

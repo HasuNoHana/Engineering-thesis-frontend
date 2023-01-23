@@ -1,9 +1,11 @@
-<h3>Wybierz jeden z proponowanych obrazków lub wklej swój własny!</h3>
+<h1>Edycja zdjęcia profilowego</h1>
+<h5>Wybierz jedeno z proponowanych zdjęć lub wklej adres url ze swoim własnym!</h5>
 <form [formGroup]="imageForm" (ngSubmit)="onSubmit()">
   <div class="row">
     <div class="col-xs-12">
       <div class="form-group">
-        <label for="imageUrl">Chcesz mieć swój własny obrazek? Wklej tu URL!</label>
+        <label for="imageUrl">Adres url zdjęcia</label>
+        <label for="imageUrl" class="text-danger">*</label>
         <input type="text" id="imageUrl" formControlName="imageUrl" class="form-control">
         <span *ngIf="!imageForm.get('imageUrl').valid && imageForm.get('imageUrl').touched" style="color: red"
               class="help-block">
@@ -25,7 +27,7 @@
   </div>
 </form>
 <br><br>
-<p>Możesz też wybrać z zaproponowanych przez nas!</p><br>
+<p>Możesz też wybrać jedno ze zdjęć zaproponowanych przez nas!</p><br>
 <div class="row">
   <div class="col-xs-12">
     <div class="row row-cols-1 row-cols-md-6 g-4">
