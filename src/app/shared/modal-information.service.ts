@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Subject} from "rxjs";
 import {Task} from "../tasks/task.model";
 import {debugLogOnlyMessage} from "../app.component";
-import {User} from "../houses/user.model";
+import {HouseBuddy} from "../houses/house-buddy.model";
 import {Room} from "../rooms/room.model";
 
 @Injectable({
@@ -15,7 +15,7 @@ export class ModalInformationService {
   newTaskSignal = new Subject<boolean>();
   editTaskSignal = new Subject<Task>();
   newTaskDetailSignal = new Subject<number>();
-  editUserRangeSignal = new Subject<User>();
+  editUserRangeSignal = new Subject<HouseBuddy>();
   newRoomSignal = new Subject<boolean>();
   editRoomSignal = new Subject<Room>();
   editPhotoSignal = new Subject<boolean>();
@@ -46,7 +46,7 @@ export class ModalInformationService {
     this.newTaskDetailSignal.next(roomId);
   }
 
-  onEditUserRange(user: User) {
+  onEditUserRange(user: HouseBuddy) {
     debugLogOnlyMessage("send event edit user range")
     this.editUserRangeSignal.next(user);
   }

@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {HouseBuddy} from "../houses/house-buddy.model";
 import {HouseService} from "../houses/house.service";
 import {Router} from "@angular/router";
 import {debugLog} from "../app.component";
 import {ModalInformationService} from "../shared/modal-information.service";
 import {ProfileService} from "./profile.service";
 import {AuthenticationService} from "../authentication/authentication.service";
+import {HouseBuddy} from "../houses/house-buddy.model";
 
 @Component({
   selector: 'app-profile',
@@ -16,7 +16,7 @@ export class ProfileComponent implements OnInit {
 
   joinCode: string;
   inviteClicked: boolean;
-  houseBuddy: HouseBuddy;
+  user: HouseBuddy;
   passwordChanged: boolean = false;
   passwordChangeMessage: string = "none";
   username: string | null;
@@ -48,11 +48,11 @@ export class ProfileComponent implements OnInit {
   }
 
   private getUserAndWidth() {
-    this.houseService.houseBuddyChanged.subscribe((user: HouseBuddy) => {
+    this.houseService.userChanged.subscribe((user: HouseBuddy) => {
       debugLog("Getting new user data", user);
-      this.houseBuddy = user;
+      this.user = user;
     })
-    this.houseBuddy = this.houseService.getCurrentUser();
+    this.user = this.houseService.getCurrentUser();
   }
 
   onInviteClicked() {

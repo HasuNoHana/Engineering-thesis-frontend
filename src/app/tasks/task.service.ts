@@ -3,7 +3,7 @@ import {Task} from "./task.model";
 import {Observable, Subject} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {HouseService} from "../houses/house.service";
-import {User} from "../houses/user.model";
+import {HouseBuddy} from "../houses/house-buddy.model";
 
 @Injectable()
 export class TaskService {
@@ -141,7 +141,7 @@ export class TaskService {
   }
 
   private fetchUsers() {
-    this.houseService.usersChanged.subscribe((users: User[]) => {
+    this.houseService.usersChanged.subscribe((users: HouseBuddy[]) => {
       users.forEach(user => {
         this.taskToUserMap.set(user.id, user.username);
       });

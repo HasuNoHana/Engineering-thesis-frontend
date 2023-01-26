@@ -16,7 +16,7 @@ export class HeaderComponent {
   constructor(private elRef: ElementRef,
               private appService: AuthenticationService,
               private houseService: HouseService) {
-    this.houseService.houseBuddyChanged.subscribe((user: HouseBuddy) => {
+    this.houseService.userChanged.subscribe((user: HouseBuddy) => {
       this.image = user.avatarImageUrl;
     })
     this.houseService.getCurrentUser();

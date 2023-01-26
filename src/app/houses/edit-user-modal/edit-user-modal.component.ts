@@ -1,7 +1,7 @@
 import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {User} from "../user.model";
+import {HouseBuddy} from "../house-buddy.model";
 import {HouseService} from "../house.service";
 import {ModalInformationService} from "../../shared/modal-information.service";
 import {debugLog} from "../../app.component";
@@ -14,7 +14,7 @@ export class EditUserModalComponent implements OnInit, OnDestroy {
   closeResult = '';
   userForm: FormGroup;
   @ViewChild("content",{static:true}) content:ElementRef;
-  user: User;
+  user: HouseBuddy;
   subscriptions: Array<any> = [];
 
   constructor(private modalService: NgbModal,
@@ -26,7 +26,7 @@ export class EditUserModalComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.subscriptions.push(this.modalInformationService.editUserRangeSignal.subscribe((user: User) => {
+    this.subscriptions.push(this.modalInformationService.editUserRangeSignal.subscribe((user: HouseBuddy) => {
       this.user = user;
       debugLog("open modal for user: ", user?.username)
       this.initForm();
@@ -45,7 +45,7 @@ export class EditUserModalComponent implements OnInit, OnDestroy {
   }
 
   private initForm() {
-    let range = this.user?.range
+    let range = this.user?.weeklyContribution
 
     this.userForm = new FormGroup({
       'range': new FormControl(range, [Validators.required, Validators.min(1),
