@@ -3,7 +3,7 @@ import {Subscription} from "rxjs";
 import {TaskService} from "../task.service";
 import {Task} from "../task.model";
 import {ActivatedRoute, Params, Router} from "@angular/router";
-import {ModalInformationService} from "../../profile/modal-information.service";
+import {ModalInformationService} from "../../shared/modal-information.service";
 import {debugLogOnlyMessage} from "../../app.component";
 
 @Component({

@@ -2,8 +2,8 @@ import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core'
 import {HouseService} from "../house.service";
 import {User} from "../user.model";
 import {Router} from "@angular/router";
-import {HouseBuddy} from "../HouseBuddy.model";
-import {ModalInformationService} from "../../profile/modal-information.service";
+import {HouseBuddy} from "../house-buddy.model";
+import {ModalInformationService} from "../../shared/modal-information.service";
 import {debugLogOnlyMessage} from "../../app.component";
 
 @Component({

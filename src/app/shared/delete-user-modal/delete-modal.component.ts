@@ -1,7 +1,7 @@
 import {Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ProfileService} from "../../profile/profile.service";
-import {ModalInformationService} from "../../profile/modal-information.service";
+import {ModalInformationService} from "../modal-information.service";
 
 @Component({
   selector: 'app-delete-modal',

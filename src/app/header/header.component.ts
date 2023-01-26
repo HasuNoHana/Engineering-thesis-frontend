@@ -1,7 +1,7 @@
 import {Component, ElementRef} from '@angular/core';
 import {AuthenticationService} from "../authentication/authentication.service";
 import {HouseService} from "../houses/house.service";
-import {HouseBuddy} from "../houses/HouseBuddy.model";
+import {HouseBuddy} from "../houses/house-buddy.model";
 
 @Component({
   selector: 'app-header',

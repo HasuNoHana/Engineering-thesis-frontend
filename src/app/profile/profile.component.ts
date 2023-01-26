@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {HouseBuddy} from "../houses/HouseBuddy.model";
+import {HouseBuddy} from "../houses/house-buddy.model";
 import {HouseService} from "../houses/house.service";
 import {Router} from "@angular/router";
 import {debugLog} from "../app.component";
-import {ModalInformationService} from "./modal-information.service";
+import {ModalInformationService} from "../shared/modal-information.service";
 import {ProfileService} from "./profile.service";
 import {AuthenticationService} from "../authentication/authentication.service";
 

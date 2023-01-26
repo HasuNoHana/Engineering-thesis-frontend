@@ -2,9 +2,8 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {User} from "./user.model";
 import {Subject} from "rxjs";
-import {UserDTO} from "./UserDTO.model";
 import {debugLog, debugLogOnlyMessage} from "../app.component";
-import {HouseBuddy} from "./HouseBuddy.model";
+import {HouseBuddy} from "./house-buddy.model";
 
 @Injectable({
   providedIn: 'root'
@@ -82,10 +81,10 @@ export class HouseService {
       });
   }
 
-  editUser(id: number, userDTO: UserDTO) {
-    this.http.post<HouseBuddy>('http://localhost:4200/api/editUser?id='+id, userDTO, {withCredentials: true})
+  editUser(user: User) {
+    this.http.post<HouseBuddy>('http://localhost:4200/api/editUser', user, {withCredentials: true})
       .subscribe((houseBuddy: HouseBuddy) => {
-        debugLog("POST: api/editUser, request:", userDTO);
+        debugLog("POST: api/editUser, request:", user);
         debugLog("response:", houseBuddy);
         this.houseBuddy = houseBuddy;
         this.houseBuddyChanged.next(this.houseBuddy);
@@ -103,13 +102,13 @@ export class HouseService {
   }
 
   editPhoto(image: string) {
-    let user = new UserDTO(this.username, this.houseBuddy.currentPoints, this.houseBuddy.weeklyContribution, image);
-    this.editUser(-1, user);
+    let user = new User(-1, this.username, this.houseBuddy.currentPoints, this.houseBuddy.weeklyContribution, image);
+    this.editUser(user);
   }
 
   editRange(id: number, weeklyFirewoodContribution: number) {
-    let user = new UserDTO(this.username, this.houseBuddy.currentPoints, weeklyFirewoodContribution, this.houseBuddy.avatarImageUrl);
-    this.editUser(id, user);
+    let user = new User(id, this.username, this.houseBuddy.currentPoints, weeklyFirewoodContribution, this.houseBuddy.avatarImageUrl);
+    this.editUser(user);
   }
 
   getUsers() {

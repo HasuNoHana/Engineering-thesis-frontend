@@ -1,9 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {AuthenticationService} from '../authentication.service';
-import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
-import {UserSignup} from "./userSignup.model";
+import {UserSignup} from "../userSignup.model";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {SignUpService} from "../sign-up.service";
 
 @Component({
   selector: 'app-sign-up',
@@ -16,8 +15,7 @@ export class SignUpComponent implements OnInit {
   badRequest = false;
   signUpForm: FormGroup;
 
-  constructor(public authService: AuthenticationService,
-              private http: HttpClient,
+  constructor(private signUpService: SignUpService,
               private router: Router) {
   }
 
@@ -32,7 +30,6 @@ export class SignUpComponent implements OnInit {
       'passwordConfirmation': new FormControl("", [Validators.required]),
       'houseJoinCode': new FormControl("", [])
     });
-    console.log("ji")
   }
 
   signup() {
@@ -52,10 +49,10 @@ export class SignUpComponent implements OnInit {
       let userSignup: UserSignup = new UserSignup(this.signUpForm.controls['username'].value,
         this.signUpForm.controls['password'].value, this.signUpForm.controls['houseJoinCode'].value);
 
-      this.http.post('api/createUserForExistingHouse', userSignup).subscribe(() => {
+      this.signUpService.createUserCall(userSignup).subscribe(() => {
         this.badRequest = false;
         this.router.navigateByUrl('/login');
-      }, error => {
+      }, (error: any) => {
         if(error.status === 400) {
           console.log(error);
           this.badRequest = true;
@@ -65,9 +62,9 @@ export class SignUpComponent implements OnInit {
     } else {
       let user = {"username": this.signUpForm.controls['username'].value, "password": this.signUpForm.controls['password'].value};
 
-      this.http.post('api/createUserAndHouse', user).subscribe(() => {
+      this.signUpService.createUserAndHouseCall(user).subscribe(() => {
         this.router.navigateByUrl('/login');
-      }, error => {
+      }, (error: any) => {
         if(error.status === 400) {
           console.log(error);
           this.badRequest = true;

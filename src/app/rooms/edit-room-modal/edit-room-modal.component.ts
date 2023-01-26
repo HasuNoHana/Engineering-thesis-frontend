@@ -1,7 +1,7 @@
 import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {ModalInformationService} from "../../profile/modal-information.service";
+import {ModalInformationService} from "../../shared/modal-information.service";
 import {Room} from "../../rooms/room.model";
 import {RoomService} from "../../rooms/room.service";
 import {debugLog, debugLogOnlyMessage} from "../../app.component";

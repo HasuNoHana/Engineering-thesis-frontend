@@ -3,7 +3,7 @@ import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {User} from "../user.model";
 import {HouseService} from "../house.service";
-import {ModalInformationService} from "../../profile/modal-information.service";
+import {ModalInformationService} from "../../shared/modal-information.service";
 import {debugLog} from "../../app.component";
 
 @Component({
