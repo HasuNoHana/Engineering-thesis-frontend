@@ -16,10 +16,8 @@ export class AuthInterceptorService implements HttpInterceptor {
     });
     return next.handle(xhr).pipe( tap(() => {},
       (err: any) => {
-        if (err instanceof HttpErrorResponse) {
+        if (err instanceof HttpErrorResponse || req.headers.get("skip")) {
           if (err.status !== 401) {
-            return;
-          } else if(req.headers.get("skip")) {
             return;
           }
           this.authenticationService.logout();

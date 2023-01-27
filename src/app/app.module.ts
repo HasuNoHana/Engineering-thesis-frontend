@@ -19,7 +19,7 @@ import {SignUpComponent} from './authentication/sign-up/sign-up.component';
 import {RoomDetailComponent} from './rooms/room-detail/room-detail.component';
 import {HousesComponent} from './houses/houses.component';
 import {HouseComponent} from './houses/house/house.component';
-import {DeleteModal} from './shared/delete-user-modal/delete-modal.component';
+import {DeleteModalComponent} from './shared/delete-modal/delete-modal.component';
 import {ProfileComponent} from './profile/profile.component';
 import {ChangePasswordModalComponent} from './profile/change-password-modal/change-password-modal.component';
 import {DevPageComponent} from './dev/dev-page/dev-page.component';
@@ -43,7 +43,7 @@ import {AuthInterceptorService} from "./authentication/auth-interceptor.service"
         RoomDetailComponent,
         HousesComponent,
         HouseComponent,
-        DeleteModal,
+        DeleteModalComponent,
         ProfileComponent,
         ChangePasswordModalComponent,
         DevPageComponent,
