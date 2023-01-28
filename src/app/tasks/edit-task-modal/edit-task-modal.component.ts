@@ -1,7 +1,7 @@
 import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {ModalInformationService} from "../../profile/modal-information.service";
+import {ModalInformationService} from "../../shared/modal-information.service";
 import {Room} from "../../rooms/room.model";
 import {RoomService} from "../../rooms/room.service";
 import {Task, TaskBuilder} from "../task.model";
@@ -21,7 +21,7 @@ export class EditTaskModalComponent implements OnInit, OnDestroy {
   header: string;
 
   rooms: Room[];
-  task: Task;
+  task: Task | undefined;
   room: Room | undefined;
 
   subscriptions: Array<any> = [];
@@ -103,14 +103,15 @@ export class EditTaskModalComponent implements OnInit, OnDestroy {
             .setPreviousLastDoneDate(this.task.previousLastDoneDate)
             .setLastDoneUserId(this.task.lastDoneUserId)
             .setPreviousLastDoneUserId(this.task.previousLastDoneUserId)
-            .setRepetitionRateInDays(this.task.repetitionRateInDays)
             .build()
 
           debugLog("Task to be edited: ", t);
+          this.resetModal();
           this.taskService.updateTask(t);
         } else {
           let t:Task = taskBuilder.build()
           debugLog("Task to be added: ", t);
+          this.resetModal();
           this.taskService.addTask(t);
         }
       },
@@ -136,6 +137,9 @@ export class EditTaskModalComponent implements OnInit, OnDestroy {
   }
 
   private initFormWithTask() {
+    if(this.task === undefined) {
+      return;
+    }
     let taskName = this.task.name;
     let taskInitialPrice = this.task.initialPrice;
     let taskRoomName = this.task.room.name;
@@ -169,5 +173,9 @@ export class EditTaskModalComponent implements OnInit, OnDestroy {
         [Validators.required, Validators.min(1), Validators.pattern(/^-?\d+$/)])
     });
     this.taskForm.controls['roomName'].setValue(defaultRoomName, {onlySelf: true});
+  }
+
+  private resetModal() {
+    this.task = undefined;
   }
 }

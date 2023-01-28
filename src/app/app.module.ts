@@ -1,6 +1,6 @@
-import {Injectable, NgModule} from '@angular/core';
+import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
-import {HTTP_INTERCEPTORS, HttpClientModule, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 import {AppComponent} from './app.component';
@@ -19,8 +19,7 @@ import {SignUpComponent} from './authentication/sign-up/sign-up.component';
 import {RoomDetailComponent} from './rooms/room-detail/room-detail.component';
 import {HousesComponent} from './houses/houses.component';
 import {HouseComponent} from './houses/house/house.component';
-import {EditPhotoComponent} from './profile/edit-photo/edit-photo.component';
-import {DeleteModal} from './shared/delete-user-modal/delete-modal.component';
+import {DeleteModalComponent} from './shared/delete-modal/delete-modal.component';
 import {ProfileComponent} from './profile/profile.component';
 import {ChangePasswordModalComponent} from './profile/change-password-modal/change-password-modal.component';
 import {DevPageComponent} from './dev/dev-page/dev-page.component';
@@ -29,17 +28,7 @@ import {EditUserModalComponent} from "./houses/edit-user-modal/edit-user-modal.c
 import {EditRoomModalComponent} from "./rooms/edit-room-modal/edit-room-modal.component";
 import {EditPhotoModalComponent} from "./profile/edit-photo-modal/edit-photo-modal.component";
 import {ProposedImagesComponent} from './shared/proposed-images/proposed-images.component';
-
-@Injectable()
-export class XhrInterceptor implements HttpInterceptor {
-
-  intercept(req: HttpRequest<any>, next: HttpHandler) {
-    const xhr = req.clone({
-      headers: req.headers.set('X-Requested-With', 'XMLHttpRequest')
-    });
-    return next.handle(xhr);
-  }
-}
+import {AuthInterceptorService} from "./authentication/auth-interceptor.service";
 
 @NgModule({
     declarations: [
@@ -54,8 +43,7 @@ export class XhrInterceptor implements HttpInterceptor {
         RoomDetailComponent,
         HousesComponent,
         HouseComponent,
-        EditPhotoComponent,
-        DeleteModal,
+        DeleteModalComponent,
         ProfileComponent,
         ChangePasswordModalComponent,
         DevPageComponent,
@@ -77,7 +65,7 @@ export class XhrInterceptor implements HttpInterceptor {
     AuthenticationService,
     TaskService,
     OnlyLoggedInUsersGuardService,
-    {provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true},
   ],
   bootstrap: [AppComponent]
 })

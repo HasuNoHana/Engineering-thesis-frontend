@@ -1,9 +1,8 @@
 import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
 import {HouseService} from "../house.service";
-import {User} from "../user.model";
+import {HouseBuddy} from "../house-buddy.model";
 import {Router} from "@angular/router";
-import {HouseBuddy} from "../HouseBuddy.model";
-import {ModalInformationService} from "../../profile/modal-information.service";
+import {ModalInformationService} from "../../shared/modal-information.service";
 import {debugLogOnlyMessage} from "../../app.component";
 
 @Component({
@@ -16,7 +15,7 @@ export class HouseComponent implements OnInit,OnDestroy {
   username: string;
   image: string;
   width:number;
-  users: User[]
+  users: HouseBuddy[]
   houseBuddy: HouseBuddy;
   doneTasksThisWeek: number;
 
@@ -41,7 +40,7 @@ export class HouseComponent implements OnInit,OnDestroy {
 
   private getUsers() {
     this.houseService.fetchUsers();
-    this.houseService.usersChanged.subscribe((users: User[]) => {
+    this.houseService.usersChanged.subscribe((users: HouseBuddy[]) => {
       this.users = users;
     })
     this.users = this.houseService.getUsers();
@@ -49,7 +48,7 @@ export class HouseComponent implements OnInit,OnDestroy {
 
   private getUserAndWidth() {
     this.houseService.fetchUser();
-    this.houseService.houseBuddyChanged.subscribe((user: HouseBuddy) => {
+    this.houseService.userChanged.subscribe((user: HouseBuddy) => {
       this.houseBuddy = user;
       this.width = Math.ceil((this.houseBuddy?.currentPoints / this.houseBuddy?.weeklyContribution) * 100);
     })
@@ -67,7 +66,7 @@ export class HouseComponent implements OnInit,OnDestroy {
     this.doneTasksThisWeek = this.houseService.getDoneTasksThisWeek();
   }
 
-  onEditUserRange(user: User) {
+  onEditUserRange(user: HouseBuddy) {
     debugLogOnlyMessage("onEditUserRange button clicked")
     this.modalInformationService.onEditUserRange(user)
   }

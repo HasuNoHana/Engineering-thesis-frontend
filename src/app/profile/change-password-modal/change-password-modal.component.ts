@@ -2,7 +2,7 @@ import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {ProfileService} from "../profile.service";
-import {ModalInformationService} from "../modal-information.service";
+import {ModalInformationService} from "../../shared/modal-information.service";
 
 @Component({
   selector: 'app-change-password-modal',

@@ -1,21 +1,19 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {User} from "./user.model";
+import {HouseBuddy} from "./house-buddy.model";
 import {Subject} from "rxjs";
-import {UserDTO} from "./UserDTO.model";
 import {debugLog, debugLogOnlyMessage} from "../app.component";
-import {HouseBuddy} from "./HouseBuddy.model";
 
 @Injectable({
   providedIn: 'root'
 })
 export class HouseService {
 
-  usersChanged = new Subject<User[]>();
-  users: User[];
+  usersChanged = new Subject<HouseBuddy[]>();
+  users: HouseBuddy[];
 
-  houseBuddyChanged = new Subject<HouseBuddy>();
-  houseBuddy: HouseBuddy;
+  userChanged = new Subject<HouseBuddy>();
+  user: HouseBuddy;
 
   joinCodeChanged = new Subject<string>();
   joinCode: string;
@@ -29,7 +27,7 @@ export class HouseService {
   doneTasksThisWeek: number;
 
   constructor(private http: HttpClient) {
-    this.users = <User[]>[];
+    this.users = <HouseBuddy[]>[];
     // @ts-ignore
     this.username =localStorage.getItem("username");
     this.fetchUsers();
@@ -47,8 +45,8 @@ export class HouseService {
   }
 
    fetchUsers() {
-    this.http.get<User[]>('http://localhost:4200/api/users',{withCredentials: true})
-      .subscribe((users: User[]) => {
+    this.http.get<HouseBuddy[]>('http://localhost:4200/api/users',{withCredentials: true})
+      .subscribe((users: HouseBuddy[]) => {
         debugLogOnlyMessage("GET: api/users");
         this.users = users;
         this.usersChanged.next(this.users.slice());
@@ -59,8 +57,8 @@ export class HouseService {
     this.http.get<HouseBuddy>('http://localhost:4200/api/currentUserData',{withCredentials: true})
       .subscribe((user: HouseBuddy) => {
         debugLog("GET: api/currentUserData, response:", user);
-        this.houseBuddy = user;
-        this.houseBuddyChanged.next(this.houseBuddy);
+        this.user = user;
+        this.userChanged.next(this.user);
       });
   }
 
@@ -82,13 +80,13 @@ export class HouseService {
       });
   }
 
-  editUser(id: number, userDTO: UserDTO) {
-    this.http.post<HouseBuddy>('http://localhost:4200/api/editUser?id='+id, userDTO, {withCredentials: true})
-      .subscribe((houseBuddy: HouseBuddy) => {
-        debugLog("POST: api/editUser, request:", userDTO);
-        debugLog("response:", houseBuddy);
-        this.houseBuddy = houseBuddy;
-        this.houseBuddyChanged.next(this.houseBuddy);
+  editUser(user: HouseBuddy) {
+    this.http.post<HouseBuddy>('http://localhost:4200/api/editUser', user, {withCredentials: true})
+      .subscribe((recivedUser: HouseBuddy) => {
+        debugLog("POST: api/editUser, request:", user);
+        debugLog("response:", recivedUser);
+        this.user = recivedUser;
+        this.userChanged.next(this.user);
         this.fetchData();
       });
   }
@@ -103,13 +101,13 @@ export class HouseService {
   }
 
   editPhoto(image: string) {
-    let user = new UserDTO(this.username, this.houseBuddy.currentPoints, this.houseBuddy.weeklyContribution, image);
-    this.editUser(-1, user);
+    let user = new HouseBuddy(-1, this.username, this.user.currentPoints, this.user.weeklyContribution, image);
+    this.editUser(user);
   }
 
   editRange(id: number, weeklyFirewoodContribution: number) {
-    let user = new UserDTO(this.username, this.houseBuddy.currentPoints, weeklyFirewoodContribution, this.houseBuddy.avatarImageUrl);
-    this.editUser(id, user);
+    let user = new HouseBuddy(id, this.username, this.user.currentPoints, weeklyFirewoodContribution, this.user.avatarImageUrl);
+    this.editUser(user);
   }
 
   getUsers() {
@@ -117,25 +115,16 @@ export class HouseService {
   }
 
   getCurrentUser() {
-    return this.houseBuddy;
+    return this.user;
   }
 
   getJoinCode() {
     return this.joinCode;
   }
 
-  getUserById(id: number) {
-    return this.users.find(user => user.id === id);
-  }
-
   getProposedAvatarImages() {
     this.fetchProposedImages()
     return this.proposedImages.slice();
-  }
-
-
-  getUserWithId(id: number) {
-    return this.users.find(user => user.id === id);
   }
 
   getDoneTasksThisWeek() {

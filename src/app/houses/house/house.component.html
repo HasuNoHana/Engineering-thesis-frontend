@@ -52,8 +52,8 @@
         <tbody *ngFor="let user of users">
         <tr>
           <td>{{ user?.username }}</td>
-          <td>{{ user?.points }}</td>
-          <td>{{ user?.range }}</td>
+          <td>{{ user?.currentPoints }}</td>
+          <td>{{ user?.weeklyContribution }}</td>
           <td style="width: 40px">
             <div class="dropdown">
               <button class="btn btn-light btn-sm" type="button" id="additionalActionToDo" data-bs-toggle="dropdown" aria-expanded="false">

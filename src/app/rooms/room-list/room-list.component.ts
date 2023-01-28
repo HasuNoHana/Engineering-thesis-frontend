@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Room} from "../room.model";
 import {RoomService} from "../room.service";
 import {ActivatedRoute, Router} from "@angular/router";
-import {ModalInformationService} from "../../profile/modal-information.service";
+import {ModalInformationService} from "../../shared/modal-information.service";
 
 @Component({
   selector: 'app-room-list',

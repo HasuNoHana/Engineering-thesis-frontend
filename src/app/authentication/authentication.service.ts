@@ -25,7 +25,8 @@ export class AuthenticationService {
   authenticate(credentials: { username: string; password: string; }, callback: (b: boolean) => any) {
 
     const headers = new HttpHeaders(credentials ? {
-      authorization: 'Basic ' + btoa(credentials.username + ':' + credentials.password)
+      authorization: 'Basic ' + btoa(credentials.username + ':' + credentials.password),
+      skip: "true"
     } : {});
 
     this.http.get('http://localhost:4200/api/user', {headers: headers}).subscribe((response: {name?: string}) => {

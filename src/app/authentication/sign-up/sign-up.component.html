@@ -61,7 +61,8 @@
                 </div>
               </div>
 
-              <button class="btn btn-primary btn-lg btn-block" type="submit" [disabled]="!signUpForm.valid">Zapisz się</button>
+              <button class="btn btn-primary btn-lg btn-block" type="submit" [disabled]="!signUpForm.valid ||
+              signUpForm.controls['passwordConfirmation'].value !== signUpForm.controls['password'].value">Zapisz się</button>
 
             </div>
           </div>
