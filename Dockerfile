@@ -1,29 +1,25 @@
-
-# Stage 1: Compile and Build angular codebase
-
-# Use official node image as the base image
-FROM node:latest as build
-
-# Set the working directory
-WORKDIR /usr/local/app
-
-# Add the source code to app
-COPY ./ /usr/local/app/
-
-# Install all the dependencies
+FROM node:lts as build-stage
+WORKDIR /app
+COPY package*.json /app/
 RUN npm install
+RUN npm install -g --unsafe-perm @angular/cli@latest
+COPY ./ /app/
+ARG configuration=production
+# RUN ng build --build-optimizer=true --aot=true --output-hashing=all --named-chunks=false --vendor-chunk=true
+RUN ng build
 
-# Generate the build of the application
-RUN npm run build
+FROM nginx:1.22.1
 
+# Add application files
+COPY --from=build-stage /app/dist/common_frontend/ /usr/share/nginx/html
+COPY /nginx.conf  /etc/nginx/conf.d/default.conf
 
-# Stage 2: Serve app with nginx server
+#dodo remove me bo ping nie poczebny
+RUN apt-get update && apt-get install -y iputils-ping
 
-# Use official nginx image as the base image
-FROM nginx:latest
-
-# Copy the build output to replace the default nginx contents.
-COPY --from=build /usr/local/app/dist/common_frontend /usr/share/nginx/html
-
-# Expose port 80
+#Expose the port
 EXPOSE 80
+
+# STOPSIGNAL SIGTERM
+#
+CMD ["nginx-debug", "-g","daemon off;"]

@@ -10,10 +10,10 @@ export class SignUpService {
   constructor(private http: HttpClient) { }
 
   createUserCall(userSignup: UserSignup) {
-    return this.http.post('api/createUserForExistingHouse', userSignup)
+    return this.http.post('http://localhost:8080/api/createUserForExistingHouse', userSignup)
   }
 
   createUserAndHouseCall(user: any) {
-    return this.http.post('api/createUserAndHouse', user)
+    return this.http.post('http://localhost:8080/api/createUserAndHouse', user)
   }
 }

@@ -62,7 +62,7 @@ describe('CustomersService', () => {
       done.fail
     );
 
-    expect(httpSpy.get).toHaveBeenCalledOnceWith('http://localhost:4200/api/tasks',
+    expect(httpSpy.get).toHaveBeenCalledOnceWith('http://localhost:8080/api/tasks',
       Object({ withCredentials: true }));
   });
 
@@ -76,7 +76,7 @@ describe('CustomersService', () => {
       done.fail
     );
 
-    expect(httpSpy.post).toHaveBeenCalledOnceWith('http://localhost:4200/api/addTask', expectedTask,
+    expect(httpSpy.post).toHaveBeenCalledOnceWith('http://localhost:8080/api/addTask', expectedTask,
       Object({ withCredentials: true }));
   });
 
@@ -90,7 +90,7 @@ describe('CustomersService', () => {
       done.fail
     );
 
-    expect(httpSpy.post).toHaveBeenCalledOnceWith('http://localhost:4200/api/updateTask', expectedTask,
+    expect(httpSpy.post).toHaveBeenCalledOnceWith('http://localhost:8080/api/updateTask', expectedTask,
       Object({withCredentials: true}));
   });
 
@@ -105,7 +105,7 @@ describe('CustomersService', () => {
       done.fail
     );
 
-    expect(httpSpy.delete).toHaveBeenCalledOnceWith('http://localhost:4200/api/task?id=' + taskId,
+    expect(httpSpy.delete).toHaveBeenCalledOnceWith('http://localhost:8080/api/task?id=' + taskId,
       {withCredentials: true});
   });
 
@@ -121,7 +121,7 @@ describe('CustomersService', () => {
       done.fail
     );
 
-    expect(httpSpy.post).toHaveBeenCalledOnceWith('http://localhost:4200/api/makeTaskDone?id=' + taskId,
+    expect(httpSpy.post).toHaveBeenCalledOnceWith('http://localhost:8080/api/makeTaskDone?id=' + taskId,
       {withCredentials: true});
   });
 
@@ -136,7 +136,7 @@ describe('CustomersService', () => {
       done.fail
     );
 
-    expect(httpSpy.post).toHaveBeenCalledOnceWith('http://localhost:4200/api/makeTaskToDo?id=' + taskId,
+    expect(httpSpy.post).toHaveBeenCalledOnceWith('http://localhost:8080/api/makeTaskToDo?id=' + taskId,
       {withCredentials: true});
   });
 

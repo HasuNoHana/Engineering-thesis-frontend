@@ -1,0 +1,17 @@
+version: '3.1'
+services:
+  ui:
+    build: .
+    restart: always
+    image: common-ui:latest
+    ports:
+      - "80:80"
+    networks:
+      dev:
+
+  ui_azure:
+    extends: ui
+    image: commoncontainersregistry.azurecr.io/common-ui:1.0.0
+
+networks:
+  dev:

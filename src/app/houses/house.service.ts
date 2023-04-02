@@ -45,7 +45,7 @@ export class HouseService {
   }
 
    fetchUsers() {
-    this.http.get<HouseBuddy[]>('http://localhost:4200/api/users',{withCredentials: true})
+    this.http.get<HouseBuddy[]>('http://localhost:8080/api/users',{withCredentials: true})
       .subscribe((users: HouseBuddy[]) => {
         debugLogOnlyMessage("GET: api/users");
         this.users = users;
@@ -54,7 +54,7 @@ export class HouseService {
   }
 
   fetchUser() {
-    this.http.get<HouseBuddy>('http://localhost:4200/api/currentUserData',{withCredentials: true})
+    this.http.get<HouseBuddy>('http://localhost:8080/api/currentUserData',{withCredentials: true})
       .subscribe((user: HouseBuddy) => {
         debugLog("GET: api/currentUserData, response:", user);
         this.user = user;
@@ -63,7 +63,7 @@ export class HouseService {
   }
 
   fetchDoneTasksThisWeek() {
-    this.http.get<number>('http://localhost:4200/api/doneTasksThisWeek',{withCredentials: true})
+    this.http.get<number>('http://localhost:8080/api/doneTasksThisWeek',{withCredentials: true})
       .subscribe((doneTasksThisWeek: number) => {
         debugLog("GET: api/doneTasksThisWeek, response:", doneTasksThisWeek);
         this.doneTasksThisWeek = doneTasksThisWeek;
@@ -72,7 +72,7 @@ export class HouseService {
   }
 
   fetchJoinCode() {
-    this.http.get<string>('http://localhost:4200/api/joinCode',{withCredentials: true})
+    this.http.get<string>('http://localhost:8080/api/joinCode',{withCredentials: true})
       .subscribe((joinCode: string) => {
         debugLogOnlyMessage("GET: api/joinCode");
         this.joinCode = joinCode;
@@ -81,7 +81,7 @@ export class HouseService {
   }
 
   editUser(user: HouseBuddy) {
-    this.http.post<HouseBuddy>('http://localhost:4200/api/editUser', user, {withCredentials: true})
+    this.http.post<HouseBuddy>('http://localhost:8080/api/editUser', user, {withCredentials: true})
       .subscribe((recivedUser: HouseBuddy) => {
         debugLog("POST: api/editUser, request:", user);
         debugLog("response:", recivedUser);
@@ -92,7 +92,7 @@ export class HouseService {
   }
 
   private fetchProposedImages() {
-    this.http.get<string[]>('http://localhost:4200/api/avatarImages',{withCredentials: true})
+    this.http.get<string[]>('http://localhost:8080/api/avatarImages',{withCredentials: true})
       .subscribe((images: string[]) => {
         debugLogOnlyMessage("GET: api/avatarImages");
         this.proposedImages = images;
