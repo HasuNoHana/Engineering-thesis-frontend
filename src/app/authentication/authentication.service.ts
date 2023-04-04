@@ -29,7 +29,7 @@ export class AuthenticationService {
       skip: "true"
     } : {});
 
-    this.http.get('http://localhost:8080/api/user', {headers: headers}).subscribe((response: {name?: string}) => {
+    this.http.get('/api/user', {headers: headers}).subscribe((response: {name?: string}) => {
       if (response['name']) {
         localStorage.setItem("authenticated","true")
         localStorage.setItem("username",credentials.username);

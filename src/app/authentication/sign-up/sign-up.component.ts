@@ -62,7 +62,8 @@ export class SignUpComponent implements OnInit {
     } else {
       let user = {"username": this.signUpForm.controls['username'].value, "password": this.signUpForm.controls['password'].value};
 
-      this.signUpService.createUserAndHouseCall(user).subscribe(() => {
+      this.signUpService.createUserAndHouseCall(user).subscribe((response:any) => {
+        console.log(response)
         this.router.navigateByUrl('/login');
       }, (error: any) => {
         if(error.status === 400) {

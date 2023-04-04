@@ -14,7 +14,7 @@ export class ProfileService {
 
   changePassword(currentPassword: string, password: string) {
     let paswords = {"currentPassword": currentPassword, "newPassword": password}
-    return this.http.post<Room>('http://localhost:8080/api/changePassword', paswords,{withCredentials: true})
+    return this.http.post<Room>('/api/changePassword', paswords,{withCredentials: true})
       .subscribe((_: any) => {
       this.passwordChangeSuccess.next(true);
     }, (error: any) => {
@@ -23,7 +23,7 @@ export class ProfileService {
   }
 
   deleteUser() {
-    this.http.delete<Room>('http://localhost:8080/api/deleteCurrentUser',{withCredentials: true})
+    this.http.delete<Room>('/api/deleteCurrentUser',{withCredentials: true})
       .subscribe((_: any) => {
         localStorage.removeItem("username");
         localStorage.setItem("authenticated","false")

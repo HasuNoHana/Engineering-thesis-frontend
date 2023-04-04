@@ -74,27 +74,27 @@ export class TaskService {
 
 
   fetchTasksCall(): Observable<Task[]> {
-    return this.http.get<Task[]>('http://localhost:8080/api/tasks', {withCredentials: true});
+    return this.http.get<Task[]>('/api/tasks', {withCredentials: true});
   }
 
   addTaskCall(task: Task) {
-    return this.http.post<Task>('http://localhost:8080/api/addTask', task, {withCredentials: true});
+    return this.http.post<Task>('/api/addTask', task, {withCredentials: true});
   }
 
   deleteTaskCall(taskId: number) {
-    return this.http.delete('http://localhost:8080/api/task?id=' + taskId, {withCredentials: true});
+    return this.http.delete('/api/task?id=' + taskId, {withCredentials: true});
   }
 
   makeTaskDoneCall(taskId: number) {
-    return this.http.post('http://localhost:8080/api/makeTaskDone?id=' + taskId, {withCredentials: true});
+    return this.http.post('/api/makeTaskDone?id=' + taskId, {withCredentials: true});
   }
 
   makeTaskToDoCall(taskId: number) {
-    return this.http.post('http://localhost:8080/api/makeTaskToDo?id=' + taskId, {withCredentials: true});
+    return this.http.post('/api/makeTaskToDo?id=' + taskId, {withCredentials: true});
   }
 
   updateTaskCall(task: Task) {
-    return this.http.post<Task>('http://localhost:8080/api/updateTask', task, {withCredentials: true});
+    return this.http.post<Task>('/api/updateTask', task, {withCredentials: true});
   }
 
 

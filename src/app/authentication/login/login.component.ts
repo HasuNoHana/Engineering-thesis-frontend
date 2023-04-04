@@ -31,7 +31,7 @@ export class LoginComponent {
 
   dupa() {
     let headers;
-    this.http.get('http://localhost:8080/api/hello').subscribe((response: {name?: string}) => {
+    this.http.get('/api/hello').subscribe((response: {name?: string}) => {
       console.log(response);
     })
   }

@@ -15,7 +15,7 @@ COPY --from=build-stage /app/dist/common_frontend/ /usr/share/nginx/html
 COPY /nginx.conf  /etc/nginx/conf.d/default.conf
 
 #dodo remove me bo ping nie poczebny
-RUN apt-get update && apt-get install -y iputils-ping
+RUN #apt-get update && apt-get install -y iputils-ping
 
 #Expose the port
 EXPOSE 80

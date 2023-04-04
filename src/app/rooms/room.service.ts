@@ -21,7 +21,7 @@ export class RoomService {
   }
 
   private fetchProposedRoomImages() {
-    this.http.get<string[]>('http://localhost:8080/api/roomImages',{withCredentials: true})
+    this.http.get<string[]>('/api/roomImages',{withCredentials: true})
       .subscribe((images: string[]) => {
         this.proposedRoomImages = images;
         this.proposedImagesChanged.next(this.proposedRoomImages);
@@ -38,7 +38,7 @@ export class RoomService {
   }
 
   private fetchRooms() {
-    this.http.get<Room[]>('http://localhost:8080/api/rooms',{withCredentials: true})
+    this.http.get<Room[]>('/api/rooms',{withCredentials: true})
       .subscribe((rooms: Room[]) => {
         this.rooms = rooms;
         debugLog("GET: rooms: " , this.rooms);
@@ -58,7 +58,7 @@ export class RoomService {
   }
 
   deleteRoom(roomId: number) {
-    this.http.delete<number>('http://localhost:8080/api/deleteRoom?id='+roomId,{withCredentials: true})
+    this.http.delete<number>('/api/deleteRoom?id='+roomId,{withCredentials: true})
       .subscribe((_: number) => {
         let index = this.rooms?.findIndex(function (room){
           return room.id===roomId;
@@ -69,14 +69,14 @@ export class RoomService {
   }
 
   updateRoom(room: Room) {
-    this.http.post<Room>('http://localhost:8080/api/updateRoom', room,{withCredentials: true})
+    this.http.post<Room>('/api/updateRoom', room,{withCredentials: true})
       .subscribe((_: any) => {
         this.fetchRooms();
       });
   }
 
   addRoom(room: Room) {
-    this.http.post<Room>('http://localhost:8080/api/addRoom', room,{withCredentials: true})
+    this.http.post<Room>('/api/addRoom', room,{withCredentials: true})
       .subscribe((_: any) => {
         this.fetchRooms();
       });

@@ -14,7 +14,7 @@ export class DevPageComponent {
   }
 
   undoneTask() {
-    this.http.get<string>('http://localhost:8080/api/dev/undoneTask', {withCredentials: true})
+    this.http.get<string>('/api/dev/undoneTask', {withCredentials: true})
       .subscribe((answer: string) => {
         console.log("answer")
         debugLogOnlyMessage("dupa")
@@ -26,7 +26,7 @@ export class DevPageComponent {
   }
 
   getTaxes() {
-    this.http.get<string>('http://localhost:8080/api/dev/getTaxes', {withCredentials: true})
+    this.http.get<string>('/api/dev/getTaxes', {withCredentials: true})
       .subscribe((answer: string) => {
         console.log("answer")
         debugLogOnlyMessage("dupa")
